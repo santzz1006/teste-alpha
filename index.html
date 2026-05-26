@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHA CORE - Seu Guia de Importação</title>
+
+    <link rel="icon" type="image/jpg" href="./image/logo-alphacore.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408394501486501"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #00a2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 162, 255, 0.15); 
+            border-color: rgba(0, 162, 255, 0.3);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .category-btn.active {
+            background: #00a2ff;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
+        }
+
+        .search-bar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00a2ff;
+            box-shadow: 0 0 10px rgba(0, 162, 255, 0.1);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(0, 162, 255, 0.2);
+            transition: right 0.3s ease;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9998;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .social-link {
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: #00a2ff !important;
+            color: #ffffff !important;
+            border-color: #00a2ff !important;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .product-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        .glow-icon {
+            color: #00a2ff;
+            filter: drop-shadow(0 0 8px rgba(0, 162, 255, 0.6));
+        }
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body class="text-white page-with-sidebar">
+
+    <div id="discordModalOverlay" class="fixed inset-0 bg-black/80 z-[10000] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" onclick="if(event.target === this) closeDiscordModal()">
+        <div id="discordModal" class="bg-[#050505] border border-[#00a2ff]/30 rounded-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300 relative shadow-[0_0_40px_rgba(0,162,255,0.2)] text-center">
+            
+            <button onclick="closeDiscordModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-[#00a2ff]/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-[#00a2ff]/30 shadow-[0_0_15px_rgba(0,162,255,0.2)]">
+                <i class="fas fa-tools text-2xl text-[#00a2ff]"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-3">Servidor em Manutenção</h3>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+                Estamos preparando um espaço incrível e cheio de novidades para a comunidade ALPHA CORE. O nosso servidor no Discord estará disponível muito em breve!
+            </p>
+            
+            <button onclick="closeDiscordModal()" class="w-full bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">
+                Entendi
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="closeMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white hover:text-black transition border border-white/10">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2 mb-6">
+               <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+    
+    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+    
+    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+    
+    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+    
+    
+    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+    
+    
+    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+    
+    
+</nav>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <h3 class="text-sm font-bold mb-4 text-gray-400">SIGA-NOS</h3>
+                <div class="grid grid-cols-5 gap-3">
+                   <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-whatsapp text-xl text-white"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-instagram text-xl text-white"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-tiktok text-xl text-white"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-youtube text-xl text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 lg:py-4">
+            <div class="flex items-center justify-between gap-3 lg:gap-6">
+
+              <a href="../" class="flex items-center gap-2 lg:gap-3 flex-shrink-0 hover:opacity-90 transition">
+    <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo" class="w-10 h-10 object-cover">
+    <span class="text-lg lg:text-xl font-bold tracking-wider">ALPHA <span class="text-[#00a2ff]">CORE</span></span>
+</a>
+
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-instagram text-white"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-tiktok text-white"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-youtube text-white"></i>
+                    </a>
+                </div>
+
+                <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/5 flex-shrink-0 hover:bg-white/10 transition border border-white/10">
+                    <svg class="w-6 h-6 text-[#00a2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="hidden lg:block border-t border-white/5">
+           <div class="container mx-auto px-4 relative z-40">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+                    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+                    
+                    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    
+                    
+                    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    
+                    
+                    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+                    
+                    
+                </nav>
+            </div>
+            
+        </div>
+    </header>
+    <aside class="planilha-sidebar" aria-label="Navega&ccedil;&atilde;o principal">
+        <a href="index.html" class="sidebar-brand">
+            <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo">
+            <span>ALPHA <strong>CORE</strong></span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="active"><i class="fas fa-house"></i><span>In&iacute;cio</span></a>
+            <a href="planilha.html"><i class="fas fa-table-cells-large"></i><span>Planilha Vigor</span></a>
+            <a href="fornecedores.html"><i class="fas fa-truck-fast"></i><span>Fornecedores</span></a>
+            <a href="fornecedores.html#faq-alfandega"><i class="fas fa-circle-question"></i><span>FAQ Alf&acirc;ndega</span></a>
+            <a href="fretes.html"><i class="fas fa-box"></i><span>Guia Fretes</span></a>
+            <a href="ferramentas1.html"><i class="fas fa-screwdriver-wrench"></i><span>Ferramentas</span></a>
+            <a href="anti-golpe.html"><i class="fas fa-shield-halved"></i><span>Anti-Golpe</span></a>
+        </nav>
+        <div class="sidebar-socials" aria-label="Redes sociais">
+            <a href="#" onclick="openDiscordModal(event)" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>    </aside>
+
+    <main class="pt-24 lg:pt-32">
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
+                    <span class="gradient-text">ALPHA CORE</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    O ecossistema definitivo para dominar a importação e maximizar seus lucros.<br> Acesso direto a fornecedores ocultos e estratégias validadas em <span class="text-[#00a2ff] font-semibold">Vigorbuy</span>, <span class="text-[#00a2ff] font-semibold">Weidian</span>, <span class="text-[#00a2ff] font-semibold">Xianyu</span>, <span class="text-[#00a2ff] font-semibold">Yupoo</span>, <span class="text-[#00a2ff] font-semibold">1688</span> e mais.
+                </p>
+
+               <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="inline-block bg-[#00a2ff] text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#0088cc] shadow-[0_0_20px_rgba(0,162,255,0.4)] transition transform hover:scale-105 mb-6">
+    <i class="fab fa-discord mr-2"></i> Entrar no Discord
+</a>
+
+                <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-4 text-gray-300 text-sm">
+                    <i class="fas fa-lock mr-2 text-[#00a2ff]"></i> <strong>Acesso Exclusivo:</strong> Deixe o amadorismo de lado. Descubra os atalhos definitivos para comprar direto da fonte e construir uma operação altamente lucrativa.
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-4 bg-[#050505]">
+            <div class="container mx-auto max-w-6xl">
+                <div class="bg-white/5 rounded-2xl border border-white/10 p-8 shadow-lg">
+                    <h2 class="text-3xl font-bold mb-6 text-center text-white">
+                        <i class="fas fa-info-circle text-[#00a2ff] mr-3"></i> O QUE É A ALPHA CORE?
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-gray-300 mb-4">
+                                A <span class="text-[#00a2ff] font-bold">ALPHA CORE</span> é o ecossistema definitivo para quem deseja dominar o mercado de importação e maximizar seus lucros. Entregamos o caminho exato para você acessar os fornecedores ocultos da China (<span class="text-[#00a2ff] font-semibold">Taobao</span>, <span class="text-[#00a2ff] font-semibold">1688</span>, <span class="text-[#00a2ff] font-semibold">Weidian</span>, <span class="text-[#00a2ff] font-semibold">Yupoo</span>) com segurança e escala.
+                            </p>
+                            <p class="text-gray-300">
+                                Deixamos o amadorismo de lado. Aqui você tem acesso a estratégias validadas de ponta a ponta: desde a operação com os melhores agentes (como o <span class="text-[#00a2ff] font-semibold">Vigorbuy</span>), até táticas avançadas de frete, inteligência alfandegária e curadoria de produtos premium. Tudo desenhado para alavancar suas vendas e multiplicar seus resultados.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-white">
+                                <i class="fas fa-bullseye mr-2 text-[#00a2ff]"></i> Nosso objetivo:
+                            </h3>
+                            <p class="text-gray-300">
+                                Transformar você em um importador de elite. Fornecemos a inteligência de mercado, as ferramentas e os atalhos definitivos para você comprar direto da fonte com os menores preços, permitindo construir um negócio altamente lucrativo e à prova de crises.
+                            </p>
+                        </div>
+                    </div>
+
+                        
+
+                    <div class="grid md:grid-cols-1 gap-6 mt-8 max-w-sm mx-auto">
+
+                       <div class="bg-white/5 border border-white/10 rounded-lg p-6 text-center card-hover cursor-pointer hover:bg-white/10 transition-all" onclick="openDiscordModal(event)">
+                            <div class="text-4xl text-[#00a2ff] mb-4 drop-shadow-[0_0_12px_rgba(0,162,255,0.5)]">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-white">Comunidade</h4>
+                            <p class="text-sm text-gray-400">Discord ativo com suporte e ajuda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">
+                    <i class="fas fa-ship text-[#00a2ff] mr-3"></i> Agentes de Importação: Compre Direto da China
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion('accordion1')" class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/10 transition">
+                            <h3 class="font-bold text-lg text-white">O que são agentes?</h3>
+                            <i class="fas fa-chevron-down transition-transform text-[#00a2ff]" id="icon-accordion1"></i>
+                        </button>
+                        <div id="accordion1" class="accordion-content">
+                            <div class="px-6 pb-6 text-gray-300">
+                                <p>Empresas que compram produtos de sites chineses (<span class="text-[#00a2ff] font-semibold">Weidian</span>, <span class="text-[#00a2ff] font-semibold">Taobao</span>, <span class="text-[#00a2ff] font-semibold">1688</span>)
+                                    no seu lugar, inspecionam (QC), armazenam e enviam pro Brasil.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion('accordion2')" class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/10 transition">
+                            <h3 class="font-bold text-lg text-white">Por que usar?</h3>
+                            <i class="fas fa-chevron-down transition-transform text-[#00a2ff]" id="icon-accordion2"></i>
+                        </button>
+                        <div id="accordion2" class="accordion-content">
+                            <div class="px-6 pb-6 text-gray-300 space-y-2">
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <p>Acesso a <span class="text-green-400 font-semibold">MILHÕES</span> de produtos que não vendem no AliExpress</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <p>Preços <span class="text-green-400 font-semibold">30-70% mais baratos</span> (você compra direto da fábrica)</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-[#00a2ff] mt-1"></i>
+                                    <p>Inspeção de qualidade (<span class="text-[#00a2ff] font-semibold">QC photos</span>) antes de enviar</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-[#00a2ff] mt-1"></i>
+                                    <p><span class="text-[#00a2ff] font-semibold">Consolidação</span>: Compra de vários fornecedores em 1 pacote só</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion('accordion3')" class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/10 transition">
+                            <h3 class="font-bold text-lg text-white">Pra quem é?</h3>
+                            <i class="fas fa-chevron-down transition-transform text-[#00a2ff]" id="icon-accordion3"></i>
+                        </button>
+                        <div id="accordion3" class="accordion-content">
+                            <div class="px-6 pb-6 text-gray-300 space-y-2">
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-user text-[#00a2ff] mt-1"></i>
+                                    <p>Quem quer grande variedade de items diretos de fabricantes (preços até <span class="text-green-400 font-semibold">70% menores</span> que AliExpress/Shopee).</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-user text-[#00a2ff] mt-1"></i>
+                                    <p>Quem aceita esperar <span class="text-yellow-400 font-semibold">20-45 dias</span></p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-user text-[#00a2ff] mt-1"></i>
+                                    <p>Quem prefere declarar pessoalmente os itens e controlar tudo (frete, impostos, inspeção).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-gray-900 to-black rounded-2xl p-8 border border-white/10 shadow-[0_0_30px_rgba(0,162,255,0.1)]">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center overflow-hidden">
+                            <img src="./image/vigorbuy.jpg" alt="Vigorbuy" class="w-full h-full object-cover rounded-xl">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">VIGORBUY</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span class="text-white">Interface em português</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span class="text-white">App mobile (Android/iOS)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span class="text-white"><span class="text-green-400 font-semibold">QC grátis</span> (3 fotos)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span class="text-white">Cupons frequentes</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span class="text-white">Suporte WhatsApp BR</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col justify-center">
+                            <p class="text-gray-300 mb-4">
+                                <strong class="text-[#00a2ff]">Melhor pra:</strong> Iniciantes em importação
+                            </p>
+                           <a href="https://vigorbuy.com/?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=AXn3n7JE" target="_blank" class="inline-block bg-[#00a2ff] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#0088cc] transition text-center shadow-lg">
+    <i class="fas fa-external-link-alt mr-2"></i> Acessar Vigorbuy
+</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-4 bg-[#050505]">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">
+                    <i class="fas fa-shopping-cart text-[#00a2ff] mr-3"></i> ONDE OS AGENTES COMPRAM?
+                </h2>
+
+             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6 card-hover">
+                        <img src="./image/weidian.png" alt="Weidian Logo" class="h-12 w-12 object-contain mb-4 rounded-xl bg-white p-1">
+                        <h3 class="font-bold mb-2 text-white">Weidian (微店)</h3>
+                        <p class="text-sm text-gray-300 mb-3">Tipo "Mercado Livre chinês"</p>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Preços médios</li>
+                            <li>• Muitos vendedores pequenos</li>
+                            <li>• <span class="text-yellow-400 font-semibold">Risco médio</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6 card-hover">
+                        <img src="./image/taobao.png" alt="Taobao Logo" class="h-12 w-12 object-contain mb-4 rounded-xl bg-white p-1">
+                        <h3 class="font-bold mb-2 text-white">Taobao (淘宝)</h3>
+                        <p class="text-sm text-gray-300 mb-3">Tipo "Amazon chinesa"</p>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Produtos variados</li>
+                            <li>• Vendedores médios</li>
+                            <li>• <span class="text-green-400 font-semibold">Risco baixo</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6 card-hover">
+                        <img src="./image/1688.png" alt="1688 Logo" class="h-12 w-12 object-contain mb-4 rounded-xl bg-white p-1">
+                        <h3 class="font-bold mb-2 text-white">1688 (Alibaba atacado)</h3>
+                        <p class="text-sm text-gray-300 mb-3"><span class="text-green-400 font-semibold">Preços de FÁBRICA</span></p>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Compra mínima (2+ unidades)</li>
+                            <li>• Qualidade varia MUITO</li>
+                            <li>• <span class="text-orange-400 font-semibold">Risco médio-alto</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6 card-hover">
+                        <img src="./image/xianyu.png" alt="Xianyu Logo" class="h-12 w-12 object-contain mb-4 rounded-xl bg-white p-1">
+                        <h3 class="font-bold mb-2 text-white">Xianyu (闲鱼)</h3>
+                        <p class="text-sm text-gray-300 mb-3">"OLX chinês" (usados)</p>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Roupas, eletrônicos usados</li>
+                            <li>• <span class="text-green-400 font-semibold">Preços muito baixos</span></li>
+                            <li>• <span class="text-red-400 font-semibold">Risco alto</span> (sem garantia)</li>
+                        </ul>
+                    </div>
+                </div>
+        </section>
+
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">
+                    Como Usar Agentes (Passo a Passo)
+                </h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#00a2ff] to-blue-900 rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            1
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Encontre produto</h3>
+                        <p class="text-sm text-gray-400">Busque no Weidian/Taobao</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#00a2ff] to-blue-900 rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            2
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Copie o link</h3>
+                        <p class="text-sm text-gray-400">URL do produto desejado</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#00a2ff] to-blue-900 rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            3
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Cole no agente</h3>
+                        <p class="text-sm text-gray-400">Vigorbuy ou similar</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#00a2ff] to-blue-900 rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            4
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Agente compra</h3>
+                        <p class="text-sm text-gray-400">Para você na China</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            5
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Fotos QC</h3>
+                        <p class="text-sm text-gray-400">Chegam em 3-5 dias</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            6
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Aprove ou troque</h3>
+                        <p class="text-sm text-gray-400">Verifique qualidade</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            7
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Envia pro Brasil</h3>
+                        <p class="text-sm text-gray-400">Escolha linha de frete</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center text-2xl font-bold text-white border-2 border-white/10">
+                            8
+                        </div>
+                        <h3 class="font-bold mb-2 text-white">Aguarde entrega</h3>
+                        <p class="text-sm text-gray-400">20-45 dias</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-4 bg-[#050505]">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">
+    <i class="fas fa-store text-[#00a2ff] mr-3"></i> Marketplaces conhecidos vs Agentes
+</h2>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white">
+                            <i class="fas fa-shopping-cart mr-2 text-[#00a2ff]"></i> Marketplaces
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold mb-2 text-white">Exemplos</h4>
+                                <p class="text-gray-300"><span class="text-[#00a2ff]">AliExpress</span>, <span class="text-[#00a2ff]">Shopee</span>, <span class="text-[#00a2ff]">Mercado Livre</span>, <span class="text-[#00a2ff]">Amazon</span></p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold mb-2 text-green-400">Vantagens</h4>
+                                <ul class="space-y-1 text-gray-300">
+                                    <li>• Fácil, cupons, promoções</li>
+                                    <li>• Entrega rápida (<span class="text-green-400 font-semibold">14-30 dias</span>)</li>
+                                    <li>• Proteção comprador</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold mb-2 text-red-400">Desvantagens</h4>
+                                <ul class="space-y-1 text-gray-300">
+                                    <li>• Preços mais altos</li>
+                                    <li>• Menos variedade exclusiva</li>
+                                    
+                                </ul>
+                            </div>
+
+                            <div class="bg-white/10 rounded-lg p-4">
+                                <h4 class="font-bold mb-2 text-white">
+                                    <i class="fas fa-user mr-2 text-[#00a2ff]"></i> Pra quem?
+                                </h4>
+                                <p class="text-gray-300">Iniciantes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white">
+                            <i class="fas fa-ship mr-2 text-[#00a2ff]"></i> Agentes China
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold mb-2 text-white">Exemplo</h4>
+                                <p class="text-gray-300"><span class="text-[#00a2ff]">Vigorbuy</span></p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold mb-2 text-green-400">Vantagens</h4>
+                                <ul class="space-y-1 text-gray-300">
+                                    <li>• <span class="text-green-400 font-semibold">Preços baixos</span></li>
+                                    <li>• Itens diretos de fábrica</li>
+                                    <li>• Grande variedade</li>
+                                    <li>• Controle total</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold mb-2 text-red-400">Desvantagens</h4>
+                                <ul class="space-y-1 text-gray-300">
+                                    <li>• Nenhuma</li>
+                                    <li> </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white/10 rounded-lg p-4">
+                                <h4 class="font-bold mb-2 text-white">
+                                    <i class="fas fa-user mr-2 text-[#00a2ff]"></i> Pra quem?
+                                </h4>
+                                <p class="text-gray-300">Importadores de todos os níveis (mesmo começando do zero)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
+                    <p class="text-lg text-gray-300">
+                        <strong>Marketplaces comuns te fazem pagar mais caro:</strong> você compra de intermediários e fica limitado ao que todo mundo já tem.
+                        <strong class="text-[#00a2ff]">Agentes te dão acesso direto ao mercado chinês:</strong> itens mais baratos direto da fábrica, mais variedades e produtos que não tem no AliExpress/Shopee (ex: fábrica no 1688, variedade no Taobao, itens usados no Xianyu e streetwear no Yupoo).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">
+                    <i class="fas fa-users text-[#00a2ff] mr-3"></i> Nossa Comunidade
+                </h2>
+
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-white/5 rounded-xl border border-white/10 p-6 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                                <i class="fab fa-discord text-[#00a2ff] text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">DISCORD - Comunidade de Importação</h3>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-3 text-white">Pra quem?</h4>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex items-center gap-2"><i class="fas fa-user text-[#00a2ff] w-5 text-center text-base"></i> Quem quer aprender a importar da China</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-user text-[#00a2ff] w-5 text-center text-base"></i> Quem usa <span class="text-[#00a2ff] font-semibold">Vigorbuy</span>, <span class="text-[#00a2ff] font-semibold">Weidian</span>, <span class="text-[#00a2ff] font-semibold">Taobao</span></li>
+                                <li class="flex items-center gap-2"><i class="fas fa-user text-[#00a2ff] w-5 text-center text-base"></i> Quer reviews REAIS</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-user text-[#00a2ff] w-5 text-center text-base"></i> Ajuda com QC, rastreio</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-3 text-white">O que tem lá?</h4>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex items-center gap-2"><i class="fas fa-camera text-[#00a2ff] w-5 text-center text-base"></i> Poste fotos e receba feedback</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-bell text-[#00a2ff] w-5 text-center text-base"></i> Mudanças na Receita</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-shopping-cart text-[#00a2ff] w-5 text-center text-base"></i> Produtos baratos achados pela galera</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-comments text-[#00a2ff] w-5 text-center text-base"></i> Tire dúvidas</li>
+                            </ul>
+                        </div>
+
+                       <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="block w-full text-center bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)] mt-4">
+    <i class="fab fa-discord mr-2"></i> Entrar no Discord &rarr;
+</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black border-t border-white/10">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Links Rápidos</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="fornecedores.html" class="hover:text-white transition">Fornecedores</a></li>
+                        <li><a href="fretes.html" class="hover:text-white transition">Guia de Fretes</a></li>
+                        <li><a href="anti-golpe.html" class="hover:text-white transition">Guia Anti-Golpe</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Plataformas</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="hover:text-white transition">Vigorbuy</a></li>
+                        <li><a href="https://www.taobao.com" target="_blank" class="hover:text-white transition">Taobao</a></li>
+                        <li><a href="https://www.1688.com" target="_blank" class="hover:text-white transition">1688</a></li>
+                        <li><a href="https://www.xianyu.com" target="_blank" class="hover:text-white transition">Xianyu</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contato</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" onclick="openDiscordModal(event)" class="hover:text-white transition">Discord</a></li>
+                        <li><a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="hover:text-white transition">WhatsApp</a></li>
+                        <li><a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="hover:text-white transition">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="hover:text-white transition">TikTok</a></li>
+                        <li><a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="hover:text-white transition">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-gray-500">
+                <p class="mb-2">© 2026 ALPHA CORE. Todos os direitos reservados.</p>
+                <p class="text-xs text-gray-600 italic">Guia informativo independente. Responsabilidade exclusiva do usuário. Consulte leis e profissionais.</p>
+            </div>
+        </div>
+    </footer>
+<script src="navegacao.js"></script>
+    <script>
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.getElementById('mobileOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+
+    <script>
+        window.va = window.va || function() {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+        function openDiscordModal(e) {
+            if(e) e.preventDefault(); // Impede de pular para o topo da página
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            // Tira o "display: none"
+            overlay.classList.remove('hidden');
+            
+            // Força o navegador a renderizar
+            void overlay.offsetWidth; 
+            
+            // Adiciona o efeito de aparecer (fade in)
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95');
+            modal.classList.add('scale-100');
+            
+            // Trava o scroll da página no fundo
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDiscordModal() {
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            // Adiciona o efeito de sumir (fade out)
+            overlay.classList.add('opacity-0');
+            modal.classList.remove('scale-100');
+            modal.classList.add('scale-95');
+            
+            // Libera o scroll da página no fundo
+            document.body.style.overflow = '';
+            
+            // Aguarda a animação terminar para esconder
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+    
+</body>
+
+</html>

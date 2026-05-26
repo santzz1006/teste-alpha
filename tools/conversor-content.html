@@ -1,0 +1,202 @@
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-4 py-2 rounded-full mb-4">
+            <i class="fas fa-exchange-alt text-green-400"></i>
+            <span class="text-xs font-bold uppercase tracking-widest text-green-400">Conversor Oficial</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight uppercase">
+            Radar de <span class="text-green-400">Câmbio</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto font-medium">
+            Conversão instantânea entre moedas com histórico de variação simulado.
+        </p>
+    </div>
+
+    <div class="bg-[#080808] border border-white/5 rounded-3xl p-6 md:p-8 mb-8 shadow-[0_0_30px_rgba(34,197,94,0.05)] relative overflow-hidden">
+        <div class="absolute -top-32 -left-32 w-64 h-64 bg-green-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+        
+        <div class="grid md:grid-cols-[1fr,auto,1fr] gap-4 md:gap-6 items-center mb-8 relative z-10">
+            
+            <div class="bg-[#111] p-5 rounded-2xl border border-white/5">
+                <label class="text-[10px] font-black uppercase tracking-widest mb-3 block text-gray-500 flex items-center justify-between">
+                    Moeda Origem
+                    <span class="text-2xl" id="flagDe">🇨🇳</span>
+                </label>
+                <div class="relative mb-4">
+                    <select id="moedaDe" class="w-full pl-4 pr-10 py-3 bg-black border border-white/10 rounded-xl text-white appearance-none cursor-pointer font-bold focus:border-green-400 focus:ring-2 focus:ring-green-400/20 outline-none transition" onchange="document.getElementById('flagDe').textContent = this.options[this.selectedIndex].text.split(' ')[0]">
+                        <option value="CNY">🇨🇳 Yuan (¥)</option>
+                        <option value="USD">🇺🇸 Dólar ($)</option>
+                        <option value="BRL">🇧🇷 Real (R$)</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                </div>
+                <div class="flex items-end gap-2 border-b-2 border-white/10 focus-within:border-green-400 transition pb-2">
+                    <span class="text-3xl font-black text-green-400 mb-1" id="simboloMoedaDe">¥</span>
+                    <input 
+                        type="number" 
+                        id="valorDe" 
+                        value="100"
+                        step="0.01"
+                        class="w-full bg-transparent text-4xl font-black text-white outline-none placeholder-gray-700"
+                        placeholder="0.00"
+                    >
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button 
+                    id="btnInverter"
+                    class="w-12 h-12 rounded-full bg-black border border-white/10 hover:border-green-400 hover:text-green-400 text-gray-400 transition flex items-center justify-center transform hover:rotate-180 duration-500 shadow-lg z-20"
+                >
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+            </div>
+
+            <div class="bg-[#111] p-5 rounded-2xl border border-white/5">
+                <label class="text-[10px] font-black uppercase tracking-widest mb-3 block text-gray-500 flex items-center justify-between">
+                    Moeda Destino
+                    <span class="text-2xl" id="flagPara">🇧🇷</span>
+                </label>
+                <div class="relative mb-4">
+                    <select id="moedaPara" class="w-full pl-4 pr-10 py-3 bg-black border border-white/10 rounded-xl text-white appearance-none cursor-pointer font-bold focus:border-green-400 focus:ring-2 focus:ring-green-400/20 outline-none transition" onchange="document.getElementById('flagPara').textContent = this.options[this.selectedIndex].text.split(' ')[0]">
+                        <option value="BRL">🇧🇷 Real (R$)</option>
+                        <option value="CNY">🇨🇳 Yuan (¥)</option>
+                        <option value="USD">🇺🇸 Dólar ($)</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                </div>
+                <div class="flex items-end gap-2 border-b-2 border-transparent pb-2 h-[52px]">
+                    <p class="text-4xl font-black text-white truncate" id="valorPara">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between bg-black/50 border border-white/5 rounded-xl p-4 relative z-10">
+            <div class="flex items-center gap-3 mb-2 md:mb-0">
+                <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center border border-green-500/20">
+                    <i class="fas fa-chart-pie text-green-400 text-xs"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Cotação Base</p>
+                    <p class="text-sm font-black text-white" id="taxaAtual">1 CNY = R$ 0.80</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+                <span class="pulse inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+                <p class="text-xs text-gray-400 font-medium">
+                    Sincronizado: <span id="horaAtualizacao" class="text-white font-mono">--:--</span>
+                    <span id="statusAtualizacao" class="ml-1 text-green-400 font-bold"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-[#111] border border-white/5 rounded-2xl p-5 hover:border-green-500/30 transition group flip-card">
+            <div class="flex items-center justify-between mb-4 bg-black p-2 rounded-lg border border-white/5">
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇨🇳</span>
+                <i class="fas fa-arrow-right text-gray-600 text-xs"></i>
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇧🇷</span>
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Yuan p/ Real</p>
+            <p class="text-xl font-black text-white" id="taxaCNYBRL">¥1 = R$ 0.80</p>
+        </div>
+
+        <div class="bg-[#111] border border-white/5 rounded-2xl p-5 hover:border-green-500/30 transition group flip-card" style="animation-delay: 0.1s">
+            <div class="flex items-center justify-between mb-4 bg-black p-2 rounded-lg border border-white/5">
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇺🇸</span>
+                <i class="fas fa-arrow-right text-gray-600 text-xs"></i>
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇧🇷</span>
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Dólar p/ Real</p>
+            <p class="text-xl font-black text-white" id="taxaUSDBRL">$1 = R$ 5.00</p>
+        </div>
+
+        <div class="bg-[#111] border border-white/5 rounded-2xl p-5 hover:border-green-500/30 transition group flip-card col-span-2 md:col-span-1" style="animation-delay: 0.2s">
+            <div class="flex items-center justify-between mb-4 bg-black p-2 rounded-lg border border-white/5">
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇨🇳</span>
+                <i class="fas fa-arrow-right text-gray-600 text-xs"></i>
+                <span class="text-lg grayscale group-hover:grayscale-0 transition duration-500">🇺🇸</span>
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Yuan p/ Dólar</p>
+            <p class="text-xl font-black text-white" id="taxaCNYUSD">¥1 = $0.14</p>
+        </div>
+    </div>
+
+    <div class="bg-[#080808] rounded-3xl border border-white/5 p-6 md:p-8 mb-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <h3 class="font-black flex items-center gap-3 text-lg uppercase tracking-wider text-white">
+                <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+                    <i class="fas fa-chart-area text-green-400"></i>
+                </div>
+                Tendência (30 Dias)
+            </h3>
+            <span class="text-[10px] bg-white/5 text-gray-400 px-3 py-1 rounded-full uppercase tracking-widest font-bold border border-white/10">Base: CNY/BRL</span>
+        </div>
+        
+        <div class="bg-black border border-white/5 rounded-2xl p-4 h-64 relative">
+            <canvas id="graficoHistorico"></canvas>
+        </div>
+        
+        <div class="mt-4 flex items-start gap-3 bg-yellow-500/5 p-4 rounded-xl border border-yellow-500/10">
+            <i class="fas fa-info-circle text-yellow-500 mt-0.5"></i>
+            <p class="text-xs text-gray-400 leading-relaxed font-medium">
+                <strong class="text-yellow-500">Aviso:</strong> A curva reflete uma simulação visual de tendência baseada na cotação atual. O último marcador reflete o dado exato em tempo real.
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-[#111] rounded-3xl border border-white/5 p-6 md:p-8 mb-8">
+        <h3 class="font-black mb-6 flex items-center gap-3 text-sm uppercase tracking-wider text-gray-300">
+            <i class="fas fa-bolt text-yellow-400"></i>
+            Atalhos de Volume (CNY → BRL)
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm" id="conversoesRapidas">
+            </div>
+    </div>
+
+    <div class="bg-blue-500/5 border border-blue-500/10 rounded-2xl p-6 relative overflow-hidden">
+        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-[40px] pointer-events-none"></div>
+        <h3 class="font-black mb-4 text-blue-400 flex items-center gap-3 text-sm uppercase tracking-wider relative z-10">
+            <i class="fas fa-crosshairs"></i>
+            Estratégia de Compra
+        </h3>
+        <ul class="space-y-3 text-xs font-medium text-gray-300 relative z-10">
+            <li class="flex items-start gap-3">
+                <i class="fas fa-angle-right text-blue-400 mt-0.5"></i>
+                <span>Agentes de importação aplicam uma taxa própria de conversão (markup). O valor real pago será levemente superior à cotação comercial.</span>
+            </li>
+            <li class="flex items-start gap-3">
+                <i class="fas fa-angle-right text-blue-400 mt-0.5"></i>
+                <span>Evite recarregar carteiras de agentes em finais de semana, quando spreads de proteção costumam ser aplicados pelas processadoras.</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .flip-card {
+        animation: flipIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes flipIn {
+        from {
+            transform: perspective(400px) rotateX(90deg);
+            opacity: 0;
+        }
+        to {
+            transform: perspective(400px) rotateX(0deg);
+            opacity: 1;
+        }
+    }
+
+    .pulse {
+        animation: pulseAlpha 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulseAlpha {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(0.8); }
+    }
+</style>

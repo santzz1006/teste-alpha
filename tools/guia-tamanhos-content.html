@@ -1,0 +1,508 @@
+<div class="max-w-6xl mx-auto">
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-[#00a2ff]/10 border border-[#00a2ff]/20 px-4 py-2 rounded-full mb-4">
+            <i class="fas fa-ruler-combined text-[#00a2ff]"></i>
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00a2ff]">Módulo de Medidas Padrão</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">
+            Guia <span class="text-[#00a2ff]">China ⇄ Brasil</span>
+        </h2>
+        <p class="text-gray-400 font-medium">
+            Encontre a equivalência exata do seu tamanho e elimine o risco de devoluções.
+        </p>
+    </div>
+
+    <div class="flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide justify-start md:justify-center">
+        <button 
+            onclick="mudarCategoria('roupas')" 
+            id="tab-roupas" 
+            class="tab-btn flex-1 md:flex-none min-w-[140px] px-8 py-4 bg-[#00a2ff] text-white border border-[#00a2ff]/50 rounded-2xl font-black text-sm uppercase tracking-widest transition transform hover:-translate-y-1 shadow-[0_0_15px_rgba(0,162,255,0.2)]"
+        >
+            <i class="fas fa-tshirt mr-2"></i> Roupas
+        </button>
+        
+        <button 
+            onclick="mudarCategoria('calcados')" 
+            id="tab-calcados" 
+            class="tab-btn flex-1 md:flex-none min-w-[140px] px-8 py-4 bg-white/5 text-gray-400 border border-white/10 hover:border-white/30 rounded-2xl font-black text-sm uppercase tracking-widest transition transform hover:-translate-y-1"
+        >
+            <i class="fas fa-shoe-prints mr-2"></i> Calçados
+        </button>
+        
+        <button 
+            onclick="mudarCategoria('aneis')" 
+            id="tab-aneis" 
+            class="tab-btn flex-1 md:flex-none min-w-[140px] px-8 py-4 bg-white/5 text-gray-400 border border-white/10 hover:border-white/30 rounded-2xl font-black text-sm uppercase tracking-widest transition transform hover:-translate-y-1"
+        >
+            <i class="fas fa-ring mr-2"></i> Anéis
+        </button>
+    </div>
+
+    <div id="secao-roupas" class="categoria-secao">
+        <div class="grid lg:grid-cols-2 gap-6 mb-8">
+            
+            <div class="bg-[#080808] border border-white/5 rounded-3xl p-6 lg:p-8 relative overflow-hidden group hover:border-[#00a2ff]/30 transition">
+                <div class="absolute -top-16 -left-16 w-48 h-48 bg-[#00a2ff]/5 rounded-full blur-[60px]"></div>
+                
+                <h3 class="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-white relative z-10">
+                    <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-lg flex items-center justify-center border border-[#00a2ff]/20">
+                        <i class="fas fa-calculator text-[#00a2ff]"></i>
+                    </div>
+                    Descubra Seu Tamanho
+                </h3>
+
+                <div class="space-y-5 relative z-10 mb-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest mb-2 block text-gray-500">Tipo de Roupa</label>
+                        <div class="relative">
+                            <select id="tipoRoupa" class="w-full pl-4 pr-10 py-4 bg-black border border-white/10 rounded-xl text-white appearance-none cursor-pointer font-bold focus:border-[#00a2ff] focus:ring-2 focus:ring-[#00a2ff]/20 outline-none transition">
+                                <option value="camiseta">Camiseta / Blusa</option>
+                                <option value="moletom">Moletom / Jaqueta</option>
+                                <option value="calca">Calça / Short</option>
+                            </select>
+                            <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest mb-2 block text-gray-500">Altura (cm)</label>
+                            <input 
+                                type="number" 
+                                id="altura" 
+                                placeholder="Ex: 170" 
+                                class="measurement-input w-full px-4 py-4 bg-black border border-white/10 rounded-xl text-white font-bold placeholder-gray-700 focus:border-[#00a2ff] outline-none transition"
+                            >
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest mb-2 block text-gray-500">Peso (kg)</label>
+                            <input 
+                                type="number" 
+                                id="peso" 
+                                placeholder="Ex: 70" 
+                                class="measurement-input w-full px-4 py-4 bg-black border border-white/10 rounded-xl text-white font-bold placeholder-gray-700 focus:border-[#00a2ff] outline-none transition"
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest mb-2 block text-gray-500">Tamanho Atual no Brasil</label>
+                        <div class="relative">
+                            <select id="tamanhoBR" class="w-full pl-4 pr-10 py-4 bg-black border border-white/10 rounded-xl text-white appearance-none cursor-pointer font-bold focus:border-[#00a2ff] outline-none transition">
+                                <option value="">Selecione o tamanho</option>
+                                <option value="PP">PP</option>
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                                <option value="GG">GG</option>
+                                <option value="XG">XG</option>
+                            </select>
+                            <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <button 
+                    onclick="calcularTamanho('roupas')" 
+                    class="w-full bg-[#00a2ff] hover:bg-[#0088cc] text-white font-black uppercase tracking-wider py-4 rounded-xl transition transform hover:scale-[1.02] shadow-[0_0_20px_rgba(0,162,255,0.3)] relative z-10 border border-[#00a2ff]/50"
+                >
+                    <i class="fas fa-search mr-2"></i> Calcular Tamanho China
+                </button>
+
+                <div id="resultado-roupas" class="mt-6 hidden relative z-10">
+                    </div>
+            </div>
+
+            <div class="bg-[#111] border border-white/5 rounded-3xl p-6 lg:p-8">
+                <h3 class="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-white">
+                    <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+                        <i class="fas fa-tape text-green-400"></i>
+                    </div>
+                    Padrão de Medição
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#00a2ff]/30">
+                            <span class="font-black text-[#00a2ff]">1</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Peito / Busto</p>
+                            <p class="text-sm text-gray-500 font-medium">Meça a parte mais larga do peito, passando pelas axilas.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#00a2ff]/30">
+                            <span class="font-black text-[#00a2ff]">2</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Comprimento</p>
+                            <p class="text-sm text-gray-500 font-medium">Do ombro até a barra da peça (ideal para camisetas/jaquetas).</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#00a2ff]/30">
+                            <span class="font-black text-[#00a2ff]">3</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Ombros</p>
+                            <p class="text-sm text-gray-500 font-medium">De um ombro ao outro, medindo pela parte de trás.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#00a2ff]/30">
+                            <span class="font-black text-[#00a2ff]">4</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Mangas</p>
+                            <p class="text-sm text-gray-500 font-medium">Da costura do ombro até o limite do punho.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl flex items-start gap-3">
+                    <i class="fas fa-lightbulb text-yellow-500 mt-0.5"></i>
+                    <p class="text-yellow-500/90 text-xs font-bold leading-relaxed">
+                        <strong class="uppercase tracking-widest">Dica Alpha:</strong> Sempre compare com as medidas em CM da tabela do vendedor. Não confie apenas na letra (S, M, L).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#080808] rounded-3xl border border-white/5 p-6 lg:p-8">
+            <h3 class="text-lg font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-gray-300">
+                <i class="fas fa-table text-purple-400"></i>
+                Referência Tática (Masculino)
+            </h3>
+            
+            <div class="overflow-x-auto rounded-xl border border-white/5">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-black text-[10px] uppercase tracking-widest text-gray-500 border-b border-white/10">
+                        <tr>
+                            <th class="p-4 font-black">Brasil</th>
+                            <th class="p-4 font-black text-[#00a2ff]">China</th>
+                            <th class="p-4 font-black">Peito (cm)</th>
+                            <th class="p-4 font-black">Comprimento (cm)</th>
+                            <th class="p-4 font-black">Ombros (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 font-medium divide-y divide-white/5">
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">PP</td>
+                            <td class="p-4 font-black text-[#00a2ff]">S/M</td>
+                            <td class="p-4 text-gray-400">88-92</td>
+                            <td class="p-4 text-gray-400">66-68</td>
+                            <td class="p-4 text-gray-400">42-44</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition bg-black/20">
+                            <td class="p-4 font-bold">P</td>
+                            <td class="p-4 font-black text-[#00a2ff]">M/L</td>
+                            <td class="p-4 text-gray-400">92-96</td>
+                            <td class="p-4 text-gray-400">68-70</td>
+                            <td class="p-4 text-gray-400">44-46</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">M</td>
+                            <td class="p-4 font-black text-[#00a2ff]">L/XL</td>
+                            <td class="p-4 text-gray-400">96-100</td>
+                            <td class="p-4 text-gray-400">70-72</td>
+                            <td class="p-4 text-gray-400">46-48</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition bg-black/20">
+                            <td class="p-4 font-bold">G</td>
+                            <td class="p-4 font-black text-[#00a2ff]">XL/2XL</td>
+                            <td class="p-4 text-gray-400">100-104</td>
+                            <td class="p-4 text-gray-400">72-74</td>
+                            <td class="p-4 text-gray-400">48-50</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">GG</td>
+                            <td class="p-4 font-black text-[#00a2ff]">2XL/3XL</td>
+                            <td class="p-4 text-gray-400">104-108</td>
+                            <td class="p-4 text-gray-400">74-76</td>
+                            <td class="p-4 text-gray-400">50-52</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mt-4">
+                <i class="fas fa-exclamation-circle text-red-500 mr-1"></i>
+                Roupas chinesas tendem a ser 1 a 2 tamanhos menores que o padrão ocidental.
+            </p>
+        </div>
+    </div>
+
+    <div id="secao-calcados" class="categoria-secao hidden">
+        <div class="grid lg:grid-cols-2 gap-6 mb-8">
+            
+            <div class="bg-[#080808] border border-white/5 rounded-3xl p-6 lg:p-8 relative overflow-hidden group hover:border-[#00a2ff]/30 transition">
+                <div class="absolute -top-16 -right-16 w-48 h-48 bg-[#00a2ff]/5 rounded-full blur-[60px]"></div>
+                
+                <h3 class="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-white relative z-10">
+                    <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-lg flex items-center justify-center border border-[#00a2ff]/20">
+                        <i class="fas fa-shoe-prints text-[#00a2ff] rotate-[-45deg]"></i>
+                    </div>
+                    Painel de Conversão
+                </h3>
+
+                <div class="mb-6 relative z-10">
+                    <label class="text-[10px] font-black uppercase tracking-widest mb-3 block text-gray-500">Selecione Seu Tamanho no Brasil</label>
+                    <div class="grid grid-cols-4 sm:grid-cols-5 gap-3" id="tamanhos-br-calcados">
+                        </div>
+                </div>
+
+                <div id="resultado-calcados" class="mt-6 relative z-10">
+                    </div>
+            </div>
+
+            <div class="bg-[#111] border border-white/5 rounded-3xl p-6 lg:p-8">
+                <h3 class="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-white">
+                    <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+                        <i class="fas fa-ruler-horizontal text-green-400"></i>
+                    </div>
+                    Medição da Palmilha
+                </h3>
+
+                <div class="space-y-4 mb-6">
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 border border-green-500/30">
+                            <span class="font-black text-green-400">1</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Base da Folha</p>
+                            <p class="text-sm text-gray-500 font-medium">Coloque o pé descalço sobre uma folha de papel com o calcanhar encostado na parede.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 border border-green-500/30">
+                            <span class="font-black text-green-400">2</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Marcação Frontal</p>
+                            <p class="text-sm text-gray-500 font-medium">Faça um risco na ponta do dedo mais longo (geralmente o dedão).</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-black p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0 border border-green-500/30">
+                            <span class="font-black text-green-400">3</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-gray-200 uppercase tracking-widest text-xs mb-1">Distância Final</p>
+                            <p class="text-sm text-gray-500 font-medium">Meça a distância do fim da folha até o risco. Este é o seu tamanho em Centímetros (CM).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl flex items-start gap-3">
+                    <i class="fas fa-info-circle text-blue-500 mt-0.5"></i>
+                    <p class="text-blue-400 text-xs font-bold leading-relaxed uppercase tracking-widest">
+                        <strong>Regra de Ouro:</strong> Sempre adicione de 0,5cm a 1,0cm ao seu resultado para garantir conforto.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#080808] rounded-3xl border border-white/5 p-6 lg:p-8">
+            <h3 class="text-lg font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-gray-300">
+                <i class="fas fa-table text-purple-400"></i>
+                Referência Tática (Sneakers)
+            </h3>
+            
+            <div class="overflow-x-auto rounded-xl border border-white/5">
+                <table class="w-full text-sm text-center">
+                    <thead class="bg-black text-[10px] uppercase tracking-widest text-gray-500 border-b border-white/10">
+                        <tr>
+                            <th class="p-4 font-black">Brasil</th>
+                            <th class="p-4 font-black text-[#00a2ff]">China (EUR)</th>
+                            <th class="p-4 font-black">US</th>
+                            <th class="p-4 font-black">UK</th>
+                            <th class="p-4 font-black text-green-400">CM (Palmilha)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 font-medium divide-y divide-white/5">
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">38</td>
+                            <td class="p-4 font-black text-[#00a2ff]">40</td>
+                            <td class="p-4 text-gray-400">7</td>
+                            <td class="p-4 text-gray-400">6</td>
+                            <td class="p-4 text-green-400 font-bold">24.5</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition bg-black/20">
+                            <td class="p-4 font-bold">39</td>
+                            <td class="p-4 font-black text-[#00a2ff]">41</td>
+                            <td class="p-4 text-gray-400">7.5</td>
+                            <td class="p-4 text-gray-400">6.5</td>
+                            <td class="p-4 text-green-400 font-bold">25</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">40</td>
+                            <td class="p-4 font-black text-[#00a2ff]">42</td>
+                            <td class="p-4 text-gray-400">8</td>
+                            <td class="p-4 text-gray-400">7</td>
+                            <td class="p-4 text-green-400 font-bold">25.5</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition bg-black/20">
+                            <td class="p-4 font-bold">41</td>
+                            <td class="p-4 font-black text-[#00a2ff]">43</td>
+                            <td class="p-4 text-gray-400">8.5</td>
+                            <td class="p-4 text-gray-400">7.5</td>
+                            <td class="p-4 text-green-400 font-bold">26</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">42</td>
+                            <td class="p-4 font-black text-[#00a2ff]">44</td>
+                            <td class="p-4 text-gray-400">9</td>
+                            <td class="p-4 text-gray-400">8</td>
+                            <td class="p-4 text-green-400 font-bold">26.5</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition bg-black/20">
+                            <td class="p-4 font-bold">43</td>
+                            <td class="p-4 font-black text-[#00a2ff]">45</td>
+                            <td class="p-4 text-gray-400">10</td>
+                            <td class="p-4 text-gray-400">9</td>
+                            <td class="p-4 text-green-400 font-bold">27</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-4 font-bold">44</td>
+                            <td class="p-4 font-black text-[#00a2ff]">46</td>
+                            <td class="p-4 text-gray-400">11</td>
+                            <td class="p-4 text-gray-400">10</td>
+                            <td class="p-4 text-green-400 font-bold">27.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="secao-aneis" class="categoria-secao hidden">
+        <div class="grid lg:grid-cols-2 gap-6">
+            
+            <div class="bg-[#080808] border border-white/5 rounded-3xl p-6 lg:p-8 relative overflow-hidden group hover:border-purple-500/30 transition">
+                <div class="absolute -bottom-16 -left-16 w-48 h-48 bg-purple-500/5 rounded-full blur-[60px]"></div>
+                
+                <h3 class="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-white relative z-10">
+                    <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center border border-purple-500/20">
+                        <i class="fas fa-ring text-purple-400"></i>
+                    </div>
+                    Identificador de Joias
+                </h3>
+                
+                <div class="mb-6 relative z-10">
+                    <label class="text-[10px] font-black uppercase tracking-widest mb-2 block text-gray-500">Circunferência do Dedo</label>
+                    <div class="relative">
+                        <input 
+                            type="number" 
+                            id="circunferencia" 
+                            placeholder="Ex: 52" 
+                            class="w-full px-4 py-4 bg-black border border-white/10 rounded-xl text-white font-bold placeholder-gray-700 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition"
+                        >
+                        <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-bold">mm</span>
+                    </div>
+                </div>
+
+                <button 
+                    onclick="calcularAnel()" 
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-black uppercase tracking-wider py-4 rounded-xl transition transform hover:scale-[1.02] shadow-[0_0_20px_rgba(147,51,234,0.3)] relative z-10 border border-purple-500/50"
+                >
+                    <i class="fas fa-search mr-2"></i> Converter Medida
+                </button>
+
+                <div id="resultado-aneis" class="mt-6 relative z-10">
+                    </div>
+            </div>
+
+            <div class="bg-[#111] border border-white/5 rounded-3xl p-6 lg:p-8">
+                <h3 class="text-lg font-black mb-6 flex items-center gap-3 uppercase tracking-wider text-gray-300">
+                    <i class="fas fa-table text-gray-500"></i>
+                    Matriz de Conversão
+                </h3>
+                
+                <div class="overflow-x-auto rounded-xl border border-white/5">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-black text-[10px] uppercase tracking-widest text-gray-500 border-b border-white/10">
+                            <tr>
+                                <th class="p-4 font-black">Brasil</th>
+                                <th class="p-4 font-black text-purple-400">China</th>
+                                <th class="p-4 font-black">US</th>
+                                <th class="p-4 font-black">Diâmetro (mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300 font-medium divide-y divide-white/5">
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="p-4 font-bold">12</td>
+                                <td class="p-4 font-black text-purple-400">7</td>
+                                <td class="p-4 text-gray-400">4</td>
+                                <td class="p-4 text-gray-400">14.9</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition bg-black/20">
+                                <td class="p-4 font-bold">15</td>
+                                <td class="p-4 font-black text-purple-400">10</td>
+                                <td class="p-4 text-gray-400">5</td>
+                                <td class="p-4 text-gray-400">15.7</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="p-4 font-bold">18</td>
+                                <td class="p-4 font-black text-purple-400">13</td>
+                                <td class="p-4 text-gray-400">6</td>
+                                <td class="p-4 text-gray-400">16.5</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition bg-black/20">
+                                <td class="p-4 font-bold">21</td>
+                                <td class="p-4 font-black text-purple-400">16</td>
+                                <td class="p-4 text-gray-400">7</td>
+                                <td class="p-4 text-gray-400">17.3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-10 bg-yellow-500/5 border border-yellow-500/10 rounded-3xl p-6 lg:p-8">
+        <h3 class="font-black mb-5 text-yellow-500 flex items-center gap-3 uppercase tracking-wider">
+            <i class="fas fa-shield-halved"></i> Protocolos de Segurança (Tamanhos)
+        </h3>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3 bg-black/40 p-4 rounded-xl border border-white/5">
+                <i class="fas fa-comment-dots text-[#00a2ff] mt-1"></i>
+                <div>
+                    <p class="text-xs text-white font-bold uppercase tracking-widest mb-1">Seller Comms</p>
+                    <p class="text-xs text-gray-400 font-medium">Sempre peça ao agente para confirmar suas medidas (peso/altura) com o vendedor chinês (WeChat) antes da compra.</p>
+                </div>
+            </div>
+            
+            <div class="flex items-start gap-3 bg-black/40 p-4 rounded-xl border border-white/5">
+                <i class="fas fa-arrow-up-right-dots text-[#00a2ff] mt-1"></i>
+                <div>
+                    <p class="text-xs text-white font-bold uppercase tracking-widest mb-1">Scale Up</p>
+                    <p class="text-xs text-gray-400 font-medium">Na dúvida entre dois tamanhos, escolha sempre o maior. O molde asiático é historicamente menor que o ocidental.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-black/40 p-4 rounded-xl border border-white/5">
+                <i class="fas fa-ruler text-[#00a2ff] mt-1"></i>
+                <div>
+                    <p class="text-xs text-white font-bold uppercase tracking-widest mb-1">Cross-Check</p>
+                    <p class="text-xs text-gray-400 font-medium">Meça uma peça de roupa sua que sirva bem e compare os centímetros com o Size Chart (Tabela) da loja no Taobao/Weidian.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-black/40 p-4 rounded-xl border border-white/5">
+                <i class="fas fa-camera text-[#00a2ff] mt-1"></i>
+                <div>
+                    <p class="text-xs text-white font-bold uppercase tracking-widest mb-1">QC Reviews</p>
+                    <p class="text-xs text-gray-400 font-medium">Leia as avaliações no Reddit (FashionReps) ou peça fotos de controle de qualidade com régua de medição (Measurement QC).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

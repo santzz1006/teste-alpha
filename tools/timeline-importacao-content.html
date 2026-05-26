@@ -1,0 +1,709 @@
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center mb-14 mt-8">
+        <div class="inline-flex items-center gap-3 bg-[#00a2ff]/10 border border-[#00a2ff]/30 px-6 py-3 rounded-full mb-6 shadow-[0_0_25px_rgba(0,162,255,0.15)]">
+            <i class="fas fa-satellite-dish text-[#00a2ff] animate-pulse text-lg"></i>
+            <span class="text-sm font-black uppercase tracking-[0.25em] text-[#00a2ff]">
+                Rastreio Logístico v2.0
+            </span>
+        </div>
+        
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tighter uppercase text-white drop-shadow-lg">
+            Painel de <span class="text-[#00a2ff]">Operação</span>
+        </h2>
+        
+        <p class="text-base lg:text-xl text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed">
+            Monitoramento tático de importação. Acompanhe visualmente a jornada do seu ativo desde a China até a sua porta.
+        </p>
+    </div>
+
+    <div class="bg-[#080808] rounded-[2.5rem] border border-white/5 p-8 md:p-10 lg:p-12 mb-12 shadow-[0_0_50px_rgba(0,162,255,0.04)] relative overflow-hidden group hover:border-[#00a2ff]/20 transition duration-700">
+        
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#00a2ff]/10 rounded-full blur-[100px] pointer-events-none transition duration-1000 group-hover:bg-[#00a2ff]/20"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-[1fr,1.5fr,auto] gap-8 lg:gap-10 items-end relative z-10">
+            
+            <div class="flex flex-col">
+                <label class="text-[11px] font-black uppercase tracking-widest mb-4 text-gray-400 flex items-center gap-3">
+                    <i class="fas fa-calendar-day text-[#00a2ff] text-base"></i> Data do Pagamento
+                </label>
+                <div class="relative w-full">
+                    <input 
+                        type="date" 
+                        id="dataCompra" 
+                        class="w-full px-6 py-5 bg-[#111] border border-white/10 rounded-2xl text-white font-bold focus:border-[#00a2ff] focus:ring-4 focus:ring-[#00a2ff]/10 outline-none transition duration-300 shadow-inner hover:border-white/20 text-lg"
+                        onchange="window.atualizarTimeline()"
+                    >
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <label class="text-[11px] font-black uppercase tracking-widest mb-4 text-gray-400 flex items-center gap-3">
+                    <i class="fas fa-map-marker-alt text-[#00a2ff] text-base"></i> Status Atual da Encomenda
+                </label>
+                <div class="relative w-full">
+                    <select 
+                        id="etapaAtual" 
+                        onchange="window.atualizarTimeline()" 
+                        class="w-full pl-6 pr-14 py-5 bg-[#111] border border-white/10 rounded-2xl text-white appearance-none cursor-pointer font-bold focus:border-[#00a2ff] focus:ring-4 focus:ring-[#00a2ff]/10 outline-none transition duration-300 shadow-inner hover:border-white/20 text-lg"
+                    >
+                        <option value="0">1. Aguardando Processamento (Pending)</option>
+                        <option value="1">2. Comprado pelo Agente (Purchased)</option>
+                        <option value="2">3. Chegou no Armazém (Warehouse)</option>
+                        <option value="3">4. Inspeção QC Aprovada (QC Stored)</option>
+                        <option value="4">5. Pacote Enviado (Shipped)</option>
+                        <option value="5">6. Voo Internacional (In Transit)</option>
+                        <option value="6">7. Chegou no Brasil (GRU/CWB)</option>
+                        <option value="7">8. Fiscalização Aduaneira (Customs)</option>
+                        <option value="8">9. Liberado pela Alfândega (Cleared)</option>
+                        <option value="9">10. Rota de Entrega Local (Out for Delivery)</option>
+                        <option value="10">11. Entregue com Sucesso (Delivered)</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none text-lg"></i>
+                </div>
+            </div>
+
+            <button 
+                onclick="window.iniciarSimulacao()" 
+                class="w-full md:w-auto px-10 py-5 bg-gradient-to-r from-[#00a2ff] to-[#007acc] hover:from-[#0088cc] hover:to-[#005c99] text-white font-black uppercase tracking-widest rounded-2xl transition transform hover:-translate-y-1 shadow-[0_15px_30px_rgba(0,162,255,0.4)] border border-[#00a2ff]/50 flex justify-center items-center gap-3 h-[72px] text-sm"
+            >
+                <i class="fas fa-sync-alt text-lg"></i> Sincronizar
+            </button>
+            
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-8 mb-14">
+        
+        <div class="bg-[#080808] border border-white/5 rounded-3xl p-8 hover:border-[#00a2ff]/40 transition duration-300 group shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-[#00a2ff]/5 rounded-bl-[100px] transition duration-500 group-hover:bg-[#00a2ff]/20"></div>
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
+                Trânsito <i class="fas fa-hourglass-half text-gray-600 group-hover:text-[#00a2ff] text-lg transition"></i>
+            </p>
+            <div class="flex items-baseline gap-2 relative z-10 mt-2">
+                <p class="text-5xl lg:text-6xl font-black text-white tracking-tighter" id="diasTransito">0</p>
+                <p class="text-sm text-[#00a2ff] font-bold mb-2 uppercase tracking-widest">Dias</p>
+            </div>
+        </div>
+        
+        <div class="bg-[#080808] border border-white/5 rounded-3xl p-8 hover:border-green-500/40 transition duration-300 group shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-bl-[100px] transition duration-500 group-hover:bg-green-500/20"></div>
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
+                Checkpoints <i class="fas fa-flag-checkered text-gray-600 group-hover:text-green-500 text-lg transition"></i>
+            </p>
+            <p class="text-5xl lg:text-6xl font-black text-white tracking-tighter relative z-10 mt-2" id="etapasConcluidas">
+                0<span class="text-2xl lg:text-3xl text-gray-600 font-bold">/11</span>
+            </p>
+        </div>
+        
+        <div class="bg-[#080808] border border-white/5 rounded-3xl p-8 hover:border-purple-500/40 transition duration-300 group shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 rounded-bl-[100px] transition duration-500 group-hover:bg-purple-500/20"></div>
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
+                Avanço Físico <i class="fas fa-percent text-gray-600 group-hover:text-purple-500 text-lg transition"></i>
+            </p>
+            <p class="text-5xl lg:text-6xl font-black text-purple-400 tracking-tighter relative z-10 mt-2" id="progressoPorcentagem">
+                0%
+            </p>
+        </div>
+        
+        <div class="bg-[#080808] border border-white/5 rounded-3xl p-8 hover:border-yellow-500/40 transition duration-300 group shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-500/5 rounded-bl-[100px] transition duration-500 group-hover:bg-yellow-500/20"></div>
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
+                Alvo Estimado <i class="fas fa-bullseye text-gray-600 group-hover:text-yellow-500 text-lg transition"></i>
+            </p>
+            <p class="text-3xl lg:text-4xl font-black text-yellow-500 tracking-tighter mt-4 relative z-10" id="previsaoEntrega">
+                --/--
+            </p>
+        </div>
+
+    </div>
+
+    <div id="alertas" class="mb-14 empty:hidden transition-all duration-500">
+        </div>
+
+    <div class="relative max-w-5xl mx-auto mb-20 px-2 md:px-0">
+        
+        <div id="timelineContainer" class="relative w-full py-10 z-10 flex flex-col gap-12 md:gap-16">
+            
+            <div class="absolute left-[3.5rem] md:left-1/2 top-10 bottom-10 w-[6px] bg-[#1a1a1a] transform -translate-x-1/2 rounded-full z-0"></div>
+            
+            <div 
+                id="timelineProgressFill" 
+                class="absolute left-[3.5rem] md:left-1/2 top-10 w-[6px] bg-[#00a2ff] transform -translate-x-1/2 rounded-full transition-all duration-1000 ease-out shadow-[0_0_25px_#00a2ff] z-0"
+                style="height: 0px;"
+            ></div>
+
+            </div>
+
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 mt-16 mb-20">
+        
+        <div class="bg-[#080808] rounded-[2.5rem] border border-white/5 p-8 lg:p-10 shadow-2xl">
+            <h3 class="text-xl lg:text-2xl font-black mb-10 flex items-center gap-4 text-white uppercase tracking-widest">
+                <div class="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center border border-yellow-500/20 text-yellow-500">
+                    <i class="fas fa-stopwatch text-xl"></i>
+                </div>
+                Tempo Médio por Etapa
+            </h3>
+            
+            <div class="space-y-4">
+                <div class="flex justify-between items-center bg-[#111] border border-white/5 p-5 rounded-2xl hover:border-white/20 transition duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-shopping-cart text-gray-500 text-lg"></i>
+                        <span class="text-gray-300 font-bold uppercase tracking-widest text-[11px] md:text-sm">
+                            Compra → Armazém
+                        </span>
+                    </div>
+                    <span class="text-white font-black bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-sm">
+                        3 a 7 dias
+                    </span>
+                </div>
+                
+                <div class="flex justify-between items-center bg-[#111] border border-white/5 p-5 rounded-2xl hover:border-white/20 transition duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-camera text-gray-500 text-lg"></i>
+                        <span class="text-gray-300 font-bold uppercase tracking-widest text-[11px] md:text-sm">
+                            QC → Envio do Pacote
+                        </span>
+                    </div>
+                    <span class="text-white font-black bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-sm">
+                        1 a 3 dias
+                    </span>
+                </div>
+                
+                <div class="flex justify-between items-center bg-[#111] border border-white/5 p-5 rounded-2xl hover:border-white/20 transition duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-plane text-gray-500 text-lg"></i>
+                        <span class="text-gray-300 font-bold uppercase tracking-widest text-[11px] md:text-sm">
+                            Voo China → Brasil
+                        </span>
+                    </div>
+                    <span class="text-white font-black bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-sm">
+                        15 a 25 dias
+                    </span>
+                </div>
+                
+                <div class="flex justify-between items-center bg-[#111] border border-white/5 p-5 rounded-2xl hover:border-white/20 transition duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-building-shield text-gray-500 text-lg"></i>
+                        <span class="text-gray-300 font-bold uppercase tracking-widest text-[11px] md:text-sm">
+                            Análise Alfandegária
+                        </span>
+                    </div>
+                    <span class="text-white font-black bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-sm">
+                        3 a 10 dias
+                    </span>
+                </div>
+                
+                <div class="flex justify-between items-center bg-[#111] border border-white/5 p-5 rounded-2xl hover:border-[#00a2ff]/30 transition duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-truck text-[#00a2ff] text-lg"></i>
+                        <span class="text-white font-black uppercase tracking-widest text-[11px] md:text-sm">
+                            Liberação → Entrega Final
+                        </span>
+                    </div>
+                    <span class="text-[#00a2ff] font-black bg-[#00a2ff]/10 px-5 py-2.5 rounded-xl border border-[#00a2ff]/30 text-sm shadow-[0_0_15px_rgba(0,162,255,0.15)]">
+                        2 a 5 dias
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#111] rounded-[2.5rem] border border-[#00a2ff]/30 p-8 lg:p-10 relative overflow-hidden flex flex-col shadow-[0_0_40px_rgba(0,162,255,0.06)]">
+            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-[#00a2ff]/10 rounded-full blur-[90px] pointer-events-none"></div>
+            
+            <h3 class="text-xl lg:text-2xl font-black mb-8 flex items-center gap-4 text-white uppercase tracking-widest relative z-10">
+                <div class="w-12 h-12 bg-[#00a2ff]/10 rounded-2xl flex items-center justify-center border border-[#00a2ff]/30">
+                    <i class="fas fa-lightbulb text-[#00a2ff] text-xl"></i>
+                </div>
+                Diretriz de Ação
+            </h3>
+            
+            <div class="bg-black border border-white/10 rounded-3xl p-8 md:p-10 relative z-10 flex flex-col gap-6 min-h-[250px] justify-center items-start flex-1">
+                <i class="fas fa-terminal text-[#00a2ff] text-3xl opacity-80"></i>
+                <div id="dicaEtapa" class="w-full">
+                    <p class="text-gray-500 italic text-lg text-center mt-4">
+                        Aguardando sincronização do sistema para exibir as diretrizes táticas desta etapa logística.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* ================================
+       BASE DO CONTÊINER
+    ================================= */
+    .alpha-step {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+    }
+
+    /* Faz o conteúdo ocupar TODO o espaço disponível */
+    .step-content {
+        flex: 1;
+    }
+
+    /* ================================
+       ESTADOS VISUAIS
+    ================================= */
+
+    /* 1. Etapa Inativa */
+    .alpha-step:not(.completed):not(.active) .step-card {
+        opacity: 0.4;
+        filter: grayscale(100%);
+    }
+
+    .alpha-step:not(.completed):not(.active) .step-node {
+        background-color: #050505;
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #444;
+        opacity: 1;
+        z-index: 20;
+    }
+
+    /* 2. Etapa Concluída */
+    .alpha-step.completed .step-card {
+        border-color: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .alpha-step.completed .step-node {
+        opacity: 1;
+        z-index: 20;
+    }
+
+    /* 3. Etapa Ativa */
+    .alpha-step.active {
+        transform: scale(1.02);
+    }
+
+    .alpha-step.active .step-card {
+        border-color: rgba(0, 162, 255, 0.5);
+        background: rgba(0, 162, 255, 0.04);
+        box-shadow: 0 15px 40px rgba(0, 162, 255, 0.15);
+    }
+
+    /* ================================
+       QUADRADO DO SÍMBOLO
+    ================================= */
+    .step-node {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        background-color: #111;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        color: #555;
+        transition: all 0.5s ease;
+        flex-shrink: 0;
+        z-index: 20;
+    }
+
+    /* ================================
+       DESKTOP (Alterna lados)
+    ================================= */
+    @media (min-width: 768px) {
+
+        .alpha-step {
+            justify-content: space-between;
+        }
+
+        .alpha-step:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .alpha-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .alpha-step:nth-child(odd) .step-content {
+            text-align: left;
+        }
+
+        .alpha-step:nth-child(even) .step-content {
+            text-align: right;
+        }
+    }
+
+    /* ================================
+       CARD
+    ================================= */
+    .step-card {
+        background: #111;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.75rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.4s ease;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // 1. BANCO DE DADOS: O Array completo de Etapas Logísticas
+        const timelineData = [
+            {
+                id: 0,
+                titulo: 'Aguardando Compra',
+                icone: 'fa-cart-shopping',
+                cor: '#4b5563', // Gray Muted
+                desc: 'O link do produto foi processado. O agente está aguardando o pagamento do pedido para concluir a aquisição com o fornecedor.'
+            },
+            {
+                id: 1,
+                titulo: 'Comprado pelo Agente',
+                icone: 'fa-file-invoice-dollar',
+                cor: '#3b82f6', // Blue Solid
+                desc: 'A transação foi aprovada e o agente comprou o item no Taobao/Weidian. Aguardando o vendedor despachar a mercadoria.'
+            },
+            {
+                id: 2,
+                titulo: 'Produto no Armazém',
+                icone: 'fa-warehouse',
+                cor: '#10b981', // Emerald Green
+                desc: 'A carga física foi recebida no armazém da China. O item será pesado e preparado para as fotos de inspeção (QC).'
+            },
+            {
+                id: 3,
+                titulo: 'Inspeção QC Aprovada',
+                icone: 'fa-magnifying-glass-chart',
+                cor: '#00a2ff', // Alpha Neon
+                desc: 'As fotos detalhadas de Quality Check foram analisadas. O produto atende às expectativas e está liberado para empacotamento.'
+            },
+            {
+                id: 4,
+                titulo: 'Pacote Enviado (Shipped)',
+                icone: 'fa-box-open',
+                cor: '#8b5cf6', // Violet
+                desc: 'A caixa foi lacrada e entregue à transportadora de carga aérea. Um código de rastreamento internacional oficial foi emitido.'
+            },
+            {
+                id: 5,
+                titulo: 'Trânsito Internacional',
+                icone: 'fa-plane-departure',
+                cor: '#d946ef', // Fuchsia
+                desc: 'O avião decolou da Ásia rumo à América do Sul. Esta etapa pode demorar devido a conexões, fuso horários e esperas em pátios aeroportuários.'
+            },
+            {
+                id: 6,
+                titulo: 'Chegou no Brasil',
+                icone: 'fa-location-dot',
+                cor: '#f59e0b', // Amber
+                desc: 'A encomenda aterrissou em território nacional (geralmente Aeroporto de Guarulhos ou Curitiba) e aguarda triagem primária dos Correios.'
+            },
+            {
+                id: 7,
+                titulo: 'Análise Alfandegária',
+                icone: 'fa-building-shield',
+                cor: '#f97316', // Orange
+                desc: 'O pacote está sob custódia da Receita Federal. Fiscais realizam a inspeção de raio-x e verificação da declaração de valor (Invoice).'
+            },
+            {
+                id: 8,
+                titulo: 'Liberado pela Alfândega',
+                icone: 'fa-file-signature',
+                cor: '#10b981', // Emerald Green
+                desc: 'O processo aduaneiro foi finalizado. O pacote foi liberado pelas autoridades e devolvido à malha dos Correios para transporte regional.'
+            },
+            {
+                id: 9,
+                titulo: 'Saiu para Entrega ao Destinatário',
+                icone: 'fa-truck-fast',
+                cor: '#3b82f6', // Blue Solid
+                desc: 'O objeto logístico saiu do Centro de Distribuição mais próximo. O entregador já está realizando a rota no seu bairro.'
+            },
+            {
+                id: 10,
+                titulo: 'Pacote Entregue com Sucesso',
+                icone: 'fa-house-circle-check',
+                cor: '#22c55e', // Green Success
+                desc: 'Missão concluída! A entrega foi assinada no endereço de destino. O ciclo de importação foi finalizado com êxito.'
+            }
+        ];
+
+        // 2. BANCO DE DADOS: O Array extenso de Recomendações e Dicas
+        const dicasTaticas = [
+            "Verifique se o saldo na plataforma é suficiente. Deposite a quantia necessária para cobrir o produto e a pequena taxa de frete doméstico dentro da China.",
+            "Normalmente, vendedores demoram de 3 a 7 dias úteis para despachar itens. Caso o status demore mais que o habitual, use o botão 'Remind/Urge Seller' na interface do seu agente.",
+            "Atenção máxima: Analise as fotos de QC meticulosamente. Verifique costuras, tamanhos e proporções. Se houver irregularidades, este é o momento de solicitar devolução ou troca.",
+            "Acesse a seção de envio, agrupe seus itens (Submit Parcel) e escolha uma linha de frete inteligente (como as linhas Tarifar ou Tax-Free). Declare os valores na invoice com lógica.",
+            "Pegue seu Tracking Number (código de rastreio) no painel do agente e registre-o imediatamente em aplicativos como Muambator, 17Track ou ParcelsApp para notificações push.",
+            "Paciência é a virtude do importador. O rastreio pode não atualizar por dias enquanto aguarda voos de conexão em países do Oriente Médio ou Europa. É um comportamento normal.",
+            "O rastreio indicará 'Recebido no Brasil'. Acesse imediatamente o portal 'Minhas Importações' dos Correios logado no seu Gov.br e vincule o código ao seu CPF.",
+            "Monitoramento ostensivo: Se o status mudar para 'Aguardando Pagamento', a guia de impostos (DIS) foi gerada. Pague o boleto ou PIX no mesmo dia para agilizar a liberação.",
+            "Excelente notícia! A burocracia acabou. A encomenda seguirá via transporte terrestre (caminhões) do Paraná ou São Paulo até o centro de tratamento (CTCE) do seu estado.",
+            "O momento tão aguardado: garanta que haja um responsável na residência para receber o entregador. Os Correios realizarão no máximo três tentativas de entrega física.",
+            "Procedimento de Segurança Padrão: Grave um vídeo contínuo e sem cortes cortando os lacres e abrindo a caixa. Esta é sua prova irrefutável caso necessite de suporte do agente."
+        ];
+
+        // Variáveis de Estado Global
+        let etapaAtualGlobal = 0;
+        let dataCompraStr = null;
+
+        // 3. FUNÇÃO CORE: Dispara todas as atualizações
+        window.atualizarTimeline = function() {
+            const selectEtapa = document.getElementById('etapaAtual');
+            const inputData = document.getElementById('dataCompra');
+            
+            if(selectEtapa) etapaAtualGlobal = parseInt(selectEtapa.value);
+            if(inputData) dataCompraStr = inputData.value;
+            
+            renderizarComponentesHtml();
+            // Um pequeno delay garante que o DOM (a tela) desenhou os blocos antes de calcular a altura da linha
+            setTimeout(calcularProgressoEEstatisticas, 50); 
+            atualizarCardDiretrizes();
+            processarAlertasAduaneiros();
+        };
+
+        window.iniciarSimulacao = function() {
+            const inputData = document.getElementById('dataCompra');
+            if (!inputData || !inputData.value) {
+                alert('SISTEMA ALPHA ALERTA:\n\nPor favor, insira a Data do Pagamento no campo correspondente para inicializar os algoritmos de cálculo de trânsito.');
+                return;
+            }
+            window.atualizarTimeline();
+        };
+
+        // 4. FUNÇÃO RENDER: Injeta o HTML dos nós e cards
+        function renderizarComponentesHtml() {
+            const container = document.getElementById('timelineContainer');
+            if(!container) return;
+            
+            container.innerHTML = ''; // Limpa a área
+
+            // Loop para criar os 11 estágios
+            timelineData.forEach((item, index) => {
+                
+                const isCompleted = index < etapaAtualGlobal;
+                const isActive = index === etapaAtualGlobal;
+                
+                let stateClass = '';
+                let nodeStyleConfig = `background-color: #050505; border-color: rgba(255, 255, 255, 0.1); color: #444;`; 
+                
+                if (isCompleted) {
+                    stateClass = 'completed';
+                    // Nó concluído recebe a cor sólida do array (Tampando a linha)
+                    nodeStyleConfig = `background-color: ${item.cor}; border-color: ${item.cor}; color: #ffffff;`;
+                } else if (isActive) {
+                    stateClass = 'active';
+                    // Nó ativo recebe cor Neon sem piscar a estrutura de tamanho (A animação vai no CSS)
+                    nodeStyleConfig = `background-color: #00a2ff; border-color: #00a2ff; color: #ffffff;`;
+                }
+
+                // O construtor do HTML do item (Texto + Ícone na ponta)
+                const stepHTML = `
+                    <div class="alpha-step ${stateClass}" id="step-${index}">
+                        
+                        <div class="step-content">
+                            <div class="step-card group">
+                                <h3 class="font-black text-white text-lg md:text-2xl tracking-tight uppercase mb-3">
+                                    ${item.titulo}
+                                </h3>
+                                <p class="text-sm md:text-base text-gray-400 font-medium mb-5 leading-relaxed">
+                                    ${item.desc}
+                                </p>
+                                
+                                <div class="status-badge-container flex mt-5 border-t border-white/5 pt-5">
+                                    ${isActive ? `
+                                        <div class="inline-flex items-center gap-3 bg-[#00a2ff]/10 px-5 py-2.5 rounded-xl border border-[#00a2ff]/30">
+                                            <div class="w-3 h-3 bg-[#00a2ff] rounded-full animate-pulse"></div>
+                                            <span class="text-xs font-black text-[#00a2ff] uppercase tracking-widest">Atual</span>
+                                        </div>
+                                    ` : ''}
+                                    
+                                    ${isCompleted ? `
+                                        <div class="inline-flex items-center gap-2 bg-green-500/5 px-5 py-2.5 rounded-xl border border-green-500/20">
+                                            <i class="fas fa-check-double text-sm text-green-500"></i>
+                                            <span class="text-xs font-black text-green-500 uppercase tracking-widest">OK</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-node shadow-2xl" style="${nodeStyleConfig}">
+                            <i class="fas ${item.icone}"></i>
+                        </div>
+                        
+                    </div>
+                `;
+                
+                // Insere no final do contêiner
+                container.insertAdjacentHTML('beforeend', stepHTML);
+            });
+        }
+
+        // 5. FUNÇÃO MATEMÁTICA: Calcula Altura da Linha e Estatísticas
+        function calcularProgressoEEstatisticas() {
+            
+            // --- CÁLCULO DA FÍSICA DA LINHA NEON (PRECISÃO PIXEL) ---
+            const trackLine = document.getElementById('timelineProgressFill');
+            const containerMaster = document.getElementById('timelineContainer');
+            
+            if (trackLine && containerMaster) {
+                // Pegamos o elemento alvo (A bolinha ativa)
+                const activeElement = document.getElementById('step-' + etapaAtualGlobal);
+                
+                if (activeElement) {
+                    // Descobre quantos pixels o elemento está distante do topo do container
+                    const elementTopPosition = activeElement.offsetTop;
+                    // Descobre a altura total do contêiner daquela etapa e divide por 2 para achar o EIXO CENTRAL
+                    const halfStepHeight = activeElement.offsetHeight / 2;
+                    
+                    // Como a linha tem um "top-10" (40px) no HTML, subtraímos esse valor do total
+                    const linhaOffsetFix = 40; 
+                    
+                    // Soma as distâncias = A altura perfeita da barra azul
+                    const finalHeightInPixels = (elementTopPosition + halfStepHeight) - linhaOffsetFix;
+                    
+                    // Se for a etapa zero (primeira), a altura é forçada a zero para não vazar
+                    if (etapaAtualGlobal === 0) {
+                        trackLine.style.height = `0px`;
+                    } else {
+                        trackLine.style.height = `${finalHeightInPixels}px`;
+                    }
+                }
+            }
+
+            // --- CÁLCULO DAS DATAS E ESTATÍSTICAS DOS CARDS ---
+            if (dataCompraStr) {
+                const dataInicio = new Date(dataCompraStr);
+                dataInicio.setHours(0,0,0,0);
+                const hoje = new Date();
+                hoje.setHours(0,0,0,0);
+                
+                const difMilisegundos = Math.abs(hoje - dataInicio);
+                const difDias = Math.floor(difMilisegundos / (1000 * 60 * 60 * 24));
+                
+                const spanDias = document.getElementById('diasTransito');
+                if(spanDias) spanDias.textContent = difDias;
+                
+                // Soma exata de 35 dias para a previsão
+                let dataPrev = new Date(dataInicio);
+                dataPrev.setDate(dataPrev.getDate() + 35);
+                const spanPrev = document.getElementById('previsaoEntrega');
+                
+                if(spanPrev) {
+                    spanPrev.textContent = dataPrev.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'});
+                }
+            }
+
+            // --- FRAÇÕES E PORCENTAGEM ---
+            const spanEtapas = document.getElementById('etapasConcluidas');
+            if(spanEtapas) spanEtapas.innerHTML = `${etapaAtualGlobal}<span class="text-2xl lg:text-3xl text-gray-600 font-bold">/11</span>`;
+            
+            const porcNum = Math.round((etapaAtualGlobal / 10) * 100);
+            const spanPorc = document.getElementById('progressoPorcentagem');
+            if(spanPorc) spanPorc.textContent = `${porcNum}%`;
+        }
+
+        // 6. FUNÇÃO DE DICAS: Injeta o texto orientativo
+        function atualizarCardDiretrizes() {
+            const dicaEl = document.getElementById('dicaEtapa');
+            if(dicaEl) {
+                const tituloTarget = timelineData[etapaAtualGlobal].titulo;
+                const descricaoTatita = dicasTaticas[etapaAtualGlobal];
+                
+                dicaEl.innerHTML = `
+                    <div class="flex flex-col w-full">
+                        <p class="text-[#00a2ff] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/5 pb-4">
+                            <span class="text-gray-500">Alvo Focado:</span> ${tituloTarget}
+                        </p>
+                        <p class="text-white text-base md:text-xl leading-relaxed font-medium">
+                            ${descricaoTatita}
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // 7. FUNÇÃO DE ALERTAS: Condicionais de risco de importação
+        function processarAlertasAduaneiros() {
+            const containerAlts = document.getElementById('alertas');
+            if(!containerAlts) return;
+            containerAlts.innerHTML = '';
+            if (!dataCompraStr) return;
+
+            const diasTrasncorridos = parseInt(document.getElementById('diasTransito').textContent);
+            let htmlDeRisco = '';
+
+            // Se passaram muitos dias e não foi entregue (Atraso Master)
+            if (diasTrasncorridos > 45 && etapaAtualGlobal < 10) {
+                htmlDeRisco = `
+                    <div class="bg-red-500/10 border border-red-500/40 rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_40px_rgba(239,68,68,0.15)]">
+                        <div class="w-20 h-20 bg-red-500/20 rounded-3xl flex items-center justify-center flex-shrink-0 border border-red-500/50 animate-pulse">
+                            <i class="fas fa-triangle-exclamation text-4xl text-red-500"></i>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="font-black text-red-500 uppercase text-lg tracking-widest mb-3">Status Vermelho: Atraso Operacional Severo</p>
+                            <p class="text-base text-gray-300 font-medium leading-relaxed">O mapeamento indica que a remessa ultrapassou o prazo de segurança estipulado de 45 dias. É altamente recomendável abrir um ticket de investigação junto ao suporte do agente.</p>
+                        </div>
+                    </div>
+                `;
+            } 
+            // Se travou na alfândega por muitos dias (Risco de Taxa Alta/Apreensão)
+            else if (etapaAtualGlobal === 7 && diasTrasncorridos > 25) {
+                htmlDeRisco = `
+                    <div class="bg-yellow-500/10 border border-yellow-500/40 rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_40px_rgba(234,179,8,0.1)]">
+                        <div class="w-20 h-20 bg-yellow-500/20 rounded-3xl flex items-center justify-center flex-shrink-0 border border-yellow-500/50">
+                            <i class="fas fa-gavel text-4xl text-yellow-500"></i>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="font-black text-yellow-500 uppercase text-lg tracking-widest mb-3">Status Amarelo: Retenção Aduaneira</p>
+                            <p class="text-base text-gray-300 font-medium leading-relaxed">Atenção! O pacote está retido em fiscalização aduaneira há muitos dias. Acesse imediatamente o portal 'Minhas Importações' nos Correios para verificar se há débitos tributários pendentes.</p>
+                        </div>
+                    </div>
+                `;
+            } 
+            // Se está no fim do ciclo (Entregador na rua)
+            else if (etapaAtualGlobal === 9) {
+                 htmlDeRisco = `
+                    <div class="bg-green-500/10 border border-green-500/40 rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_40px_rgba(34,197,94,0.1)]">
+                        <div class="w-20 h-20 bg-green-500/20 rounded-3xl flex items-center justify-center flex-shrink-0 border border-green-500/50">
+                            <i class="fas fa-box-open text-4xl text-green-500"></i>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="font-black text-green-500 uppercase text-lg tracking-widest mb-3">Status Verde: Entrega Iminente</p>
+                            <p class="text-base text-gray-300 font-medium leading-relaxed">O alvo está próximo. O carteiro já retirou a encomenda da agência e realizará a entrega no seu endereço estipulado ainda hoje, ou no máximo no próximo dia útil.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if(htmlDeRisco !== '') {
+                containerAlts.innerHTML = htmlDeRisco;
+            }
+        }
+
+        // ==========================================
+        // INICIALIZAÇÃO E LISTENERS GLOBAIS
+        // ==========================================
+        
+        // Define data padrão como "Hoje" se vazio
+        const inputDefaultDate = document.getElementById('dataCompra');
+        if(inputDefaultDate && !inputDefaultDate.value) {
+            inputDefaultDate.valueAsDate = new Date();
+        }
+        
+        // Dispara a rotina inicial de montagem e cálculos
+        window.atualizarTimeline();
+
+        // Listener OBRIGATÓRIO: Se o usuário virar o celular ou redimensionar a tela do PC,
+        // a distância entre os cartões muda. Essa função recalcula a linha azul na mesma hora!
+        window.addEventListener('resize', () => {
+            calcularProgressoEEstatisticas();
+        });
+    });
+</script>

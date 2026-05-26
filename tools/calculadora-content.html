@@ -1,0 +1,292 @@
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-[#00a2ff]/10 border border-[#00a2ff]/20 px-4 py-2 rounded-full mb-4">
+            <i class="fas fa-calculator text-[#00a2ff]"></i>
+            <span class="text-xs font-bold uppercase tracking-widest text-[#00a2ff]">Módulo de Cálculo v2.5</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight uppercase">
+            Calculadora de <span class="text-[#00a2ff]">Importação</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto font-medium">
+            Simule todos os custos da sua operação, incluindo taxas de câmbio, frete internacional e impostos atualizados.
+        </p>
+    </div>
+
+    <form id="calcForm" class="bg-[#080808] border border-[#00a2ff]/10 rounded-3xl p-6 lg:p-8 shadow-[0_0_30px_rgba(0,162,255,0.05)]">
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-box text-[#00a2ff]"></i>
+                    Valor do Produto (¥ Yuan)
+                    <span class="tooltip ml-auto relative group">
+                        <i class="fas fa-info-circle text-xs text-gray-500 cursor-help"></i>
+                        <div class="absolute bottom-full right-0 mb-2 w-48 p-3 bg-black border border-white/10 rounded-lg text-xs text-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50 text-center">
+                            Preço do item no fornecedor (Taobao/Weidian).
+                        </div>
+                    </span>
+                </label>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#00a2ff] font-bold">¥</span>
+                    <input 
+                        type="number" 
+                        id="precoYuan" 
+                        step="0.01"
+                        placeholder="Ex: 150.00"
+                        class="w-full pl-10 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-[#00a2ff] focus:bg-black transition outline-none font-medium"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-weight text-green-400"></i>
+                    Peso Estimado (gramas)
+                    <span class="tooltip ml-auto relative group">
+                        <i class="fas fa-info-circle text-xs text-gray-500 cursor-help"></i>
+                        <div class="absolute bottom-full right-0 mb-2 w-48 p-3 bg-black border border-white/10 rounded-lg text-xs text-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50 text-center">
+                            Considere o peso real ou volumétrico do pacote final.
+                        </div>
+                    </span>
+                </label>
+                <div class="relative">
+                    <input 
+                        type="number" 
+                        id="peso" 
+                        placeholder="Ex: 700"
+                        class="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-green-400 focus:bg-black transition outline-none font-medium"
+                        required
+                    >
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-bold text-sm">g</span>
+                </div>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-shipping-fast text-purple-400"></i>
+                    Custo do Frete (¥ Yuan)
+                    <span class="tooltip ml-auto relative group">
+                        <i class="fas fa-info-circle text-xs text-gray-500 cursor-help"></i>
+                        <div class="absolute bottom-full right-0 mb-2 w-48 p-3 bg-black border border-white/10 rounded-lg text-xs text-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50 text-center">
+                            Use a calculadora do seu agente para estimar este valor.
+                        </div>
+                    </span>
+                </label>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 font-bold">¥</span>
+                    <input 
+                        type="number" 
+                        id="frete" 
+                        step="0.01"
+                        placeholder="Ex: 130.00"
+                        class="w-full pl-10 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-purple-400 focus:bg-black transition outline-none font-medium"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-exchange-alt text-yellow-400"></i>
+                    Cotação do Yuan (R$)
+                </label>
+                <div class="relative mb-2">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-400 font-bold">R$</span>
+                    <input 
+                        type="number" 
+                        id="cambio" 
+                        step="0.001"
+                        value="0.80"
+                        placeholder="Ex: 0.80"
+                        class="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-yellow-400 focus:bg-black transition outline-none font-medium"
+                        required
+                    >
+                </div>
+                <p class="text-xs text-gray-500 flex items-center gap-1">
+                    <i class="fas fa-sync-alt animate-spin-slow text-yellow-400/70"></i>
+                    Ref.: ¥1 ≈ R$0.80 (Pode variar)
+                </p>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-file-invoice-dollar text-red-400"></i>
+                    Declaração Alfandegária (USD)
+                    <span class="tooltip ml-auto relative group">
+                        <i class="fas fa-info-circle text-xs text-gray-500 cursor-help"></i>
+                        <div class="absolute bottom-full right-0 mb-2 w-48 p-3 bg-black border border-white/10 rounded-lg text-xs text-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50 text-center">
+                            Valor em Dólares que será declarado na invoice do pacote.
+                        </div>
+                    </span>
+                </label>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-400 font-bold">$</span>
+                    <input 
+                        type="number" 
+                        id="declaracao" 
+                        step="0.01"
+                        placeholder="Ex: 50.00"
+                        class="w-full pl-10 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-red-400 focus:bg-black transition outline-none font-medium"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-3 text-gray-300">
+                    <i class="fas fa-percent text-orange-400"></i>
+                    Taxa de Serviço do Agente (%)
+                </label>
+                <div class="relative">
+                    <input 
+                        type="number" 
+                        id="taxaAgente" 
+                        step="0.1"
+                        value="5"
+                        placeholder="Ex: 5"
+                        class="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-orange-400 focus:bg-black transition outline-none font-medium"
+                    >
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-bold text-lg">%</span>
+                </div>
+            </div>
+        </div>
+
+        <button 
+            type="submit"
+            class="w-full bg-[#00a2ff] hover:bg-[#0088cc] text-white font-black uppercase tracking-wider py-4 rounded-xl transition transform hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(0,162,255,0.4)] flex items-center justify-center gap-3 text-lg border border-[#00a2ff]/50"
+        >
+            <i class="fas fa-calculator"></i>
+            Processar Simulação
+        </button>
+    </form>
+
+    <div id="resultadoCalculadora" class="hidden mt-10">
+        <div class="bg-[#080808] border border-[#00a2ff]/30 rounded-[2rem] p-8 mb-8 relative overflow-hidden shadow-[0_0_40px_rgba(0,162,255,0.1)]">
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#00a2ff]/10 rounded-full blur-[80px] pointer-events-none"></div>
+            <div class="text-center relative z-10">
+                <p class="text-sm text-gray-400 mb-2 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                    <i class="fas fa-coins text-[#00a2ff]"></i> Custo Total Estimado
+                </p>
+                <p class="text-5xl md:text-6xl font-black text-white tracking-tighter" id="custoTotal">R$ 0,00</p>
+                <div class="inline-flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full mt-4 border border-white/10">
+                    <i class="fas fa-check-circle text-green-500 text-xs"></i>
+                    <p class="text-xs text-gray-300 font-medium">Produto + Frete + Taxas + Impostos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-[#111] border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-[#00a2ff]/30 transition">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#00a2ff]/5 rounded-full blur-[50px] opacity-0 group-hover:opacity-100 transition"></div>
+                <h3 class="font-black mb-6 flex items-center gap-3 text-lg uppercase tracking-wider text-white">
+                    <div class="w-10 h-10 bg-[#00a2ff]/10 rounded-lg flex items-center justify-center border border-[#00a2ff]/20">
+                        <i class="fas fa-globe-asia text-[#00a2ff]"></i>
+                    </div>
+                    Custos na Origem (China)
+                </h3>
+                <div class="space-y-4 text-sm font-medium">
+                    <div class="flex justify-between p-3 bg-black rounded-xl border border-white/5">
+                        <span class="text-gray-400">Produto (Convertido)</span>
+                        <span class="font-bold text-white" id="produtoReal">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-black rounded-xl border border-white/5">
+                        <span class="text-gray-400">Taxa do Agente</span>
+                        <span class="font-bold text-white" id="taxaAgenteReal">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-black rounded-xl border border-white/5">
+                        <span class="text-gray-400">Frete Internacional</span>
+                        <span class="font-bold text-white" id="freteReal">R$ 0,00</span>
+                    </div>
+                    <div class="border-t border-white/10 pt-4 flex justify-between items-center mt-4">
+                        <span class="text-gray-300 uppercase tracking-wider font-bold">Subtotal China</span>
+                        <span class="text-xl font-black text-[#00a2ff]" id="subtotalChina">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#111] border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-red-500/30 transition">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-[50px] opacity-0 group-hover:opacity-100 transition"></div>
+                <h3 class="font-black mb-6 flex items-center gap-3 text-lg uppercase tracking-wider text-white">
+                    <div class="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center border border-red-500/20">
+                        <i class="fas fa-flag text-red-400"></i>
+                    </div>
+                    Tributação (Brasil)
+                </h3>
+                <div class="space-y-4 text-sm font-medium">
+                    <div class="flex justify-between p-3 bg-black rounded-xl border border-white/5">
+                        <span class="text-gray-400">Imposto Importação (60%)</span>
+                        <span class="font-bold text-red-400" id="impostoImportacao">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-black rounded-xl border border-white/5">
+                        <span class="text-gray-400">ICMS (~18%)</span>
+                        <span class="font-bold text-orange-400" id="icms">R$ 0,00</span>
+                    </div>
+                    <div class="border-t border-white/10 pt-4 flex justify-between items-center mt-[88px]">
+                        <span class="text-gray-300 uppercase tracking-wider font-bold">Subtotal Impostos</span>
+                        <span class="text-xl font-black text-red-500" id="subtotalBrasil">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#111] border border-white/5 rounded-2xl p-6 mb-8">
+            <h3 class="font-black mb-6 flex items-center gap-3 text-sm uppercase tracking-wider text-gray-300">
+                <i class="fas fa-database text-purple-400"></i>
+                Dados da Simulação
+            </h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-black border border-white/5 rounded-xl p-4 text-center hover:border-purple-400/30 transition">
+                    <p class="text-[10px] text-gray-500 mb-2 font-bold uppercase tracking-widest">Valor Declarado</p>
+                    <p class="text-lg font-black text-white" id="valorDeclarado">$0.00</p>
+                </div>
+                <div class="bg-black border border-white/5 rounded-xl p-4 text-center hover:border-purple-400/30 transition">
+                    <p class="text-[10px] text-gray-500 mb-2 font-bold uppercase tracking-widest">Status Previsto</p>
+                    <p class="text-lg font-black text-red-400 flex items-center justify-center gap-2" id="statusAlfandega">
+                        <i class="fas fa-gavel"></i> -
+                    </p>
+                </div>
+                <div class="bg-black border border-white/5 rounded-xl p-4 text-center hover:border-purple-400/30 transition">
+                    <p class="text-[10px] text-gray-500 mb-2 font-bold uppercase tracking-widest">Peso Total</p>
+                    <p class="text-lg font-black text-white" id="pesoTotal">0g</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-500/5 border border-yellow-500/20 rounded-2xl p-6 mb-8 relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-yellow-500/5 rounded-full blur-[50px] pointer-events-none"></div>
+            <h3 class="font-black mb-4 text-yellow-400 flex items-center gap-3 text-sm uppercase tracking-wider relative z-10">
+                <i class="fas fa-lightbulb"></i>
+                Insights Alpha Core
+            </h3>
+            <ul class="space-y-3 text-xs font-medium text-gray-300 relative z-10">
+                <li class="flex items-start gap-3 bg-black/50 p-3 rounded-lg border border-yellow-500/10">
+                    <i class="fas fa-exclamation-triangle text-yellow-400 mt-0.5"></i>
+                    <span><strong>Tributação 2026:</strong> A isenção acabou. Prepare-se para pagar 60% + ICMS em todas as remessas.</span>
+                </li>
+                <li class="flex items-start gap-3 bg-black/50 p-3 rounded-lg border border-yellow-500/10">
+                    <i class="fas fa-box-open text-yellow-400 mt-0.5"></i>
+                    <span><strong>Otimização de Peso:</strong> Solicite a remoção de caixas originais (especialmente de tênis) para reduzir o frete.</span>
+                </li>
+                <li class="flex items-start gap-3 bg-black/50 p-3 rounded-lg border border-yellow-500/10">
+                    <i class="fas fa-cubes text-yellow-400 mt-0.5"></i>
+                    <span><strong>Consolidação Inteligente:</strong> Junte vários itens em um único envio para diluir o custo fixo do frete.</span>
+                </li>
+            </ul>
+        </div>
+
+        <button 
+            onclick="document.getElementById('resultadoCalculadora').classList.add('hidden'); document.getElementById('calcForm').reset(); window.scrollTo({ top: 0, behavior: 'smooth' });"
+            class="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl transition border border-white/10 hover:border-white/30 flex items-center justify-center gap-2 uppercase tracking-wider text-sm"
+        >
+            <i class="fas fa-redo"></i>
+            Nova Simulação
+        </button>
+    </div>
+
+    <div class="mt-10 text-center">
+        <div class="inline-flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/5">
+            <i class="fas fa-shield-alt text-gray-500"></i>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Simulação para fins de referência. Valores finais dependem da fiscalização.</p>
+        </div>
+    </div>
+</div>

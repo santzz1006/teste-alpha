@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Golpe - ALPHA CORE</title>
+    <link rel="icon" type="image/jpg" href="./image/logo-alphacore.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408394501486501"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="anti-golpe.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body class="text-white page-with-sidebar">
+
+    <div id="discordModalOverlay" class="fixed inset-0 bg-black/80 z-[10000] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" onclick="if(event.target === this) closeDiscordModal()">
+        <div id="discordModal" class="bg-[#050505] border border-[#00a2ff]/30 rounded-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300 relative shadow-[0_0_40px_rgba(0,162,255,0.2)] text-center">
+            
+            <button onclick="closeDiscordModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-[#00a2ff]/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-[#00a2ff]/30 shadow-[0_0_15px_rgba(0,162,255,0.2)]">
+                <i class="fas fa-tools text-2xl text-[#00a2ff]"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-3">Servidor em Manutenção</h3>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+                Estamos preparando um espaço incrível e cheio de novidades para a comunidade ALPHA CORE. O nosso servidor no Discord estará disponível muito em breve!
+            </p>
+            
+            <button onclick="closeDiscordModal()" class="w-full bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">
+                Entendi
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="closeMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white hover:text-black transition border border-white/10">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2 mb-6">
+                <nav id="main-nav" class="flex flex-col gap-2">
+                    <button onclick="window.location.href='index.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">Início</button>
+                    <button onclick="window.location.href='planilha.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">Planilha Vigor</button>
+                    <button onclick="window.location.href='fornecedores.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">Fornecedores</button>
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">FAQ Alfândega</button>
+                    <button onclick="window.location.href='fretes.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">Guia Fretes</button>
+                    <button onclick="window.location.href='ferramentas1.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 transition">Ferramentas</button>
+                    <button onclick="window.location.href='anti-golpe.html'" class="nav-link text-left px-4 py-3 rounded-xl text-[13px] font-black uppercase tracking-widest text-white bg-[#00a2ff] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">Anti-Golpe</button>
+                </nav>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <h3 class="text-sm font-bold mb-4 text-gray-400">SIGA-NOS</h3>
+                <div class="grid grid-cols-5 gap-3">
+                    <a href="https://discord.gg/NKVbuEqkgx" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-discord text-xl text-white"></i>
+                    </a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-whatsapp text-xl text-white"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-instagram text-xl text-white"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-tiktok text-xl text-white"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-youtube text-xl text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 lg:py-4">
+            <div class="flex items-center justify-between gap-3 lg:gap-6">
+
+                <a href="index.html" class="flex items-center gap-2 lg:gap-3 flex-shrink-0 hover:opacity-90 transition">
+                    <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo" class="w-10 h-10 object-cover rounded-xl border border-white/10">
+                    <span class="text-lg lg:text-xl font-bold tracking-wider">ALPHA <span class="text-[#00a2ff]">CORE</span></span>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="https://discord.gg/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-discord text-white"></i>
+                    </a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-instagram text-white"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-tiktok text-white"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+                        <i class="fab fa-youtube text-white"></i>
+                    </a>
+                </div>
+
+                <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/5 flex-shrink-0 hover:bg-white/10 transition border border-white/10">
+                    <svg class="w-6 h-6 text-[#00a2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="hidden lg:block border-t border-white/5">
+            <div class="container mx-auto px-4 relative z-40">
+                <nav class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+                    <button onclick="window.location.href='planilha.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    <button onclick="window.location.href='fornecedores.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+                    <button onclick="window.location.href='fretes.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    <button onclick="window.location.href='ferramentas1.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    <button onclick="window.location.href='anti-golpe.html'" class="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-white bg-white/10 transition border border-white/20">Anti-Golpe</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <aside class="planilha-sidebar" aria-label="Navega&ccedil;&atilde;o principal">
+        <a href="index.html" class="sidebar-brand">
+            <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo">
+            <span>ALPHA <strong>CORE</strong></span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-house"></i><span>In&iacute;cio</span></a>
+            <a href="planilha.html"><i class="fas fa-table-cells-large"></i><span>Planilha Vigor</span></a>
+            <a href="fornecedores.html"><i class="fas fa-truck-fast"></i><span>Fornecedores</span></a>
+            <a href="fornecedores.html#faq-alfandega"><i class="fas fa-circle-question"></i><span>FAQ Alf&acirc;ndega</span></a>
+            <a href="fretes.html"><i class="fas fa-box"></i><span>Guia Fretes</span></a>
+            <a href="ferramentas1.html"><i class="fas fa-screwdriver-wrench"></i><span>Ferramentas</span></a>
+            <a href="anti-golpe.html" class="active"><i class="fas fa-shield-halved"></i><span>Anti-Golpe</span></a>
+        </nav>
+        <div class="sidebar-socials" aria-label="Redes sociais">
+            <a href="#" onclick="openDiscordModal(event)" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>    </aside>
+
+    <section class="pt-40 lg:pt-52 px-4 pb-20 min-h-screen flex flex-col items-center">
+        <div class="container mx-auto max-w-4xl w-full">
+            
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-3 bg-[#00a2ff]/10 border border-[#00a2ff]/30 px-6 py-3 rounded-full mb-8 shadow-[0_0_30px_rgba(0,162,255,0.15)]">
+                    <i class="fas fa-shield-check text-[#00a2ff] text-xl"></i>
+                    <span class="text-sm font-black uppercase tracking-[0.3em] text-[#00a2ff]">Inteligência Alpha Core</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase text-white drop-shadow-2xl">
+                    Scanner de <span class="text-[#00a2ff]">Vendedores</span>
+                </h1>
+                <p class="text-lg text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                    Audite fornecedores asiáticos antes de fechar o carrinho. Nossa IA verifica métricas da loja, histórico de vendas e extrai feedbacks de usuários.
+                </p>
+                
+                <div class="mt-8 inline-flex flex-col items-center bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 px-6 py-5 rounded-xl text-sm font-bold text-center max-w-2xl shadow-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-exclamation-triangle text-xl"></i>
+                        <span class="uppercase tracking-widest">Aviso Crítico de Operação</span>
+                    </div>
+                    <p class="font-medium text-gray-300">O scanner <strong class="text-white">NÃO FUNCIONA</strong> com links de agentes (Vigorbuy, Cssbuy). Você deve usar o link original do produto (Taobao, Weidian, 1688 ou Goofish).</p>
+                </div>
+            </div>
+
+            <div class="bg-[#0d0d0d] border border-white/10 rounded-2xl p-3 shadow-2xl relative z-10 transition-all duration-300" id="inputContainer">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <i class="fas fa-link text-[#00a2ff]"></i>
+                        </div>
+                        <input type="url" id="linkInput" placeholder="Cole a URL original aqui (Ex: https://weidian.com/item...)" 
+                               class="w-full bg-[#111] border border-white/5 rounded-xl py-5 pl-14 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#00a2ff]/50 font-mono text-sm transition-all h-full">
+                    </div>
+                    <button onclick="iniciarVerificacao()" class="bg-[#00a2ff] hover:bg-[#0088cc] text-white font-black py-5 px-10 rounded-xl transition-all shadow-[0_0_20px_rgba(0,162,255,0.4)] flex-shrink-0 flex items-center justify-center gap-3 uppercase tracking-widest text-sm hover:-translate-y-1">
+                        <i class="fas fa-search-location text-lg"></i> Inspecionar
+                    </button>
+                </div>
+            </div>
+
+            <div id="loadingState" class="hidden mt-16 text-center fade-in-up">
+                <div class="relative w-32 h-32 mx-auto mb-8 bg-[#0d0d0d] rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center shadow-2xl scan-container pulse-border">
+                    <div class="scanner-beam"></div>
+                    <i class="fas fa-fingerprint text-6xl text-[#00a2ff] opacity-40"></i>
+                </div>
+                <h3 class="text-2xl font-black mb-3 text-white uppercase tracking-widest">Buscando na Origem...</h3>
+                <div class="inline-flex flex-col items-start bg-[#111] p-5 rounded-xl border border-white/5 min-w-[320px]">
+                    <p class="text-[#00a2ff] text-sm font-mono mb-2 flex items-center gap-2"><i class="fas fa-terminal text-xs"></i> <span id="log1">Iniciando protocolo de varredura...</span></p>
+                    <p class="text-gray-500 text-sm font-mono mb-2 flex items-center gap-2"><i class="fas fa-terminal text-xs"></i> <span id="log2">Aguardando resposta do servidor...</span></p>
+                    <p class="text-gray-500 text-sm font-mono flex items-center gap-2"><i class="fas fa-terminal text-xs"></i> <span id="log3">Calculando métricas de risco...</span></p>
+                </div>
+            </div>
+
+            <div id="resultState" class="hidden mt-12 fade-in-up">
+                <div class="bg-[#0d0d0d] border border-white/10 rounded-t-3xl p-8 relative overflow-hidden flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div id="bgGlow" class="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+                    
+                    <div class="relative z-10 w-24 h-24 rounded-full bg-[#111] border-2 border-white/10 flex items-center justify-center flex-shrink-0 text-4xl shadow-xl" id="storeAvatar">
+                        </div>
+
+                    <div class="relative z-10 text-center md:text-left flex-1 w-full">
+                        <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 w-full">
+                            <div>
+                                <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+                                    <h2 id="storeName" class="text-2xl font-black text-white">Nome da Loja</h2>
+                                    <span id="storeBadge" class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider"></span>
+                                </div>
+                                <p id="storeUrl" class="text-gray-500 font-mono text-xs mb-4 max-w-md truncate">url_do_produto_aqui</p>
+                            </div>
+                            
+                            <div id="alertBanner" class="inline-flex items-center gap-3 px-5 py-3 rounded-xl border font-black text-sm uppercase tracking-widest w-full md:w-auto justify-center md:justify-start shadow-lg">
+                                <div id="alertIcon" class="text-xl"></div>
+                                <span id="alertTitle">STATUS AQUI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#0a0a0a] border-x border-b border-white/10 rounded-b-3xl p-6 lg:p-8">
+                    
+                    <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3">
+                        <i class="fas fa-building text-[#00a2ff]"></i> Informações da Empresa
+                    </h3>
+
+                    <div class="info-grid rounded-xl overflow-hidden mb-8 bg-[#111]">
+                        <div class="info-cell p-4 border-b md:border-b-0 md:border-r border-white/5 text-center md:text-left">
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Capital Registrado</p>
+                            <p class="text-white font-medium" id="resCapital">--</p>
+                        </div>
+                        <div class="info-cell p-4 border-b md:border-b-0 md:border-r border-white/5 text-center md:text-left">
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Equipe</p>
+                            <p class="text-white font-medium" id="resEmployees">--</p>
+                        </div>
+                        <div class="info-cell p-4 border-b md:border-b-0 md:border-r border-white/5 text-center md:text-left">
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Modelo</p>
+                            <p class="text-white font-medium" id="resModel">--</p>
+                        </div>
+                        <div class="info-cell p-4 text-center md:text-left">
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Mercado</p>
+                            <p class="text-white font-medium" id="resMarket">--</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3">
+                        <i class="fas fa-chart-line text-[#00a2ff]"></i> Métricas (Últimos 30 Dias)
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-[#111] border border-white/5 rounded-xl p-5 relative overflow-hidden group">
+                            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition duration-500"><i class="fas fa-box text-8xl"></i></div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-2 relative z-10">Pedidos Pagos</p>
+                            <p class="text-3xl font-black text-white relative z-10" id="resOrders">--</p>
+                        </div>
+                        <div class="bg-[#111] border border-white/5 rounded-xl p-5 relative overflow-hidden group">
+                            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition duration-500"><i class="fas fa-truck-fast text-8xl"></i></div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-2 relative z-10">Taxa de Coleta (48h)</p>
+                            <p class="text-3xl font-black text-white relative z-10" id="resColRate">--</p>
+                        </div>
+                        <div class="bg-[#111] border border-white/5 rounded-xl p-5 relative overflow-hidden group">
+                            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition duration-500"><i class="fas fa-star text-8xl"></i></div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-2 relative z-10">Avaliação Geral</p>
+                            <div class="flex items-center gap-3 relative z-10">
+                                <p class="text-3xl font-black text-white" id="resRatingNum">--</p>
+                                <div id="starContainer" class="text-yellow-500 text-sm flex drop-shadow-[0_0_5px_rgba(234,179,8,0.4)]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3 mt-10">
+                        <i class="fas fa-comments text-[#00a2ff]"></i> Leitura de Feedbacks
+                    </h3>
+                    
+                    <div class="space-y-4 mb-10" id="reviewsContainer">
+                        </div>
+
+                    <div class="bg-gradient-to-r from-[#00a2ff]/10 to-transparent border-l-4 border-[#00a2ff] p-6 rounded-r-2xl">
+                        <h4 class="text-[#00a2ff] font-black uppercase tracking-widest text-sm mb-2">Diretriz Operacional Alpha Core</h4>
+                        <p class="text-gray-300 leading-relaxed font-medium" id="resVerdict">--</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-20 w-full border-t border-white/10 pt-16 mb-16">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full mb-6 border border-yellow-500/30 shadow-[0_0_30px_rgba(234,179,8,0.2)]">
+                        <i class="fas fa-gem text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-4">
+                        Fornecedores <span class="text-yellow-500">Homologados</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
+                        Lojas previamente testadas, escaneadas e aprovadas pela Inteligência Alpha.
+                    </p>
+                    <button onclick="window.location.href='fornecedores.html'" class="inline-flex items-center gap-3 px-10 py-5 bg-yellow-500 text-black font-black text-lg uppercase tracking-widest rounded-xl hover:bg-yellow-400 hover:-translate-y-1 transition-all duration-300 shadow-[0_10_30px_rgba(234,179,8,0.3)] hover:shadow-[0_15_40px_rgba(234,179,8,0.5)]">
+                        Acessar Lista Completa <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-24 w-full">
+                <h2 class="text-2xl font-black uppercase tracking-tight text-center mb-10 text-white">
+                    Como a <span class="text-[#00a2ff]">Inteligência</span> Funciona?
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 text-center hover:-translate-y-2 transition duration-300">
+                        <div class="w-14 h-14 bg-[#00a2ff]/10 text-[#00a2ff] rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl border border-[#00a2ff]/20">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide">1. Decodificação</h4>
+                        <p class="text-sm text-gray-400">O sistema lê a estrutura da URL para identificar a plataforma de origem (Taobao, Weidian, 1688 ou plataformas C2C).</p>
+                    </div>
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 text-center hover:-translate-y-2 transition duration-300">
+                        <div class="w-14 h-14 bg-[#00a2ff]/10 text-[#00a2ff] rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl border border-[#00a2ff]/20">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide">2. Cruzamento de Dados</h4>
+                        <p class="text-sm text-gray-400">Extraímos dados vitais como histórico de vendas, taxa de envio e avaliações baseadas nos parâmetros da loja.</p>
+                    </div>
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 text-center hover:-translate-y-2 transition duration-300">
+                        <div class="w-14 h-14 bg-[#00a2ff]/10 text-[#00a2ff] rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl border border-[#00a2ff]/20">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide">3. Veredito Final</h4>
+                        <p class="text-sm text-gray-400">O algoritmo calcula a nota. Lojas com avaliações baixas ou volume suspeito disparam alertas vermelhos imediatos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 border-t border-white/10 pt-16 w-full">
+                <h2 class="text-3xl font-black uppercase tracking-tight text-center mb-10 text-white">Matriz de Risco das <span class="text-[#00a2ff]">Plataformas</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 hover:border-white/20 transition duration-300">
+                        <img src="./image/weidian.png" alt="Weidian" class="w-14 h-14 rounded-xl object-cover mb-4 shadow-lg border border-white/10">
+                        <h3 class="font-bold text-lg text-white mb-1">Weidian (微店)</h3>
+                        <p class="text-xs text-gray-500 mb-4">O "Mercado Livre chinês"</p>
+                        <ul class="space-y-2 text-sm text-gray-400 mb-4">
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Preços atrativos</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Vendedores independentes</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Paraíso das réplicas</li>
+                        </ul>
+                        <div class="text-yellow-500 font-black text-sm uppercase tracking-widest"><i class="fas fa-exclamation-triangle mr-1"></i> Depende da Loja</div>
+                    </div>
+                    
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 hover:border-white/20 transition duration-300">
+                        <img src="./image/taobao.png" alt="Taobao" class="w-14 h-14 rounded-xl object-cover mb-4 shadow-lg border border-white/10">
+                        <h3 class="font-bold text-lg text-white mb-1">Taobao (淘宝)</h3>
+                        <p class="text-xs text-gray-500 mb-4">A "Amazon chinesa"</p>
+                        <ul class="space-y-2 text-sm text-gray-400 mb-4">
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Variedade absoluta</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Vendedores consolidados</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Sistema Escrow seguro</li>
+                        </ul>
+                        <div class="text-green-500 font-black text-sm uppercase tracking-widest"><i class="fas fa-shield-check mr-1"></i> SEM RISCO</div>
+                    </div>
+                    
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 hover:border-white/20 transition duration-300">
+                        <img src="./image/1688.png" alt="1688" class="w-14 h-14 rounded-xl object-cover mb-4 shadow-lg border border-white/10">
+                        <h3 class="font-bold text-lg text-white mb-1">1688 (Atacado)</h3>
+                        <p class="text-xs text-gray-500 mb-4">Foco em B2B e Fábricas</p>
+                        <ul class="space-y-2 text-sm text-gray-400 mb-4">
+                            <li class="text-green-400 font-semibold"><i class="fas fa-arrow-down text-[10px] mr-2"></i>Preços de FÁBRICA</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Compra mínima exigida</li>
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Difícil devolver varejo</li>
+                        </ul>
+                        <div class="text-green-500 font-black text-sm uppercase tracking-widest"><i class="fas fa-shield-check mr-1"></i> SEM RISCO</div>
+                    </div>
+                    
+                    <div class="bg-[#0d0d0d] border border-white/5 rounded-2xl p-6 hover:border-white/20 transition duration-300">
+                        <img src="./image/xianyu.png" alt="Goofish" class="w-14 h-14 rounded-xl object-cover mb-4 shadow-lg border border-white/10">
+                        <h3 class="font-bold text-lg text-white mb-1">Goofish / Xianyu</h3>
+                        <p class="text-xs text-gray-500 mb-4">A "OLX chinesa" (Usados)</p>
+                        <ul class="space-y-2 text-sm text-gray-400 mb-4">
+                            <li><i class="fas fa-circle text-[8px] text-gray-600 mr-2"></i>Venda Pessoa p/ Pessoa</li>
+                            <li class="text-green-400"><i class="fas fa-circle text-[8px] text-green-400 mr-2"></i>Preços inacreditáveis</li>
+                            <li class="text-green-400"><i class="fas fa-circle text-[8px] text-green-400 mr-2"></i>Com garantia</li>
+                        </ul>
+                        <div class="text-green-500 font-black text-sm uppercase tracking-widest"><i class="fas fa-shield-check mr-1"></i> SEM RISCO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24 w-full">
+                <h2 class="text-2xl font-black uppercase tracking-tight mb-8 text-white border-b border-white/10 pb-4">FAQ: Segurança na Importação</h2>
+                <div class="space-y-4">
+                    <div class="bg-[#111] border border-white/5 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" onclick="toggleAccordion(this)">
+                            <span class="font-bold text-white">Por que não posso colar o link do Vigorbuy/Cssbuy no scanner?</span>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-500 transition-transform"></i>
+                        </button>
+                        <div class="accordion-content hidden px-6 pb-5">
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Porque o Vigorbuy e outros agentes são apenas <strong class="text-white">intermediários de pagamento e logística</strong>. O produto real não está na prateleira deles, está num vendedor do Taobao, Weidian ou 1688. O scanner precisa saber quem é o dono original do produto para verificar se ele é confiável.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-[#111] border border-white/5 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" onclick="toggleAccordion(this)">
+                            <span class="font-bold text-white">Deu "COM RISCO" na minha busca, o que eu faço?</span>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-500 transition-transform"></i>
+                        </button>
+                        <div class="accordion-content hidden px-6 pb-5">
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Se o scanner acusou risco, significa que a nota da loja é baixa, tem poucas vendas ou é de uma plataforma sem validação. A recomendação é <strong class="text-red-400">procurar o mesmo produto em outro vendedor</strong> com nota acima de 4.3 e milhares de vendas.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-[#111] border border-white/5 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" onclick="toggleAccordion(this)">
+                            <span class="font-bold text-white">É seguro comprar no Goofish / Xianyu?</span>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-500 transition-transform"></i>
+                        </button>
+                        <div class="accordion-content hidden px-6 pb-5">
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Com certeza! O Goofish é uma verdadeira mina de ouro para garimpar oportunidades exclusivas e preços imbatíveis. Por ser um mercado de venda direta, nossa dica de mestre é solicitar as fotos detalhadas (QC) através do seu agente para conferir todos os detalhes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-white/10">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Links Rápidos</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="../ferramentas" class="hover:text-[#00a2ff] transition">Ferramentas</a></li>
+                        <li><a href="../fornecedores" class="hover:text-[#00a2ff] transition">Fornecedores</a></li>
+                        <li><a href="../fretes" class="hover:text-[#00a2ff] transition">Guia de Fretes</a></li>
+                        <li><a href="../anti-golpe" class="text-[#00a2ff] font-semibold">Guia Anti-Golpe</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Plataformas</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="hover:text-[#00a2ff] transition">Vigorbuy</a></li>
+                        <li><a href="https://www.taobao.com" target="_blank" class="hover:text-[#00a2ff] transition">Taobao</a></li>
+                        <li><a href="https://www.1688.com" target="_blank" class="hover:text-[#00a2ff] transition">1688</a></li>
+                        <li><a href="https://www.xianyu.com" target="_blank" class="hover:text-[#00a2ff] transition">Xianyu</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contato</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="https://discord.gg/NKVbuEqkgx" target="_blank" class="hover:text-[#00a2ff] transition">Discord</a></li>
+                        <li><a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="hover:text-[#00a2ff] transition">WhatsApp</a></li>
+                        <li><a href="https://www.instagram.com/joao.camaraa" target="_blank" class="hover:text-[#00a2ff] transition">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@joaocamaraa" target="_blank" class="hover:text-[#00a2ff] transition">TikTok</a></li>
+                        <li><a href="https://youtube.com/@joaocamaraa" target="_blank" class="hover:text-[#00a2ff] transition">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-12 pt-8 text-center text-sm text-gray-500">
+                <p class="mb-2">&copy; 2026 ALPHA CORE. Todos os direitos reservados.</p>
+                <p class="text-xs text-gray-600 italic">Guia informativo independente. Responsabilidade exclusiva do usuário.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="navegacao.js"></script>
+    <script src="anti-golpe.js"></script>
+    
+</body>
+</html>

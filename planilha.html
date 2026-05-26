@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha Vigor - ALPHA CORE</title>
+    <link rel="icon" type="image/jpg" href="./image/logo-alphacore.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);} 
+        gtag('js', new Date());
+        gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408394501486501" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="planilha.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body class="text-white page-with-sidebar planilha-page">
+    <div id="discordModalOverlay" class="fixed inset-0 bg-black/80 z-[10000] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" onclick="if(event.target === this) closeDiscordModal()">
+        <div id="discordModal" class="bg-[#050505] border border-[#00a2ff]/30 rounded-lg p-8 max-w-md w-full transform scale-95 transition-transform duration-300 relative shadow-[0_0_40px_rgba(0,162,255,0.2)] text-center">
+            <button onclick="closeDiscordModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="w-16 h-16 bg-[#00a2ff]/10 rounded-lg flex items-center justify-center mx-auto mb-5 border border-[#00a2ff]/30 shadow-[0_0_15px_rgba(0,162,255,0.2)]">
+                <i class="fas fa-tools text-2xl text-[#00a2ff]"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Servidor em Manuten&ccedil;&atilde;o</h3>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+                Estamos preparando um espa&ccedil;o novo para a comunidade ALPHA CORE. O servidor do Discord estar&aacute; dispon&iacute;vel em breve.
+            </p>
+            <button onclick="closeDiscordModal()" class="w-full bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">
+                Entendi
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="closeMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white hover:text-black transition border border-white/10">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2 mb-6">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">In&iacute;cio</button>
+                    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alf&acirc;ndega</button>
+                    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+                </nav>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <h3 class="text-sm font-bold mb-4 text-gray-400">SIGA-NOS</h3>
+                <div class="grid grid-cols-5 gap-3">
+                    <a href="#" onclick="openDiscordModal(event)" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-discord text-white"></i></a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-whatsapp text-xl text-white"></i></a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-instagram text-xl text-white"></i></a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-tiktok text-xl text-white"></i></a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-youtube text-xl text-white"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 lg:py-4">
+            <div class="flex items-center justify-between gap-3 lg:gap-6">
+                <a href="index.html" class="flex items-center gap-2 lg:gap-3 flex-shrink-0 hover:opacity-90 transition">
+                    <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo" class="w-10 h-10 object-cover">
+                    <span class="text-lg lg:text-xl font-bold tracking-wider">ALPHA <span class="text-[#00a2ff]">CORE</span></span>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="#" onclick="openDiscordModal(event)" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-discord text-white"></i></a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-whatsapp text-white"></i></a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-instagram text-white"></i></a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-tiktok text-white"></i></a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10"><i class="fab fa-youtube text-white"></i></a>
+                </div>
+
+                <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/5 flex-shrink-0 hover:bg-white/10 transition border border-white/10">
+                    <i class="fas fa-bars text-[#00a2ff] text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="hidden lg:block border-t border-white/5">
+            <div class="container mx-auto px-4 relative z-40">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">In&iacute;cio</button>
+                    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alf&acirc;ndega</button>
+                    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <aside class="planilha-sidebar" aria-label="Navegação principal">
+        <a href="index.html" class="sidebar-brand">
+            <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo">
+            <span>ALPHA <strong>CORE</strong></span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-house"></i><span>In&iacute;cio</span></a>
+            <a href="planilha.html" class="active"><i class="fas fa-table-cells-large"></i><span>Planilha Vigor</span></a>
+            <a href="fornecedores.html"><i class="fas fa-truck-fast"></i><span>Fornecedores</span></a>
+            <a href="fornecedores.html#faq-alfandega"><i class="fas fa-circle-question"></i><span>FAQ Alf&acirc;ndega</span></a>
+            <a href="fretes.html"><i class="fas fa-box"></i><span>Guia Fretes</span></a>
+            <a href="ferramentas1.html"><i class="fas fa-screwdriver-wrench"></i><span>Ferramentas</span></a>
+            <a href="anti-golpe.html"><i class="fas fa-shield-halved"></i><span>Anti-Golpe</span></a>
+        </nav>
+        <div class="sidebar-socials" aria-label="Redes sociais">
+            <a href="#" onclick="openDiscordModal(event)" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>    </aside>
+
+    <main class="planilha-main pt-28 lg:pt-40">
+        <section class="px-4 pb-10">
+            <div class="container mx-auto max-w-6xl">
+                <div class="planilha-hero">
+                    <div>
+                        <div class="inline-flex items-center gap-2 bg-[#00a2ff]/10 border border-[#00a2ff]/20 px-4 py-2 rounded-lg mb-5">
+                            <i class="fas fa-table-cells-large text-[#00a2ff]"></i>
+                            <span class="text-[10px] font-black uppercase text-[#00a2ff]">Planilha Vigorbuy</span>
+                        </div>
+                        <h1 class="text-4xl md:text-6xl font-black mb-5 leading-tight">
+                            Produtos verificados para comprar pela <span class="text-[#00a2ff]">Vigorbuy</span>
+                        </h1>
+                        <p class="text-gray-400 text-lg max-w-2xl">
+                            Uma vitrine organizada com categorias, busca e conversor de links para abrir os produtos direto na Vigorbuy.
+                        </p>
+                    </div>
+
+                    <div class="agent-panel">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-14 h-14 bg-black border border-white/10 rounded-lg flex items-center justify-center p-1">
+                                <img src="./image/vigorbuy.jpg" alt="Vigorbuy" class="w-full h-full object-contain rounded-lg">
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-black uppercase">Agente principal</p>
+                                <h2 class="text-xl font-black">Vigorbuy</h2>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-5">
+                            <div class="mini-stat"><span id="totalProductsStat">0</span><small>produtos</small></div>
+                            <div class="mini-stat"><span>7kGVa8eO</span><small>invite code</small></div>
+                        </div>
+                        <div class="grid gap-3">
+                            <a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="primary-action">
+                                Criar conta na Vigorbuy <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button id="openConverterBtn" class="secondary-action">
+                                <i class="fas fa-link"></i> Converter link para Vigorbuy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-black/95 backdrop-blur-md border-y border-white/10">
+            <div class="container mx-auto max-w-6xl px-4 py-4">
+                <div id="categoryBar" class="category-strip">
+                    <button class="cat-btn active" data-cat="todos">Todos</button>
+                    <button class="cat-btn" data-cat="zapatillas">T&ecirc;nis</button>
+                    <button class="cat-btn" data-cat="camisetas">Camisetas</button>
+                    <button class="cat-btn" data-cat="pantalones">Cal&ccedil;as</button>
+                    <button class="cat-btn" data-cat="futbol">Futebol</button>
+                    <button class="cat-btn" data-cat="verano">Ver&atilde;o</button>
+                    <button class="cat-btn" data-cat="sudaderas">Moletons</button>
+                    <button class="cat-btn" data-cat="chandals">Conjuntos</button>
+                    <button class="cat-btn" data-cat="abrigos">Casacos</button>
+                    <button class="cat-btn" data-cat="accesorios">Acess&oacute;rios</button>
+                    <button class="cat-btn" data-cat="chicas">Feminino</button>
+                    <button class="cat-btn" data-cat="hauls">Hauls</button>
+                    <button class="cat-btn" data-cat="outfits">Looks</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-4 py-8">
+            <div class="container mx-auto max-w-6xl">
+                <div class="toolbar">
+                    <label class="search-box" for="searchInput">
+                        <i class="fas fa-search text-[#00a2ff]"></i>
+                        <input id="searchInput" type="search" placeholder="Buscar produto, categoria ou marca...">
+                    </label>
+                    <div class="sort-group" id="sortGroup" aria-label="Ordenar produtos">
+                        <button class="sort-btn active" data-sort="default">Padr&atilde;o</button>
+                        <button class="sort-btn" data-sort="asc">Menor pre&ccedil;o</button>
+                        <button class="sort-btn" data-sort="desc">Maior pre&ccedil;o</button>
+                    </div>
+                    <div class="result-count"><span id="count">0</span> encontrados</div>
+                </div>
+
+                <div id="productGrid" class="product-grid"></div>
+
+                <div id="emptyState" class="empty-state hidden">
+                    <i class="fas fa-magnifying-glass text-3xl text-[#00a2ff] mb-3"></i>
+                    <h3>Nenhum produto encontrado</h3>
+                    <p>Tente remover filtros ou buscar por outro termo.</p>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button id="loadMoreBtn" class="load-more hidden">Carregar mais produtos</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="converterModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="converterTitle">
+            <button id="closeConverterBtn" class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+            <h2 id="converterTitle">Conversor para Vigorbuy</h2>
+            <p>Cole um link de Weidian, Taobao, 1688 ou de outro agente para gerar o link da Vigorbuy.</p>
+            <div class="modal-input-row">
+                <input type="url" id="linkInput" placeholder="https://weidian.com/item.html?itemID=...">
+                <button id="convertBtn">Converter</button>
+            </div>
+            <div id="resultContainer" class="result-box hidden">
+                <label for="resultInput">Link gerado</label>
+                <input type="text" id="resultInput" readonly>
+                <div class="modal-actions">
+                    <button id="copyBtn">Copiar</button>
+                    <a id="openResultBtn" href="#" target="_blank">Abrir</a>
+                </div>
+            </div>
+            <p id="converterError" class="converter-error hidden">N&atilde;o consegui detectar um ID de produto nesse link.</p>
+        </div>
+    </div>
+
+    <button id="scrollTopBtn" class="scroll-top" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
+
+    <footer class="bg-black border-t border-white/10">
+        <div class="container mx-auto px-4 py-10 text-center text-sm text-gray-500">
+            <p class="mb-2">&copy; 2026 ALPHA CORE. Todos os direitos reservados.</p>
+            <p class="text-xs text-gray-600 italic">Guia informativo independente. Responsabilidade exclusiva do usu&aacute;rio.</p>
+        </div>
+    </footer>
+
+    <script src="cat-abrigos.js"></script>
+    <script src="cat-accesorios.js"></script>
+    <script src="cat-camisetas.js"></script>
+    <script src="cat-chandals.js"></script>
+    <script src="cat-chicas.js"></script>
+    <script src="cat-futbol.js"></script>
+    <script src="cat-hauls.js"></script>
+    <script src="cat-outfits.js"></script>
+    <script src="cat-pantalones.js"></script>
+    <script src="cat-sudaderas.js"></script>
+    <script src="cat-verano.js"></script>
+    <script src="cat-zapatillas.js"></script>
+    <script src="products.js"></script>
+    <script src="navegacao.js"></script>
+    <script src="planilha.js"></script>
+</body>
+
+</html>

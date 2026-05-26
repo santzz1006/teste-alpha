@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Core - Fornecedores</title>
+    <link rel="icon" type="image/jpg" href="./image/logo-alphacore.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408394501486501"
+     crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #00a2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 162, 255, 0.15); 
+            border-color: rgba(0, 162, 255, 0.3);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .category-btn.active {
+            background: #00a2ff;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
+        }
+
+        .search-bar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00a2ff;
+            box-shadow: 0 0 10px rgba(0, 162, 255, 0.1);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(0, 162, 255, 0.2);
+            transition: right 0.3s ease;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9998;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .social-link {
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: #00a2ff !important;
+            color: #ffffff !important;
+            border-color: #00a2ff !important;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .product-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        .glow-icon {
+            color: #00a2ff;
+            filter: drop-shadow(0 0 8px rgba(0, 162, 255, 0.6));
+        }
+
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body class="text-white page-with-sidebar">
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="closeMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-white/30 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2 mb-6">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+    
+    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+    
+    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+    
+    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+    
+    
+    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+    
+    
+    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+    
+    
+</nav>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <h3 class="text-sm font-bold mb-4 text-gray-400 tracking-wider">SIGA-NOS</h3>
+                <div class="grid grid-cols-5 gap-3">
+                  <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 border border-white/10 transition">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 border border-white/10 transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 border border-white/10 transition">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 border border-white/10 transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 lg:py-4">
+            <div class="flex items-center justify-between gap-3 lg:gap-6">
+
+                <a href="#" class="flex items-center gap-3 hover:opacity-90 transition flex-shrink-0">
+                    <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo" class="h-10 w-auto object-contain">
+                    <span class="text-xl lg:text-2xl font-bold text-white tracking-wider">ALPHA CORE</span>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-3">
+                  <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white transition">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white transition">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/5 border border-white/10 flex-shrink-0">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="hidden lg:block border-t border-white/5">
+           <div class="container mx-auto px-4 relative z-40">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+                    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+                    
+                    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    
+                    
+                    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    
+                    
+                    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+                    
+                    
+                </nav>
+            </div>
+        
+        </div>
+    </header>
+    <aside class="planilha-sidebar" aria-label="Navega&ccedil;&atilde;o principal">
+        <a href="index.html" class="sidebar-brand">
+            <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo">
+            <span>ALPHA <strong>CORE</strong></span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-house"></i><span>In&iacute;cio</span></a>
+            <a href="planilha.html"><i class="fas fa-table-cells-large"></i><span>Planilha Vigor</span></a>
+            <a href="fornecedores.html" class="active"><i class="fas fa-truck-fast"></i><span>Fornecedores</span></a>
+            <a href="fornecedores.html#faq-alfandega"><i class="fas fa-circle-question"></i><span>FAQ Alf&acirc;ndega</span></a>
+            <a href="fretes.html"><i class="fas fa-box"></i><span>Guia Fretes</span></a>
+            <a href="ferramentas1.html"><i class="fas fa-screwdriver-wrench"></i><span>Ferramentas</span></a>
+            <a href="anti-golpe.html"><i class="fas fa-shield-halved"></i><span>Anti-Golpe</span></a>
+        </nav>
+        <div class="sidebar-socials" aria-label="Redes sociais">
+            <a href="#" onclick="openDiscordModal(event)" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>    </aside>
+
+    <main class="pt-24 lg:pt-36">
+        <section class="py-12 lg:py-16 px-4">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+                    Catálogo de <span class="text-[#00a2ff]">Fornecedores</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-400 text-center max-w-2xl mx-auto">
+                    Os contatos diretos e verificados para importadores de elite.
+                </p>
+            </div>
+        </section>
+
+        <section class="px-4 mb-8">
+            <div class="container mx-auto">
+                <div class="bg-[#111] rounded-2xl border border-white/10 p-4 lg:p-6 flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6 shadow-[0_0_20px_rgba(0,162,255,0.05)] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#00a2ff]/5 to-transparent pointer-events-none"></div>
+                    
+                    <div class="flex items-center gap-4 lg:gap-5 flex-1 relative z-10">
+                        <div class="w-12 h-12 lg:w-14 lg:h-14 bg-black border border-white/10 rounded-xl flex items-center justify-center flex-shrink-0 p-1">
+                            <img src="./image/vigorbuy.jpg" alt="Vigorbuy Logo" class="w-full h-full object-contain rounded-lg">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 text-white">Vigorbuy - Nosso Agente Principal</h3>
+                            <p class="text-sm text-gray-400">Dica da comunidade: Crie conta via link e aproveite os benefícios exclusivos.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap lg:flex-nowrap items-center gap-3 w-full lg:w-auto relative z-10">
+                        <span class="bg-white/5 border border-white/10 text-gray-300 px-3 lg:px-4 py-2 rounded-lg text-xs lg:text-sm whitespace-nowrap flex items-center gap-2">
+                            <i class="fas fa-check text-[#00a2ff]"></i> 1 item GRÁTIS
+                        </span>
+                        <span class="bg-white/5 border border-white/10 text-gray-300 px-3 lg:px-4 py-2 rounded-lg text-xs lg:text-sm whitespace-nowrap flex items-center gap-2">
+                            <i class="fas fa-percentage text-[#00a2ff]"></i> 30% OFF na 1ª compra
+                        </span>
+                        <a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="px-6 py-2 lg:py-3 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition text-sm lg:text-base whitespace-nowrap w-full lg:w-auto text-center">
+                            Acessar Plataforma <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-8 px-4">
+            <div class="container mx-auto">
+                <div class="max-w-3xl mx-auto mb-10">
+                    <div class="search-bar rounded-xl p-4 lg:p-5">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-search text-[#00a2ff] ml-2"></i>
+                            <input type="text" id="searchInput" placeholder="Buscar por: calçados, tech, roupas, bonés, etc..." class="flex-1 bg-transparent text-white placeholder-gray-500 outline-none text-lg" onkeyup="filterSuppliers()">
+                            <button onclick="clearSearch()" class="text-gray-500 hover:text-white transition px-2" title="Limpar busca">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div id="categoryFiltersContainer" class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
+    <button onclick="filterByCategory('celular')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Celular/Tablet</button>
+    <button onclick="filterByCategory('hardware')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Hardware</button>
+    <button onclick="filterByCategory('notebook')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Notebook</button>
+    <button onclick="filterByCategory('perifericos')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Periféricos</button>
+    <button onclick="filterByCategory('calcados')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Calçados</button>
+    <button onclick="filterByCategory('roupas')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Roupas</button>
+    <button onclick="filterByCategory('acessorios')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Acessórios</button>
+    <button onclick="filterByCategory('automotivo')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Automotivo</button>
+    <button onclick="filterByCategory('games')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Games</button>
+    <button onclick="filterByCategory('brinquedos')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Brinquedos</button>
+    <button onclick="filterByCategory('agentes')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Agentes</button>
+    <button onclick="filterByCategory('perfumes')" class="category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all">Perfumes</button>
+    <button onclick="showAllSuppliers()" class="category-filter px-4 py-1.5 bg-white text-black rounded-lg text-xs font-bold hover:bg-gray-200 transition-all">Todos</button>
+</div>
+                    </div>
+                </div>
+
+                <div id="suppliersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                    </div>
+            </div>
+        </section>
+
+        <div class="px-4 pt-4 pb-12">
+            <div class="container mx-auto text-center">
+                <div class="inline-block bg-[#111] border border-white/10 text-gray-400 px-6 py-3 rounded-lg text-sm flex items-center justify-center gap-3 w-fit mx-auto">
+                    <i class="fas fa-info-circle text-yellow-500"></i> Não vendemos produtos. Links são informativos e podem conter comissões de afiliados.
+                </div>
+            </div>
+        </div>
+
+        <section id="faq-alfandega" class="py-16 px-4 bg-[#0a0a0a] border-t border-white/10">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl lg:text-4xl font-black mb-4 flex items-center justify-center gap-4">
+                        <i class="fas fa-passport glow-icon"></i> FAQ Alfândega Brasil
+                    </h2>
+                    <p class="text-gray-400">Dúvidas comuns sobre importação e Receita Federal 2026</p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-4">
+                    
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq1')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-box-open glow-icon text-2xl"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">O que posso importar sem problemas da China?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq1"></i>
+                        </button>
+                        <div id="faq1" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-4 text-sm text-gray-300">
+                                <div class="bg-[#111] border border-white/10 border-l-4 border-l-green-500 rounded-r-lg p-5">
+                                    <p class="text-white font-bold mb-3 flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> LIBERADO (uso pessoal):</p>
+                                    <ul class="list-none space-y-2 ml-2">
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i>Roupas, tênis, acessórios (até 3 unidades iguais)</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i>Eletrônicos (celular, fone, smartwatch - 1 unidade por modelo)</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i>Produtos de beleza/skincare (uso pessoal, sem revenda)</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i>Livros, artigos esportivos, decoração</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i>Peças de PC (RAM, SSD, GPU - sem caixa original reduz risco)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-[#111] border border-white/10 border-l-4 border-l-red-500 rounded-r-lg p-5">
+                                    <p class="text-white font-bold mb-3 flex items-center gap-2"><i class="fas fa-ban text-red-500"></i> PROIBIDO OU RESTRITO:</p>
+                                    <ul class="list-none space-y-2 ml-2">
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Medicamentos</strong> sem receita ou registro ANVISA</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Alimentos/suplementos</strong> sem certificação sanitária</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Armas/réplicas</strong> (airsoft precisa CR + porte)</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Produtos veterinários</strong> controlados</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Drones</strong> acima de 250g (precisa homologação ANATEL)</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Cigarros eletrônicos/vapes</strong> (proibidos pela ANVISA)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-5">
+                                    <p class="text-yellow-500 font-bold mb-2 flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i> ATENÇÃO ESPECIAL:</p>
+                                    <p class="text-gray-300"><strong>Falsificações:</strong> Produtos com logo de marca (Nike, Adidas, Louis Vuitton) podem ser apreendidos se houver fiscalização. Réplicas 1:1 têm alto risco.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq2')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-coins text-blue-400 text-2xl" style="filter: drop-shadow(0 0 8px rgba(96,165,250,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">Quais são os limites de importação em 2026?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq2"></i>
+                        </button>
+                        <div id="faq2" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-4 text-sm text-gray-300">
+                                <div class="bg-[#111] border border-white/10 rounded-lg p-5 space-y-4">
+                                    <div>
+                                        <h4 class="font-bold text-white mb-4 flex items-center gap-2"><i class="fas fa-sack-dollar text-yellow-600"></i> Limite por Encomenda (plataformas Remessa Conforme - maioria):</h4>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                                                <span class="text-gray-300">Até US$ 50</span>
+                                                <span class="text-yellow-500 font-bold">20% Imposto Importação + ~17% ICMS</span>
+                                            </div>
+                                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                                                <span class="text-gray-300">US$ 50,01 até US$ 3.000</span>
+                                                <span class="text-red-400 font-bold">60% II (com desconto US$ 20) + ~17% ICMS</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-gray-300">Acima de US$ 3.000</span>
+                                                <span class="text-red-500 font-bold">Tributação comercial (mais cara)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <p class="text-xs text-gray-500 mb-1">* Plataformas não certificadas: 60% II sem desconto + ICMS em todas as faixas.</p>
+                                        <p class="text-xs text-gray-500">* ICMS varia por estado (17% padrão, até 20% em alguns desde 2025).</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-900/20 border border-yellow-700/30 rounded-lg p-5">
+                                    <p class="text-yellow-500 font-bold mb-3 flex items-center gap-2"><i class="fas fa-lightbulb"></i> Exemplo Prático:</p>
+                                    <div class="space-y-2 text-xs text-gray-300">
+                                        <p><strong class="text-white">Pacote 1:</strong> Tênis US$ 45 &rarr; <span class="text-gray-400">~37% total (20% II + ICMS)</span> <i class="fas fa-check-square text-green-500 ml-1"></i></p>
+                                        <p><strong class="text-white">Pacote 2:</strong> Moletom US$ 80 &rarr; <span class="text-gray-400">~77% total (60% II com desconto + ICMS)</span> <i class="fas fa-money-bill-wave text-green-500 ml-1"></i></p>
+                                        <p><strong class="text-white">Pacote 3:</strong> Celular US$ 200 &rarr; <span class="text-gray-400">~77% total (60% II com desconto + ICMS)</span> <i class="fas fa-money-bill-wave text-green-500 ml-1"></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq3')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-calculator text-purple-400 text-2xl" style="filter: drop-shadow(0 0 8px rgba(192,132,252,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">Como funciona a taxação na prática?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq3"></i>
+                        </button>
+                        <div id="faq3" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-4 text-sm text-gray-300">
+                                <div>
+                                    <div class="bg-[#111] border border-white/10 rounded-lg p-5 mb-4">
+                                        <h4 class="font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-file-invoice-dollar text-[#00a2ff]"></i> Cálculo da Taxa (plataformas Remessa Conforme):</h4>
+                                        <p class="font-mono text-yellow-500 text-xs mb-2">1. II = (Valor produto + Frete) × alíquota (20% ou 60% - desconto US$ 20 se >50)</p>
+                                        <p class="font-mono text-yellow-500 text-xs mb-3">2. ICMS (~17%) = calculado "por dentro" sobre (Valor + II)</p>
+                                        <p class="text-xs text-gray-500">Impostos pagos na hora da compra (plataformas certificadas).</p>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="bg-[#111] border border-white/10 border-l-4 border-l-blue-500 rounded-r-lg p-5">
+                                            <p class="font-bold text-white mb-2">Exemplo 1: Tênis US$ 45 + Frete US$ 10 (total US$ 55 = R$ 302,50, câmbio R$ 5,50)</p>
+                                            <div class="text-xs text-gray-400 space-y-1">
+                                                <p>II: 20% de R$ 302,50 = R$ 60,50</p>
+                                                <p>ICMS 17%: ~R$ 70,00 (por dentro)</p>
+                                                <p class="text-yellow-500 font-semibold mt-1">Total impostos: ~R$ 130,50</p>
+                                                <p class="text-green-400 font-bold mt-1">Custo final: ~R$ 433 (produto + impostos)</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-[#111] border border-white/10 border-l-4 border-l-purple-500 rounded-r-lg p-5">
+                                            <p class="font-bold text-white mb-2">Exemplo 2: Celular US$ 180 + Frete US$ 20 (total US$ 200 = R$ 1.100)</p>
+                                            <div class="text-xs text-gray-400 space-y-1">
+                                                <p>II: 60% de R$ 1.100 = R$ 660 - desconto ~R$ 110 = R$ 550</p>
+                                                <p>ICMS 17%: ~R$ 280 (por dentro)</p>
+                                                <p class="text-yellow-500 font-semibold mt-1">Total impostos: ~R$ 830</p>
+                                                <p class="text-green-400 font-bold mt-1">Custo final: ~R$ 1.930</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-900/20 border border-yellow-700/30 rounded-lg p-5">
+                                    <p class="text-yellow-500 font-bold mb-2 flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i> Atenção:</p>
+                                    <p class="text-gray-300 text-xs mb-1">Câmbio usado é o do dia do registro da declaração (compra ou chegada).</p>
+                                    <p class="text-gray-300 text-xs">Se valor subdeclarado ou não conforme, Receita pode arbitrar preço maior.</p>
+                                </div>
+
+                                <div class="bg-red-900/20 border border-red-700/30 rounded-lg p-5">
+                                    <p class="text-red-400 font-bold mb-2 flex items-center gap-2"><i class="fas fa-times-circle"></i> Mitos Comuns:</p>
+                                    <ul class="list-disc list-inside space-y-2 text-xs text-gray-300 ml-1">
+                                        <li><strong>Mito:</strong> "Compras até US$ 50 são isentas" &rarr; Falso, pagam 20% II + ICMS</li>
+                                        <li><strong>Mito:</strong> "Marcar como presente evita taxa" &rarr; Falso, presente segue mesmas regras</li>
+                                        <li><strong>Mito:</strong> "Pacote pequeno nunca é taxado" &rarr; Falso, todas as compras internacionais são tributadas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq4')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-hand-paper text-red-500 text-2xl" style="filter: drop-shadow(0 0 8px rgba(239,68,68,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">O que acontece se meu pacote for apreendido?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq4"></i>
+                        </button>
+                        <div id="faq4" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-4 text-sm text-gray-300">
+                                <div class="bg-[#111] border border-white/10 rounded-lg p-5">
+                                    <h4 class="font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-search-location text-[#00a2ff]"></i> Motivos de Retenção:</h4>
+                                    <ul class="list-none space-y-2 ml-2">
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Proibição:</strong> Vapes, armas falsas sem documentação.</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Falsificação:</strong> Abuso de logos comerciais famosos em quantidade.</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Subfaturamento:</strong> Declarar um iPhone como capa de US$ 5.</li>
+                                        <li><i class="fas fa-angle-right text-gray-500 mr-2"></i><strong>Uso Comercial:</strong> Mais de 20 itens idênticos no mesmo CPF.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-[#111] border border-white/10 rounded-lg p-5">
+                                    <p class="text-white font-bold mb-3 flex items-center gap-2"><i class="fas fa-clipboard-list text-[#00a2ff]"></i> Procedimento Padrão:</p>
+                                    <ol class="list-decimal list-inside space-y-2 text-gray-400">
+                                        <li>Notificação via Correios ou app "Minhas Importações".</li>
+                                        <li>Prazo de ~30 dias para enviar documentos comprovando o valor/produto.</li>
+                                        <li>Caso negado ou ignorado, o produto é leiloado ou destruído.</li>
+                                    </ol>
+                                </div>
+
+                                <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                                    <p class="text-green-500 font-bold mb-2 flex items-center gap-2"><i class="fas fa-shield-alt"></i> Realidade nas Plataformas Atuais:</p>
+                                    <p class="text-xs text-gray-300">Apreensões por impostos são raras em envios já pagos na origem (Remessa Conforme). A fiscalização foca pesadamente em contrabando comercial de grande escala e itens ilegais de verdade.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq-rastreio')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-[#00a2ff] text-2xl" style="filter: drop-shadow(0 0 8px rgba(0,162,255,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">Como rastrear meu pacote na alfândega?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq-rastreio"></i>
+                        </button>
+                        <div id="faq-rastreio" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-4 text-sm text-gray-300">
+                                
+                                <div>
+                                    <p class="text-white font-bold mb-3 flex items-center gap-2"><i class="fas fa-list-ul text-[#00a2ff]"></i> Sites Oficiais de Rastreio:</p>
+                                    <div class="space-y-2">
+                                        <div class="bg-[#1a1a1a] border border-white/5 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <div>
+                                                <h4 class="font-bold text-white">Minhas Importações (app/site oficial)</h4>
+                                                <p class="text-xs text-gray-400">Melhor opção: mostra impostos pagos, status detalhado e boleto se necessário.</p>
+                                            </div>
+                                            <span class="text-xs text-gray-500">receita.economia.gov.br</span>
+                                        </div>
+                                        <div class="bg-[#1a1a1a] border border-white/5 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <div>
+                                                <h4 class="font-bold text-white">Correios</h4>
+                                                <p class="text-xs text-gray-400">Rastreio completo, mostra alfândega.</p>
+                                            </div>
+                                            <a href="https://rastreamento.correios.com.br" target="_blank" class="text-xs text-[#00a2ff] hover:text-white transition font-semibold">Acessar &rarr;</a>
+                                        </div>
+                                        <div class="bg-[#1a1a1a] border border-white/5 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <div>
+                                                <h4 class="font-bold text-white">17Track</h4>
+                                                <p class="text-xs text-gray-400">Multi-transportadora, bom para origem.</p>
+                                            </div>
+                                            <a href="https://www.17track.net" target="_blank" class="text-xs text-[#00a2ff] hover:text-white transition font-semibold">Acessar &rarr;</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-blue-900/10 border border-blue-800/30 rounded-lg p-5">
+                                    <p class="text-blue-400 font-bold mb-3 flex items-center gap-2"><i class="fas fa-box"></i> Status Comuns (Remessa Conforme):</p>
+                                    <div class="space-y-3 text-xs text-gray-300">
+                                        <div class="flex items-start gap-2">
+                                            <i class="fas fa-check text-green-500 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-bold text-white">"Recebida no Brasil"</p>
+                                                <p class="text-gray-400">Já passou alfândega (impostos pagos na compra)</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-2">
+                                            <i class="fas fa-exclamation-triangle text-yellow-500 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-bold text-white">"Fiscalização aduaneira"</p>
+                                                <p class="text-gray-400">Em análise (raro em Remessa Conforme)</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-2">
+                                            <i class="fas fa-mailbox text-blue-400 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-bold text-white">"Saiu para entrega"</p>
+                                                <p class="text-gray-400">Chega em breve!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-900/10 border border-yellow-700/30 rounded-lg p-5">
+                                    <p class="text-yellow-500 font-bold mb-3 flex items-center gap-2"><i class="fas fa-clock"></i> Quanto tempo demora?</p>
+                                    <ul class="list-disc list-inside space-y-1.5 ml-1 text-xs text-gray-300">
+                                        <li><strong class="text-white">Remessa Conforme:</strong> 15-30 dias total (mais rápido)</li>
+                                        <li><strong class="text-white">Não conforme:</strong> 30-60 dias (pode parar para pagamento)</li>
+                                        <li><strong class="text-white">Alfândega:</strong> 1-10 dias (muitas passam automático)</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq-regras')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-link text-[#00a2ff] text-2xl" style="filter: drop-shadow(0 0 8px rgba(0,162,255,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">Onde consultar regras oficiais?</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq-regras"></i>
+                        </button>
+                        <div id="faq-regras" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10 space-y-3 text-sm text-gray-300">
+                                
+                                <a href="https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras" target="_blank" class="block bg-[#1a1a1a] border border-white/5 rounded-lg p-4 hover:border-[#00a2ff]/50 hover:bg-white/5 transition">
+                                    <h4 class="font-bold text-white flex items-center gap-2 mb-1">
+                                        <i class="fas fa-landmark text-[#00a2ff]"></i> Receita Federal - Novas Regras Remessas
+                                    </h4>
+                                    <p class="text-xs text-gray-400 ml-6">Regras atuais de tributação (2024 em diante)</p>
+                                </a>
+
+                                <a href="https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/programa-remessa-conforme-o-que-e-como-funciona" target="_blank" class="block bg-[#1a1a1a] border border-white/5 rounded-lg p-4 hover:border-[#00a2ff]/50 hover:bg-white/5 transition">
+                                    <h4 class="font-bold text-white flex items-center gap-2 mb-1">
+                                        <i class="fas fa-university text-[#00a2ff]"></i> Programa Remessa Conforme
+                                    </h4>
+                                    <p class="text-xs text-gray-400 ml-6">Lista de plataformas certificadas e benefícios</p>
+                                </a>
+
+                                <a href="https://www.gov.br/anvisa/pt-br" target="_blank" class="block bg-[#1a1a1a] border border-white/5 rounded-lg p-4 hover:border-[#00a2ff]/50 hover:bg-white/5 transition">
+                                    <h4 class="font-bold text-white flex items-center gap-2 mb-1">
+                                        <i class="fas fa-file-medical text-green-500"></i> ANVISA - Produtos Regulados
+                                    </h4>
+                                    <p class="text-xs text-gray-400 ml-6">Medicamentos, cosméticos, alimentos e proibições (ex: vapes)</p>
+                                </a>
+
+                                <a href="https://www.gov.br/anatel/pt-br" target="_blank" class="block bg-[#1a1a1a] border border-white/5 rounded-lg p-4 hover:border-[#00a2ff]/50 hover:bg-white/5 transition">
+                                    <h4 class="font-bold text-white flex items-center gap-2 mb-1">
+                                        <i class="fas fa-broadcast-tower text-purple-400"></i> ANATEL - Homologação
+                                    </h4>
+                                    <p class="text-xs text-gray-400 ml-6">Consulta de homologação de eletrônicos</p>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleFaq('faq5')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-info-circle text-yellow-500 text-2xl" style="filter: drop-shadow(0 0 8px rgba(234,179,8,0.6));"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-left text-gray-100">Aviso Legal e Importante</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform faq-icon" id="icon-faq5"></i>
+                        </button>
+                        <div id="faq5" class="faq-content px-6 pb-6" style="display: none;">
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="bg-yellow-900/20 border border-yellow-700/30 rounded-lg p-5">
+                                    <p class="text-yellow-500 font-bold mb-3 flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i> Importante:</p>
+                                    <p class="text-sm text-gray-300 leading-relaxed">
+                                        As regras podem sofrer ajustes. Consulte sempre os sites oficiais para a informação mais atualizada. Este FAQ é um guia baseado nas regras vigentes em 2026. A Alpha Core não se responsabiliza por retenções, taxações extras ou mudanças na legislação aduaneira.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black border-t border-white/10">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Links Rápidos</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="../fornecedores" class="hover:text-white transition">Fornecedores</a></li>
+                        <li><a href="../fretes" class="hover:text-white transition">Guia de Fretes</a></li>
+                        <li><a href="../anti-golpe" class="hover:text-white transition">Guia Anti-Golpe</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Plataformas</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="hover:text-white transition">Vigorbuy</a></li>
+                        <li><a href="https://www.taobao.com" target="_blank" class="hover:text-white transition">Taobao</a></li>
+                        <li><a href="https://www.1688.com" target="_blank" class="hover:text-white transition">1688</a></li>
+                        <li><a href="https://www.xianyu.com" target="_blank" class="hover:text-white transition">Xianyu</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contato</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" onclick="openDiscordModal(event)" class="hover:text-white transition">Discord</a></li>
+                        <li><a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="hover:text-white transition">WhatsApp</a></li>
+                        <li><a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="hover:text-white transition">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="hover:text-white transition">TikTok</a></li>
+                        <li><a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="hover:text-white transition">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 text-center text-sm text-gray-500">
+                <p class="mb-2">&copy; 2026 ALPHA CORE. Todos os direitos reservados.</p>
+                <p class="text-xs text-gray-600 italic">Guia informativo independente. Responsabilidade exclusiva do usuário. Consulte leis e profissionais.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="navegacao.js"></script>
+    <script src="suppliersData.js"></script>
+    <script>
+    // ==========================================
+    // 1. CONFIGURAÇÃO E UTILITÁRIOS
+    // ==========================================
+    const SUPABASE_URL = 'https://qpvstnbbibxizrdpcdex.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwdnN0bmJiaWJ4aXpyZHBjZGV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NjA5NjEsImV4cCI6MjA4ODEzNjk2MX0.XIAlGVkQEVQ-3VzAMqtkqkaRyN-wE6kJYjJhdEAECS4';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // O "Descascador de Acentos" - Essencial para bater o banco com o HTML
+    const limparTexto = (txt) => (txt || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "").trim();
+
+    let allFornecedores = [];
+
+    // ==========================================
+    // 2. MOTOR DE CATEGORIAS DINÂMICAS
+    // ==========================================
+    function updateCategoryFilters(suppliers) {
+        const container = document.getElementById('categoryFiltersContainer');
+        if (!container) return;
+
+        // Lê o que já existe no seu HTML para não duplicar (Calçados, Celular, etc)
+        const botoesJaExistentes = Array.from(container.querySelectorAll('button')).map(btn => limparTexto(btn.innerText));
+
+        // Pega as categorias que vêm do Supabase
+        const categoriasNoBanco = [...new Set(suppliers.map(s => (s.category || s.subtitle || "Geral")))];
+
+        // Filtra o que for REALMENTE novo (ex: a categoria "teste")
+        const novasCategorias = categoriasNoBanco.filter(cat => {
+            const catNormalizada = limparTexto(cat);
+            return !botoesJaExistentes.includes(catNormalizada) && catNormalizada !== 'geral';
+        });
+
+        novasCategorias.forEach(cat => {
+            const idBotao = `btn-dinamico-${limparTexto(cat)}`;
+            
+            if (!document.getElementById(idBotao)) {
+                const novoBtn = document.createElement('button');
+                novoBtn.id = idBotao;
+                novoBtn.onclick = () => filterByCategory(cat);
+                novoBtn.className = "category-filter px-4 py-1.5 bg-white/5 border border-white/10 text-gray-400 rounded-lg text-xs font-semibold hover:border-[#00a2ff] hover:text-[#00a2ff] transition-all capitalize";
+                novoBtn.innerText = cat;
+                
+                // Coloca sempre antes do botão "Todos" para manter o padrão
+                const btnTodos = Array.from(container.querySelectorAll('button')).find(b => limparTexto(b.innerText) === 'todos');
+                if (btnTodos) {
+                    container.insertBefore(novoBtn, btnTodos);
+                } else {
+                    container.appendChild(novoBtn);
+                }
+            }
+        });
+    }
+
+    // ==========================================
+    // 3. CARREGAMENTO DE DADOS (LOAD DATA)
+    // ==========================================
+    async function loadData() {
+        try {
+            console.log('Iniciando carregamento de dados...');
+            let localSuppliers = window.DATA_FORNECEDORES || [];
+            let cloudSuppliers = [];
+            
+            const { data, error } = await supabaseClient
+                .from('fornecedores')
+                .select('*')
+                .order('id', { ascending: false });
+
+            if (!error && data) {
+                cloudSuppliers = data;
+            }
+
+            allFornecedores = [...cloudSuppliers, ...localSuppliers];
+
+            // Ordenação: Vigorbuy sempre no topo
+            allFornecedores.sort((a, b) => {
+                if (a.id == 1) return -1;
+                if (b.id == 1) return 1;
+                return 0;
+            });
+
+            console.log(`✅ Total: ${allFornecedores.length} fornecedores carregados.`);
+            
+            updateCategoryFilters(allFornecedores);
+            renderFilteredSuppliers(allFornecedores);
+
+        } catch (error) {
+            console.error('Erro ao carregar dados:', error);
+            allFornecedores = window.DATA_FORNECEDORES || [];
+            updateCategoryFilters(allFornecedores);
+            renderFilteredSuppliers(allFornecedores);
+        }
+    }
+
+  // ==========================================
+    // 4. SISTEMA DE RENDERIZAÇÃO E FILTROS
+    // ==========================================
+    function renderFilteredSuppliers(suppliersToRender) {
+        const container = document.getElementById('suppliersGrid');
+        if (!container) return;
+
+        container.innerHTML = '';
+        
+        if (!suppliersToRender || suppliersToRender.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 font-medium border border-dashed border-white/10 rounded-xl">Nenhum fornecedor encontrado</div>';
+            return;
+        }
+
+        suppliersToRender.forEach(supplier => {
+            const img = supplier.image || supplier.logo || `https://ui-avatars.com/api/?name=${encodeURIComponent(supplier.name)}&background=111&color=00a2ff`;
+            const description = supplier.description || supplier.desc || '';
+            const subtitle = supplier.category || supplier.subtitle || 'Geral';
+            const link = supplier.link || '#';
+
+            container.innerHTML += `
+                <div class="product-card bg-[#111] rounded-xl border border-white/10 p-5 flex flex-col h-[260px] animate-fade-in group">
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 flex-shrink-0 min-w-[56px] bg-black border border-white/10 rounded-xl flex items-center justify-center overflow-hidden p-0.5">
+                            <img src="${img}" alt="${supplier.name}" class="w-full h-full object-cover rounded-lg" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(supplier.name)}&background=111&color=00a2ff'">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-base font-bold text-white truncate group-hover:text-[#00a2ff] transition-colors">${supplier.name}</h3>
+                            <p class="text-[11px] text-[#00a2ff] truncate uppercase tracking-widest font-black mt-0.5">${subtitle}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow mb-4">
+                        <p class="text-xs text-gray-400 line-clamp-3 leading-relaxed">
+                            ${description}
+                        </p>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="${link}" target="_blank" class="block w-full text-center px-4 py-3 bg-white text-black rounded-lg font-black hover:bg-gray-200 transition-all text-sm shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-[0.98]">
+                            Acessar Plataforma &rarr;
+                        </a>
+                    </div>
+                    
+                </div>
+            `;
+        });
+    }
+    function filterSuppliers() {
+        const searchTerm = limparTexto(document.getElementById('searchInput').value);
+        const filtered = allFornecedores.filter(supplier => {
+            const name = limparTexto(supplier.name);
+            const cat = limparTexto(supplier.category || supplier.subtitle);
+            const desc = limparTexto(supplier.desc || supplier.description);
+            return name.includes(searchTerm) || cat.includes(searchTerm) || desc.includes(searchTerm);
+        });
+        renderFilteredSuppliers(filtered);
+    }
+
+    function filterByCategory(category) {
+        const termo = limparTexto(category); 
+        const filtered = allFornecedores.filter(supplier => {
+            const catBanco = limparTexto(supplier.category || supplier.subtitle || "");
+            return catBanco.includes(termo);
+        });
+        document.getElementById('searchInput').value = category;
+        renderFilteredSuppliers(filtered);
+    }
+
+    function showAllSuppliers() {
+        document.getElementById('searchInput').value = '';
+        renderFilteredSuppliers(allFornecedores);
+    }
+
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        renderFilteredSuppliers(allFornecedores);
+    }
+
+    // ==========================================
+    // 5. INTERFACE (MENU, FAQ, MODAL)
+    // ==========================================
+    function openMobileMenu() {
+        document.getElementById('mobileMenu').classList.add('active');
+        document.getElementById('mobileOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.getElementById('mobileOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function toggleFaq(id) {
+        const content = document.getElementById(id);
+        const icon = document.getElementById('icon-' + id);
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            icon.classList.add('rotate');
+        } else {
+            content.style.display = 'none';
+            icon.classList.remove('rotate');
+        }
+    }
+
+    function openDiscordModal(e) {
+        if(e) e.preventDefault();
+        const overlay = document.getElementById('discordModalOverlay');
+        const modal = document.getElementById('discordModal');
+        overlay.classList.remove('hidden');
+        void overlay.offsetWidth; 
+        overlay.classList.remove('opacity-0');
+        modal.classList.remove('scale-95');
+        modal.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDiscordModal() {
+        const overlay = document.getElementById('discordModalOverlay');
+        const modal = document.getElementById('discordModal');
+        overlay.classList.add('opacity-0');
+        modal.classList.remove('scale-100');
+        modal.classList.add('scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', loadData);
+</script>
+    <script>
+        window.va = window.va || function() {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+        /// FUNÇÕES DO MODAL DO DISCORD (ATUALIZADAS)
+        function openDiscordModal(e) {
+            if(e) e.preventDefault(); // Impede de pular para o topo da página
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            // Tira o "display: none"
+            overlay.classList.remove('hidden');
+            
+            // Força o navegador a renderizar
+            void overlay.offsetWidth; 
+            
+            // Adiciona o efeito de aparecer (fade in)
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95');
+            modal.classList.add('scale-100');
+            
+            // Trava o scroll da página no fundo
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDiscordModal() {
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            // Adiciona o efeito de sumir (fade out)
+            overlay.classList.add('opacity-0');
+            modal.classList.remove('scale-100');
+            modal.classList.add('scale-95');
+            
+            // Libera o scroll da página no fundo
+            document.body.style.overflow = '';
+            
+            // Aguarda a animação terminar para esconder
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <div id="discordModalOverlay" class="fixed inset-0 bg-black/80 z-[10000] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" onclick="if(event.target === this) closeDiscordModal()">
+        <div id="discordModal" class="bg-[#050505] border border-[#00a2ff]/30 rounded-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300 relative shadow-[0_0_40px_rgba(0,162,255,0.2)] text-center">
+            
+            <button onclick="closeDiscordModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-[#00a2ff]/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-[#00a2ff]/30 shadow-[0_0_15px_rgba(0,162,255,0.2)]">
+                <i class="fas fa-tools text-2xl text-[#00a2ff]"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-3">Servidor em Manutenção</h3>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+                Estamos preparando um espaço incrível e cheio de novidades para a comunidade ALPHA CORE. O nosso servidor no Discord estará disponível muito em breve!
+            </p>
+            
+            <button onclick="closeDiscordModal()" class="w-full bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">
+                Entendi
+            </button>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

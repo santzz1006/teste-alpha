@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHA CORE - Guia de Fretes</title>
+    <link rel="icon" type="image/jpg" href="./image/logo-alphacore.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408394501486501"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #00a2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 162, 255, 0.1); 
+            border-color: rgba(0, 162, 255, 0.3);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            transition: right 0.3s ease;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Tabela responsiva */
+        .shipping-table {
+            overflow-x: auto;
+        }
+
+        .shipping-table table {
+            min-width: 800px;
+        }
+
+        .social-link {
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Alpha Core Glowing Icon */
+        .glow-icon {
+            color: #00a2ff;
+            filter: drop-shadow(0 0 8px rgba(0, 162, 255, 0.6));
+        }
+
+        .fretes-hero-title,
+        .fretes-hero-copy {
+            text-wrap: balance;
+        }
+
+        @media (max-width: 768px) {
+            .fretes-hero {
+                padding-top: 7rem !important;
+                padding-bottom: 1.75rem !important;
+            }
+
+            .fretes-hero-title {
+                font-size: clamp(2.1rem, 10vw, 3rem) !important;
+                line-height: 1.08;
+                margin-bottom: 1rem;
+            }
+
+            .fretes-hero-title i {
+                display: block;
+                margin: 0 auto 0.75rem;
+                font-size: 2.25rem;
+            }
+
+            .fretes-hero-copy {
+                font-size: 1rem;
+                line-height: 1.55;
+            }
+
+            .fretes-alert {
+                width: 100% !important;
+                align-items: flex-start;
+                justify-content: flex-start;
+                text-align: left;
+                padding: 1rem;
+            }
+
+            .fretes-calculator {
+                padding: 1.25rem !important;
+            }
+
+            .fretes-calculator-header {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+
+            .fretes-calculator-header > div:last-child {
+                text-align: center;
+            }
+
+            .fretes-calculator a {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                text-align: center;
+                white-space: normal;
+            }
+
+            .fretes-mobile-card-head {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .fretes-mobile-card-head span {
+                width: fit-content;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fretes-hero-title {
+                font-size: 2rem !important;
+            }
+
+            .fretes-alert,
+            .fretes-calculator {
+                border-radius: 1rem;
+            }
+
+            .fretes-calculator-header .w-14 {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .fretes-page main.fretes-hero {
+                padding-top: 4.5rem !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body class="text-white page-with-sidebar fretes-page">
+
+    <div id="discordModalOverlay" class="fixed inset-0 bg-black/80 z-[10000] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" onclick="if(event.target === this) closeDiscordModal()">
+        <div id="discordModal" class="bg-[#050505] border border-[#00a2ff]/30 rounded-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300 relative shadow-[0_0_40px_rgba(0,162,255,0.2)] text-center">
+            
+            <button onclick="closeDiscordModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-[#00a2ff]/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-[#00a2ff]/30 shadow-[0_0_15px_rgba(0,162,255,0.2)]">
+                <i class="fas fa-tools text-2xl text-[#00a2ff]"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-3">Servidor em Manutenção</h3>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+                Estamos preparando um espaço incrível e cheio de novidades para a comunidade ALPHA CORE. O nosso servidor no Discord estará disponível muito em breve!
+            </p>
+            
+            <button onclick="closeDiscordModal()" class="w-full bg-[#00a2ff] text-white py-3 rounded-lg font-bold hover:bg-[#0088cc] transition shadow-[0_0_15px_rgba(0,162,255,0.3)]">
+                Entendi
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="closeMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-white/30 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2 mb-6">
+               <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+    
+    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+    
+    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+    
+    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+    
+    
+    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+    
+    
+    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+    
+    
+</nav>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <h3 class="text-sm font-bold mb-4 text-gray-400 tracking-wider">SIGA-NOS</h3>
+                <div class="grid grid-cols-5 gap-3">
+       <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-[#25D366] transition-all duration-300">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-white hover:text-black transition-all duration-300">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-full aspect-square flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-[#FF0000] transition-all duration-300">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 lg:py-4">
+            <div class="flex items-center justify-between gap-3 lg:gap-6">
+
+                <a href="../" class="flex items-center gap-3 hover:opacity-90 transition flex-shrink-0">
+                    <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo" class="h-10 w-auto object-contain">
+                    <span class="text-xl lg:text-2xl font-bold text-white tracking-wider">ALPHA CORE</span>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="https://discord.com/invite/NKVbuEqkgx" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 transition border border-white/10">
+    <i class="fab fa-discord text-white"></i>
+</a>
+                    <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-[#25D366] transition-all duration-300">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-white hover:text-black transition-all duration-300">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="social-link w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 text-white hover:bg-[#FF0000] transition-all duration-300">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+
+                <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/5 border border-white/10 flex-shrink-0 hover:bg-white/10 transition">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="hidden lg:block border-t border-white/5">
+          <div class="container mx-auto px-4 relative z-40">
+                <nav id="main-nav" class="flex gap-4 py-3 scrollbar-hide overflow-x-auto items-center">
+                    <button onclick="window.location.href='index.html'" data-page="index.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Início</button>
+                    <button onclick="window.location.href='planilha.html'" data-page="planilha.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Planilha Vigor</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html'" data-page="fornecedores.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Fornecedores</button>
+                    
+                    <button onclick="window.location.href='fornecedores.html#faq-alfandega'" data-page="faq" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">FAQ Alfândega</button>
+                    
+                    <button onclick="window.location.href='fretes.html'" data-page="fretes.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Guia Fretes</button>
+                    
+                    
+                    <button onclick="window.location.href='ferramentas1.html'" data-page="ferramentas1.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Ferramentas</button>
+                    
+                    
+                    <button onclick="window.location.href='anti-golpe.html'" data-page="anti-golpe.html" class="nav-link px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition">Anti-Golpe</button>
+                    
+                    
+                </nav>
+            </div>
+        
+        </div>
+    </header>
+    <aside class="planilha-sidebar" aria-label="Navega&ccedil;&atilde;o principal">
+        <a href="index.html" class="sidebar-brand">
+            <img src="./image/logo-alphacore.jpg" alt="Alpha Core Logo">
+            <span>ALPHA <strong>CORE</strong></span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-house"></i><span>In&iacute;cio</span></a>
+            <a href="planilha.html"><i class="fas fa-table-cells-large"></i><span>Planilha Vigor</span></a>
+            <a href="fornecedores.html"><i class="fas fa-truck-fast"></i><span>Fornecedores</span></a>
+            <a href="fornecedores.html#faq-alfandega"><i class="fas fa-circle-question"></i><span>FAQ Alf&acirc;ndega</span></a>
+            <a href="fretes.html" class="active"><i class="fas fa-box"></i><span>Guia Fretes</span></a>
+            <a href="ferramentas1.html"><i class="fas fa-screwdriver-wrench"></i><span>Ferramentas</span></a>
+            <a href="anti-golpe.html"><i class="fas fa-shield-halved"></i><span>Anti-Golpe</span></a>
+        </nav>
+        <div class="sidebar-socials" aria-label="Redes sociais">
+            <a href="#" onclick="openDiscordModal(event)" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>    </aside>
+
+    <main class="fretes-hero pt-32 lg:pt-40 px-4 pb-8">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8">
+                <h1 class="fretes-hero-title text-4xl lg:text-5xl font-black mb-6 tracking-tight">
+                    <i class="fas fa-box-open glow-icon mr-3"></i> Guia de Fretes <span class="text-[#00a2ff]">Vigorbuy</span>
+                </h1>
+                <p class="fretes-hero-copy text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    Principais linhas de envio para o Brasil. Dados reais extraídos da calculadora oficial (pacote de exemplo: 700g, dimensões 20×10×1 cm). Inclui prazos, pontualidade real, custos e recomendações práticas.
+                </p>
+            </div>
+
+            <div class="fretes-alert bg-yellow-900/10 border border-yellow-700/30 rounded-2xl p-5 text-center flex items-center justify-center gap-3 w-fit mx-auto">
+                <i class="fas fa-exclamation-triangle text-yellow-500 text-lg"></i>
+                <p class="text-gray-300 text-sm">
+                    <strong class="text-white">Atenção:</strong> Preços e prazos variam por peso, volume e câmbio. Use sempre a calculadora oficial.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <section class="py-8 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="fretes-calculator bg-gradient-to-r from-[#00a2ff]/10 to-transparent rounded-2xl border border-[#00a2ff]/20 p-8 text-center relative overflow-hidden shadow-[0_0_20px_rgba(0,162,255,0.05)]">
+                <div class="fretes-calculator-header flex items-center justify-center gap-4 mb-6 relative z-10">
+                    <div class="w-14 h-14 bg-black border border-[#00a2ff]/30 rounded-xl flex items-center justify-center shadow-inner">
+                        <i class="fas fa-calculator text-[#00a2ff] text-2xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="text-2xl font-bold text-white">Calcule seu frete exato</h2>
+                        <p class="text-sm text-gray-400">Ferramenta oficial da Plataforma</p>
+                    </div>
+                </div>
+
+                <p class="text-gray-300 mb-8 relative z-10">
+                    Preencha peso, dimensões e categoria do item para ver todas as opções de envio e taxas atualizadas em tempo real.
+                </p>
+
+                <a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="inline-flex items-center gap-3 px-8 py-3.5 bg-[#00a2ff] text-white hover:bg-[#0088cc] rounded-xl font-bold text-sm lg:text-base transition shadow-[0_0_15px_rgba(0,162,255,0.3)] relative z-10">
+                    <i class="fas fa-external-link-alt"></i>
+                    Acessar Calculadora Vigorbuy
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-black mb-4 flex items-center justify-center gap-3 text-white">
+                    <i class="fas fa-crosshairs glow-icon"></i> Recomendações de Envio
+                </h2>
+                <p class="text-gray-400">Escolha a linha ideal com base na sua necessidade e tipo de pacote</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-[#111] rounded-2xl border border-white/10 p-6 card-hover hover:border-[#00a2ff]/50 cursor-default">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/5">
+                            <i class="fas fa-box text-gray-300 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-2 text-white">Pacote leve (< 1kg) – Tênis, roupas soltas</h3>
+                            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                                Use <strong class="text-white">HOO-BR-LINE-NPD</strong> ou <strong class="text-white">HOO-BR-LINHA-D</strong> para o melhor custo-benefício e prazo de entrega mais seguro (12 a 30 dias).
+                            </p>
+                            <div class="bg-[#0a0a0a] border border-white/5 rounded-lg p-3 text-xs text-gray-400 flex items-center gap-2">
+                                <i class="fas fa-lightbulb text-[#00a2ff] text-base"></i> 
+                                <span><strong class="text-white">Dica Alpha:</strong> Peça para remover as caixas originais no envio para cobrar apenas o peso puro e economizar.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-2xl border border-white/10 p-6 card-hover hover:border-[#00a2ff]/50 cursor-default">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/5">
+                            <i class="fas fa-boxes text-gray-300 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-2 text-white">Pacote Grande (> 3-5kg) – Várias peças</h3>
+                            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                                Use <strong class="text-white">BR-PADRÃO-F</strong> – é a opção mais econômica para volume. Em pacotes pesados, o custo por KG despenca.
+                            </p>
+                            <div class="bg-[#0a0a0a] border border-white/5 rounded-lg p-3 text-xs text-gray-400 flex items-center gap-2">
+                                <i class="fas fa-lightbulb text-[#00a2ff] text-base"></i> 
+                                <span><strong class="text-white">Dica Alpha:</strong> Se o Pacote for gigante, fracione em pacotes menores para evitar chamar atenção desnecessária na alfândega.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-2xl border border-white/10 p-6 card-hover hover:border-red-500/50 cursor-default">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/5">
+                            <i class="fas fa-laptop text-gray-300 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-2 text-white">Eletrônicos Caros – Celulares, GPU, Fragéis</h3>
+                            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                                OBRIGATÓRIO usar <strong class="text-white">HOO-ELETRÔNICO-T</strong> ou <strong class="text-white">HOO-BR-LINHA-D</strong>. Eles possuem tratamento e canais adequados para baterias e placas.
+                            </p>
+                            <div class="bg-red-900/10 border border-red-500/20 rounded-lg p-3 text-xs text-gray-300 flex items-center gap-2">
+                                <i class="fas fa-shield-alt text-red-500 text-base"></i> 
+                                <span><strong class="text-red-400">Alerta de Segurança:</strong> Sempre ative o SEGURO completo no checkout e peça QC em vídeo antes de autorizar o envio.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-2xl border border-white/10 p-6 card-hover hover:border-green-500/50 cursor-default">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/5">
+                            <i class="fas fa-stopwatch text-gray-300 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-2 text-white">Maior Confiabilidade e Pontualidade</h3>
+                            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                                A linha <strong class="text-white">HOO-BR-LINHA-D</strong> é estatisticamente a mais estável, mantendo uma pontualidade de ~97.5% de entregas sem atrasos severos.
+                            </p>
+                            <div class="bg-green-900/10 border border-green-500/20 rounded-lg p-3 text-xs text-gray-300 flex items-center gap-2">
+                                <i class="fas fa-info-circle text-green-500 text-base"></i> 
+                                <span><strong class="text-green-400">Nota Atual:</strong> No cenário atual de 2026, não confie em estimativas de "7 dias". Todas as linhas consistentes operam na faixa real de 12 a 30 dias úteis.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-4 bg-[#0a0a0a] border-t border-white/5">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-black mb-4 text-white">Tabela de Linhas (Fev/2026)</h2>
+                <p class="text-gray-400 text-sm">Cotação base para um pacote teste de 700g.</p>
+            </div>
+
+            <div class="hidden lg:block overflow-x-auto shipping-table bg-[#111] rounded-xl border border-white/10">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-white/10 bg-black">
+                            <th class="text-left p-5 font-bold text-gray-300">Linha de Frete</th>
+                            <th class="text-left p-5 font-bold text-gray-300">Prazo Estimado</th>
+                            <th class="text-left p-5 font-bold text-gray-300">Custo (~700g)</th>
+                            <th class="text-left p-5 font-bold text-gray-300">Pontualidade</th>
+                            <th class="text-left p-5 font-bold text-gray-300">Melhor Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-400">
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-5">
+                                <div class="font-bold text-white mb-1">BR-PADRÃO-F</div>
+                                <div class="text-xs">Linha econômica base</div>
+                            </td>
+                            <td class="p-5 text-gray-300 font-medium">15 - 30 dias</td>
+                            <td class="p-5">
+                                <span class="text-white font-semibold block">¥124 - ¥132</span>
+                                <span class="text-xs text-green-500">~R$ 99 - 105</span>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-1 text-[#00a2ff] text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    <span class="text-gray-500 ml-1">95%</span>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <span class="text-xs border border-white/20 text-gray-300 px-3 py-1.5 rounded-md bg-white/5">Pacotes Grandes</span>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-5">
+                                <div class="font-bold text-[#00a2ff] mb-1">HOO-BR-LINE-NPD</div>
+                                <div class="text-xs">Padrão da Comunidade</div>
+                            </td>
+                            <td class="p-5 text-gray-300 font-medium">12 - 27 dias</td>
+                            <td class="p-5">
+                                <span class="text-white font-semibold block">¥128 - ¥136</span>
+                                <span class="text-xs text-green-500">~R$ 102 - 109</span>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-1 text-[#00a2ff] text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    <span class="text-gray-500 ml-1">96%</span>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <span class="text-xs border border-[#00a2ff]/30 text-[#00a2ff] px-3 py-1.5 rounded-md bg-[#00a2ff]/10 font-medium">Custo-Benefício</span>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-5">
+                                <div class="font-bold text-white mb-1">HOO-BR-LINHA-D</div>
+                                <div class="text-xs">Premium Segura</div>
+                            </td>
+                            <td class="p-5 text-gray-300 font-medium">12 - 30 dias</td>
+                            <td class="p-5">
+                                <span class="text-white font-semibold block">¥137</span>
+                                <span class="text-xs text-green-500">~R$ 110</span>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-1 text-[#00a2ff] text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    <span class="text-gray-500 ml-1">97.5%</span>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <span class="text-xs border border-white/20 text-gray-300 px-3 py-1.5 rounded-md bg-white/5">Maior Estabilidade</span>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-5">
+                                <div class="font-bold text-white mb-1">HOO-ELETRÔNICO-T</div>
+                                <div class="text-xs">Risco Especial</div>
+                            </td>
+                            <td class="p-5 text-gray-300 font-medium">12 - 30 dias</td>
+                            <td class="p-5">
+                                <span class="text-white font-semibold block">¥197</span>
+                                <span class="text-xs text-green-500">~R$ 158</span>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-1 text-[#00a2ff] text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    <span class="text-gray-500 ml-1">96%</span>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <span class="text-xs border border-red-500/30 text-red-400 px-3 py-1.5 rounded-md bg-red-500/10">Baterias/Hardware</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="lg:hidden space-y-4">
+                
+                <div class="bg-[#111] rounded-xl border border-white/10 p-5 relative overflow-hidden">
+                    <div class="fretes-mobile-card-head flex justify-between items-start mb-4 relative z-10">
+                        <div>
+                            <h3 class="font-bold text-white text-base">BR-PADRÃO-F</h3>
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">Linha Econômica Base</p>
+                        </div>
+                        <span class="text-[10px] bg-white/10 text-gray-300 px-2.5 py-1 rounded border border-white/10">Pacotes Grandes</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm relative z-10 bg-black/50 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Prazo</p>
+                            <p class="text-white font-semibold">15 - 30 dias</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Custo (~700g)</p>
+                            <p class="text-white font-semibold">¥124 - ¥132</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-xl border border-[#00a2ff]/30 p-5 relative overflow-hidden shadow-[0_0_15px_rgba(0,162,255,0.05)]">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#00a2ff]/5 rounded-bl-full pointer-events-none"></div>
+                    <div class="fretes-mobile-card-head flex justify-between items-start mb-4 relative z-10">
+                        <div>
+                            <h3 class="font-bold text-[#00a2ff] text-base">HOO-BR-LINE-NPD</h3>
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">Padrão Comunidade</p>
+                        </div>
+                        <span class="text-[10px] bg-[#00a2ff]/10 text-[#00a2ff] border border-[#00a2ff]/30 px-2.5 py-1 rounded font-bold">Recomendado</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm relative z-10 bg-black/50 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Prazo</p>
+                            <p class="text-white font-semibold">12 - 27 dias</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Custo (~700g)</p>
+                            <p class="text-white font-semibold">¥128 - ¥136</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-xl border border-white/10 p-5 relative overflow-hidden">
+                    <div class="fretes-mobile-card-head flex justify-between items-start mb-4 relative z-10">
+                        <div>
+                            <h3 class="font-bold text-white text-base">HOO-BR-LINHA-D</h3>
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">Premium Segura</p>
+                        </div>
+                        <span class="text-[10px] bg-white/10 text-gray-300 px-2.5 py-1 rounded border border-white/10">Estável</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm relative z-10 bg-black/50 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Prazo</p>
+                            <p class="text-white font-semibold">12 - 30 dias</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Custo (~700g)</p>
+                            <p class="text-white font-semibold">¥137</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] rounded-xl border border-white/10 p-5 relative overflow-hidden">
+                    <div class="fretes-mobile-card-head flex justify-between items-start mb-4 relative z-10">
+                        <div>
+                            <h3 class="font-bold text-white text-base">HOO-ELETRÔNICO-T</h3>
+                            <p class="text-[11px] text-gray-500 uppercase tracking-wider">Risco Especial</p>
+                        </div>
+                        <span class="text-[10px] bg-red-500/10 border border-red-500/20 text-red-400 px-2.5 py-1 rounded">Hardware</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm relative z-10 bg-black/50 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Prazo</p>
+                            <p class="text-white font-semibold">12 - 30 dias</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-[10px] uppercase tracking-wider mb-1">Custo (~700g)</p>
+                            <p class="text-white font-semibold">¥197</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <div class="inline-flex items-center justify-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-lg">
+                <i class="fas fa-chart-line text-[#00a2ff]"></i>
+                <p class="text-gray-400 text-xs text-left">
+                    Dados monitorados ativamente em Fev/2026 pela comunidade Alpha Core. Os preços em Reais consideram estimativa de câmbio. Links do agente contém referral do criador para apoiar o projeto.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-white/10">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Links Rápidos</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="../fornecedores" class="hover:text-[#00a2ff] transition">Fornecedores</a></li>
+                        <li><a href="../fretes" class="text-[#00a2ff] font-semibold">Guia de Fretes</a></li>
+                        <li><a href="../anti-golpe" class="hover:text-[#00a2ff] transition">Guia Anti-Golpe</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Plataformas</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="https://vigorbuy.com/signUp?utm_source=website&utm_medium=ambassador&utm_campaign=linksharing&inviteCode=7kGVa8eO" target="_blank" class="hover:text-[#00a2ff] transition">Vigorbuy</a></li>
+                        <li><a href="https://www.taobao.com" target="_blank" class="hover:text-[#00a2ff] transition">Taobao</a></li>
+                        <li><a href="https://www.1688.com" target="_blank" class="hover:text-[#00a2ff] transition">1688</a></li>
+                        <li><a href="https://www.xianyu.com" target="_blank" class="hover:text-[#00a2ff] transition">Xianyu</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contato</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" onclick="openDiscordModal(event)" class="hover:text-[#00a2ff] transition">Discord</a></li>
+                        <li><a href="https://chat.whatsapp.com/K1WlVOVTzqIADzMhWFX6Jv?mode=gi_t" target="_blank" class="hover:text-[#00a2ff] transition">WhatsApp</a></li>
+                        <li><a href="https://www.instagram.com/joao.camaraa?igsh=aWxpMDAxYWFvOHRq&utm_source=qr" target="_blank" class="hover:text-[#00a2ff] transition">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@joaocamaraa?_r=1&_t=ZS-94FwFhMnD6q" target="_blank" class="hover:text-[#00a2ff] transition">TikTok</a></li>
+                        <li><a href="https://youtube.com/@joaocamaraa?feature=shared" target="_blank" class="hover:text-[#00a2ff] transition">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 text-center text-sm text-gray-500">
+                <p class="mb-2">&copy; 2026 ALPHA CORE. Todos os direitos reservados.</p>
+                <p class="text-xs text-gray-600 italic">Guia informativo independente. Responsabilidade exclusiva do usuário. Consulte leis e profissionais.</p>
+            </div>
+        </div>
+    </footer>
+<script src="navegacao.js"></script>
+    <script>
+       
+        // Função Mobile Menu
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.getElementById('mobileOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Funções Discord Modal (Idênticas à Home)
+        function openDiscordModal(e) {
+            if(e) e.preventDefault();
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            overlay.classList.remove('hidden');
+            void overlay.offsetWidth; 
+            
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95');
+            modal.classList.add('scale-100');
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDiscordModal() {
+            const overlay = document.getElementById('discordModalOverlay');
+            const modal = document.getElementById('discordModal');
+            
+            overlay.classList.add('opacity-0');
+            modal.classList.remove('scale-100');
+            modal.classList.add('scale-95');
+            
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+    <script>
+        window.va = window.va || function() {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>

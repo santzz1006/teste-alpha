@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - ALPHA CORE ADMIN</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBXCC4HBXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FBXCC4HBXX');
+    </script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#030303', 800: '#0a0a0a', 700: '#111111', 600: '#1a1a1a' },
+                        primary: { DEFAULT: '#00a2ff', hover: '#0088cc', light: 'rgba(0, 162, 255, 0.1)' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="bg-dark-900 text-gray-200 antialiased overflow-hidden selection:bg-primary selection:text-white">
+
+    <div id="loginScreen" class="fixed inset-0 z-[100] flex items-center justify-center bg-dark-900 transition-all duration-500">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute w-96 h-96 bg-primary/20 rounded-full blur-[100px] -top-20 -left-20 pointer-events-none"></div>
+        
+        <div class="bg-dark-800 p-10 rounded-[2rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] w-full max-w-lg relative z-10">
+            <div class="text-center mb-10">
+                <div class="w-20 h-20 bg-dark-700 border border-primary/30 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(0,162,255,0.2)]">
+                    <i class="fas fa-shield-halved text-4xl text-primary"></i>
+                </div>
+                <h1 class="text-3xl font-black tracking-tighter uppercase text-white">ALPHA <span class="text-primary">ADMIN</span></h1>
+                <p class="text-gray-500 text-sm mt-2 font-medium tracking-wide">Autenticação Administrativa</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Usuário</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                        </div>
+                        <input type="text" id="loginUser" class="w-full bg-dark-900 border border-white/10 focus:border-primary rounded-xl py-4 pl-12 pr-4 text-white outline-none transition font-medium" placeholder="Digite seu usuário">
+                    </div>
+                </div>
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                        </div>
+                        <input type="password" id="loginPass" class="w-full bg-dark-900 border border-white/10 focus:border-primary rounded-xl py-4 pl-12 pr-12 text-white outline-none transition font-medium" placeholder="Senha">
+                        <button type="button" id="togglePass" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-white transition">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="loginError" class="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold p-3 rounded-lg flex items-center gap-2 hidden">
+                    <i class="fas fa-triangle-exclamation"></i> Acesso Negado. Verifique suas credenciais.
+                </div>
+
+                <button type="submit" class="w-full bg-primary hover:bg-primary-hover text-white font-black py-4 rounded-xl uppercase tracking-widest transition shadow-[0_0_20px_rgba(0,162,255,0.3)] flex items-center justify-center gap-3 group mt-4">
+                    <span>Iniciar Sessão</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="adminPanel" class="flex h-screen hidden opacity-0 transition-opacity duration-500">
+
+        <aside class="w-72 bg-dark-800 border-r border-white/5 flex-shrink-0 hidden lg:flex flex-col z-20 shadow-2xl">
+            <div class="h-20 flex items-center px-6 border-b border-white/5 relative">
+                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 border border-primary/30">
+                    <i class="fas fa-server text-primary text-sm"></i>
+                </div>
+                <h2 class="text-xl font-black tracking-tighter uppercase text-white">ALPHA<span class="text-primary">ADMIN</span></h2>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
+                
+                <p class="px-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 mt-2">Visão Geral</p>
+                <button onclick="changeTab('dashboard')" class="nav-btn active w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="dashboard">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-chart-line w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Dashboard</span>
+                    </div>
+                </button>
+
+                <button onclick="window.location.href='planilha.html'" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-table-cells-large w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Planilha Vigor</span>
+                    </div>
+                </button>
+
+                <button onclick="changeTab('analytics')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="analytics">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-chart-pie w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Analytics & Dados</span>
+                    </div>
+                </button>
+
+                <div class="my-4 border-t border-white/5 mx-4"></div>
+
+                <p class="px-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2">Gerenciamento</p>
+                
+                <button onclick="changeTab('fornecedores')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="fornecedores">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-truck-fast w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Fornecedores</span>
+                    </div>
+                </button>
+
+                <button onclick="changeTab('usuarios')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="usuarios">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-users w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Base de Usuários</span>
+                    </div>
+                </button>
+
+                <button onclick="changeTab('atualizacoes')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="atualizacoes">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-bullhorn w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Atualizações</span>
+                    </div>
+                </button>
+
+                <div class="my-4 border-t border-white/5 mx-4"></div>
+
+                <p class="px-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2">Sistema</p>
+                
+                <button onclick="changeTab('configuracoes')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="configuracoes">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-sliders-h w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Configurações</span>
+                    </div>
+                </button>
+
+                <button onclick="changeTab('perfil')" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition group" data-tab="perfil">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-id-badge w-5 text-center group-hover:text-primary transition"></i>
+                        <span class="font-bold text-sm tracking-wide">Perfil Admin</span>
+                    </div>
+                </button>
+
+            </nav>
+
+            <div class="p-4 border-t border-white/5 bg-dark-900/50">
+                <div class="flex items-center justify-between bg-dark-700 p-3 rounded-xl border border-white/5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold">
+                            AD
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-white">Administrador</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-black">Sistema Alpha</p>
+                        </div>
+                    </div>
+                    <button onclick="doLogout()" class="text-gray-500 hover:text-red-500 transition p-2" title="Desconectar">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-screen overflow-hidden bg-dark-900 relative w-full">
+            
+            <header class="h-20 bg-dark-800/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-4 md:px-8 z-10 flex-shrink-0">
+                <div class="flex items-center gap-4">
+                    <button class="lg:hidden text-gray-400 hover:text-white p-2 rounded-lg bg-white/5"><i class="fas fa-bars"></i></button>
+                    <div>
+                        <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em] mb-0.5">Visão Administrativa</p>
+                        <h2 id="headerTitle" class="text-xl md:text-2xl font-black uppercase tracking-tighter text-white">Dashboard Inicial</h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 md:gap-5">
+                    <div class="hidden md:flex items-center bg-dark-900 border border-white/5 rounded-full px-4 py-2 w-64 focus-within:border-primary transition-colors">
+                        <i class="fas fa-search text-gray-500 text-sm"></i>
+                        <input type="text" placeholder="Buscar no sistema..." class="bg-transparent border-none outline-none text-sm text-white ml-3 w-full placeholder-gray-600">
+                    </div>
+                    <button class="relative w-10 h-10 rounded-full bg-dark-700 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary transition">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar relative">
+
+                <div id="view-dashboard" class="tab-content block animate-fade-in pb-10">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-dark-800 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/30 transition-colors">
+                            <div class="absolute -right-6 -bottom-6 opacity-5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-users text-9xl text-white"></i></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-xl border border-blue-500/20"><i class="fas fa-users"></i></div>
+                            </div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">Total de Usuários</p>
+                            <h3 class="text-3xl font-black text-white">0</h3>
+                        </div>
+
+                        <div class="bg-dark-800 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/30 transition-colors">
+                            <div class="absolute -right-6 -bottom-6 opacity-5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-truck-fast text-9xl text-white"></i></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-xl border border-primary/20"><i class="fas fa-box-open"></i></div>
+                            </div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">Fornecedores Salvos</p>
+                            <h3 class="text-3xl font-black text-white" id="dashSupplierCount">0</h3>
+                        </div>
+
+                        <div class="bg-dark-800 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/30 transition-colors">
+                            <div class="absolute -right-6 -bottom-6 opacity-5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-dollar-sign text-9xl text-white"></i></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 text-xl border border-green-500/20"><i class="fas fa-chart-line"></i></div>
+                            </div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">Volume Negociado</p>
+                            <h3 class="text-3xl font-black text-white">R$ 0,00</h3>
+                        </div>
+
+                        <div class="bg-dark-800 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/30 transition-colors">
+                            <div class="absolute -right-6 -bottom-6 opacity-5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-shield-halved text-9xl text-white"></i></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 text-xl border border-orange-500/20"><i class="fas fa-triangle-exclamation"></i></div>
+                            </div>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">Alertas do Sistema</p>
+                            <h3 class="text-3xl font-black text-white">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 bg-dark-800 border border-white/5 rounded-2xl p-6">
+    <h3 class="text-lg font-black uppercase tracking-tighter mb-4 text-white">Últimas Atividades do Sistema</h3>
+    
+    <div id="listaAtividades" class="space-y-4">
+        <div class="flex flex-col items-center justify-center py-10 border border-dashed border-white/5 rounded-xl">
+            <i class="fas fa-circle-notch fa-spin text-primary text-2xl mb-3"></i>
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-widest">Sincronizando dados...</p>
+        </div>
+    </div>
+</div>
+
+                        <div class="bg-dark-800 border border-white/5 rounded-2xl p-6 flex flex-col">
+                            <h3 class="text-lg font-black uppercase tracking-tighter mb-4 text-white">Comandos Rápidos</h3>
+                            <div class="grid grid-cols-1 gap-3 flex-1">
+                                <button onclick="changeTab('fornecedores'); openSupplierModal()" class="w-full bg-dark-700 hover:bg-primary/20 border border-white/5 hover:border-primary/50 text-left p-4 rounded-xl transition group">
+                                    <i class="fas fa-plus text-primary mb-2 text-xl group-hover:scale-125 transition-transform"></i>
+                                    <p class="font-bold text-white text-sm">Adicionar Fornecedor</p>
+                                    <p class="text-xs text-gray-500">Incluir nova loja no catálogo.</p>
+                                </button>
+                                <button onclick="changeTab('atualizacoes'); openUpdateModal()" class="w-full bg-dark-700 hover:bg-green-500/20 border border-white/5 hover:border-green-500/50 text-left p-4 rounded-xl transition group">
+                                    <i class="fas fa-bullhorn text-green-500 mb-2 text-xl group-hover:scale-125 transition-transform"></i>
+                                    <p class="font-bold text-white text-sm">Lançar Atualização</p>
+                                    <p class="text-xs text-gray-500">Notificar usuários sobre novidades.</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <div id="view-analytics" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="mb-6 flex justify-between items-end">
+                        <div>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Métricas de Tráfego</h3>
+                            <p class="text-sm text-gray-400 mt-1">Acompanhe os acessos da plataforma em tempo real (via Google Analytics).</p>
+                        </div>
+                        <a href="https://analytics.google.com/" target="_blank" class="bg-dark-700 hover:bg-dark-600 text-white text-xs font-bold px-4 py-2 rounded-lg border border-white/5 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Abrir GA4
+                        </a>
+                    </div>
+                    
+                    <div class="bg-dark-800 border border-white/5 rounded-2xl overflow-hidden shadow-2xl h-[700px] w-full relative flex items-center justify-center">
+                        <iframe 
+                            class="relative z-10 w-full h-full bg-transparent rounded-xl"
+                            src="https://lookerstudio.google.com/embed/reporting/43ed2895-adde-484e-bf64-661d961c5ce8/page/w40qF" 
+                            frameborder="0" 
+                            style="border:0" 
+                            allowfullscreen 
+                            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                        </iframe>
+                    </div>
+                </div>
+                <div id="view-fornecedores" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="flex flex-col lg:flex-row justify-between gap-4 mb-6 bg-dark-800 p-4 rounded-2xl border border-white/5">
+                        <div class="flex flex-col md:flex-row gap-4 flex-1">
+                            <div class="relative w-full md:w-80">
+                                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                                <input type="text" id="searchSupplier" placeholder="Buscar por loja, categoria ou ID..." class="w-full bg-dark-900 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white focus:border-primary outline-none">
+                            </div>
+                            <select class="bg-dark-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-400 focus:border-primary outline-none w-full md:w-48 appearance-none">
+                                <option value="">Todas as Categorias</option>
+                                <option value="eletronicos">Eletrônicos</option>
+                                <option value="roupas">Roupas</option>
+                                <option value="tenis">Tênis</option>
+                                <option value="relogios">Relógios</option>
+                            </select>
+                        </div>
+                        <button onclick="openSupplierModal()" class="bg-primary hover:bg-primary-hover text-white font-bold px-6 py-2.5 rounded-xl text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_5px_15px_rgba(0,162,255,0.3)] whitespace-nowrap">
+                            <i class="fas fa-plus"></i> Novo Fornecedor
+                        </button>
+                    </div>
+
+                    <div class="bg-dark-800 border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-dark-700/80 border-b border-white/10">
+                                    <tr>
+                                        <th class="p-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.1em] whitespace-nowrap">Fornecedor / ID</th>
+                                        <th class="p-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.1em]">Categoria & Info</th>
+                                        <th class="p-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.1em]">Score / Qualidade</th>
+                                        <th class="p-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.1em] text-center">Status</th>
+                                        <th class="p-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.1em] text-right">Ações Admin</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableSuppliersBody" class="divide-y divide-white/5">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-4 border-t border-white/5 bg-dark-900 flex items-center justify-between text-xs text-gray-500 font-medium">
+                            <span>Mostrando <span class="text-white font-bold" id="supCountBottom">0</span> registros.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-usuarios" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="bg-dark-800 border border-white/5 rounded-2xl p-10 text-center h-[60vh] flex flex-col items-center justify-center">
+                        <div class="w-24 h-24 bg-dark-700 border border-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-users-cog text-4xl text-gray-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-black uppercase text-white mb-2">Gestão de Usuários</h3>
+                        <p class="text-gray-400 max-w-lg mx-auto mb-8">Este módulo requer integração com banco de dados em tempo real (PostgreSQL/MongoDB) e sistema de autenticação para funcionar na versão de produção.</p>
+                        
+                        <div class="inline-flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 px-6 py-3 rounded-xl font-bold text-sm tracking-wider uppercase">
+                            <i class="fas fa-lock"></i> Módulo Aguardando Backend
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-atualizacoes" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Histórico do Sistema</h3>
+                        <button onclick="openUpdateModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm tracking-wider uppercase transition flex gap-2 items-center">
+                            <i class="fas fa-plus"></i> Postar Versão
+                        </button>
+                    </div>
+
+                    <div class="space-y-4" id="updatesListContainer">
+                        </div>
+                </div>
+
+                <div id="view-configuracoes" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <div class="lg:col-span-1 space-y-2">
+                            <button class="w-full text-left px-4 py-3 rounded-xl bg-primary/10 text-primary border border-primary/20 font-bold text-sm tracking-wide">Geral & SEO</button>
+                            <button class="w-full text-left px-4 py-3 rounded-xl hover:bg-dark-700 text-gray-400 font-bold text-sm tracking-wide transition">Links de Afiliados</button>
+                        </div>
+                        <div class="lg:col-span-3 bg-dark-800 border border-white/5 rounded-2xl p-6 md:p-8">
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter mb-6 border-b border-white/5 pb-4">Configurações Gerais</h3>
+                            
+                            <form class="space-y-6">
+                                <div>
+                                    <label class="block text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Nome do Site</label>
+                                    <input type="text" value="ALPHA CORE" class="w-full bg-dark-900 border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Descrição SEO (Meta Tag)</label>
+                                    <textarea rows="3" class="w-full bg-dark-900 border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none resize-none">O ecossistema definitivo para dominar a importação.</textarea>
+                                </div>
+                                <div class="pt-4 flex justify-end">
+                                    <button type="button" class="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-3 rounded-xl uppercase tracking-widest text-sm transition">Salvar Configurações</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+              <div id="view-perfil" class="tab-content hidden animate-fade-in pb-10">
+                    <div class="max-w-3xl mx-auto bg-dark-800 border border-white/5 rounded-2xl overflow-hidden">
+                        
+                        <div class="h-32 bg-gradient-to-r from-primary/40 to-dark-800"></div>
+                        
+                        <div class="px-8 pb-8">
+                            
+                            <div class="flex flex-col sm:flex-row items-start sm:items-end gap-5 -mt-12 mb-8 relative z-10">
+                                <div class="w-24 h-24 rounded-2xl bg-dark-900 border-4 border-dark-800 flex items-center justify-center text-primary text-4xl font-black shadow-xl flex-shrink-0">
+                                    AD
+                                </div>
+                                <div class="mb-1">
+                                    <h2 class="text-2xl font-black text-white tracking-tighter">Administrador</h2>
+                                    <p class="text-primary font-bold text-sm">admin@alphacore.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6 border-t border-white/5 pt-6">
+                                <h3 class="text-sm font-black text-gray-500 uppercase tracking-widest">Informações de Segurança</h3>
+                                
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[10px] text-gray-500 mb-1 uppercase tracking-widest font-bold">Último Login IP</label>
+                                        <div class="bg-dark-900 p-4 rounded-xl border border-white/5 text-sm text-gray-400 font-mono italic">Aguardando BD...</div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] text-gray-500 mb-1 uppercase tracking-widest font-bold">Data de Registro</label>
+                                        <div class="bg-dark-900 p-4 rounded-xl border border-white/5 text-sm text-gray-400 italic">Aguardando BD...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-fornecedor" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-fornecedor')"></div>
+        <div class="bg-dark-800 border border-white/10 rounded-[2rem] w-full max-w-4xl relative z-10 shadow-[0_0_60px_rgba(0,0,0,0.5)] flex flex-col max-h-[90vh] overflow-hidden transform scale-95 transition-transform duration-300" id="modal-fornecedor-box">
+            
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-dark-900/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary"><i class="fas fa-store"></i></div>
+                    <div>
+                        <h3 id="formSupTitle" class="text-xl font-black uppercase tracking-tight text-white leading-none">Adicionar Fornecedor</h3>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-fornecedor')" class="text-gray-500 hover:text-white p-2 bg-white/5 rounded-xl"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1">
+                <form id="form-fornecedor" class="space-y-8">
+                    <input type="hidden" id="supId">
+
+                    <div>
+                        <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-4 border-b border-white/5 pb-2">Informações Principais</h4>
+                        <div class="grid md:grid-cols-2 gap-5 mb-5">
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Nome da Loja *</label>
+                                <input type="text" id="supName" required class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Categoria *</label>
+                                <input type="text" id="categoria-input" list="lista-categorias" required placeholder="Escolha ou digite uma nova..." class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                                <datalist id="lista-categorias">
+                                    <option value="Celular/Tablet">
+                                    <option value="Hardware">
+                                    <option value="Notebook">
+                                    <option value="Periféricos">
+                                    <option value="Calçados">
+                                    <option value="Roupas">
+                                    <option value="Acessórios">
+                                    <option value="Automotivo">
+                                    <option value="Games">
+                                    <option value="Brinquedos">
+                                    <option value="Agentes">
+                                    <option value="Perfumes">
+                                    <option value="Todos">
+                                </datalist>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Descrição / Resumo da Loja *</label>
+                            <textarea id="supDesc" required rows="2" class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm resize-none" placeholder="Ex: Especializado em roupas casuais e streetwear..."></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-4 border-b border-white/5 pb-2">Links Oficiais</h4>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Link da Loja *</label>
+                                <input type="url" id="supLink" required class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Logo da Loja *</label>
+                                <div class="space-y-3">
+                                    <input type="text" id="link-logo" placeholder="Cole o link da imagem aqui..." class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                                    <div class="flex items-center justify-center w-full">
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">OU ENVIE UM ARQUIVO</span>
+                                    </div>
+                                    <input type="file" id="arquivo-logo" accept="image/*" class="w-full bg-dark-900 border border-white/10 rounded-xl p-2 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 transition">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-4 border-b border-white/5 pb-2">Dados do Sistema</h4>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Nota Alpha</label>
+                                <input type="number" id="supScore" value="10" class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1.5 uppercase tracking-widest font-bold">Status</label>
+                                <select id="supStatus" class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none text-sm">
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Analise">Em Análise</option>
+                                    <option value="Bloqueado">Bloqueado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="p-6 border-t border-white/5 bg-dark-900 flex justify-end gap-3 rounded-b-[2rem]">
+                <button type="button" onclick="closeModal('modal-fornecedor')" class="px-6 py-3 rounded-xl border border-white/10 text-gray-300 font-bold uppercase tracking-widest text-xs hover:bg-white/5 transition">Cancelar</button>
+                <button type="button" onclick="saveSupplierBtn()" class="px-8 py-3 rounded-xl bg-primary hover:bg-primary-hover text-white font-black uppercase tracking-widest text-xs transition">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-update" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-update')"></div>
+        <div class="bg-dark-800 border border-white/10 rounded-2xl w-full max-w-xl relative z-10 shadow-2xl flex flex-col transform scale-95 transition-transform duration-300" id="modal-update-box">
+            <div class="p-5 border-b border-white/5 flex justify-between items-center">
+                <h3 class="text-lg font-black uppercase tracking-tighter text-white">Publicar Atualização</h3>
+                <button onclick="closeModal('modal-update')" class="text-gray-500 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6">
+                <form id="form-update" class="space-y-5">
+                    <input type="hidden" id="updId">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 mb-1.5 uppercase font-bold">Título da Versão *</label>
+                        <input type="text" id="updTitle" required class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white text-sm outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1.5 uppercase font-bold">Data *</label>
+                            <input type="date" id="updDate" required class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white text-sm outline-none color-scheme-dark" style="color-scheme: dark;">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1.5 uppercase font-bold">Tag *</label>
+                            <select id="updType" required class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white text-sm outline-none">
+                                <option value="FEATURE">Novo Recurso</option>
+                                <option value="FIX">Correção</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-400 mb-1.5 uppercase font-bold">Texto do Changelog *</label>
+                        <textarea id="updContent" required rows="4" class="w-full bg-dark-900 border border-white/10 rounded-xl p-3 text-white text-sm outline-none resize-none"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="p-5 border-t border-white/5 flex justify-end gap-3 bg-dark-900 rounded-b-2xl">
+                <button type="button" onclick="closeModal('modal-update')" class="px-5 py-2.5 rounded-lg border border-white/10 text-xs font-bold uppercase hover:bg-white/5">Cancelar</button>
+                <button type="button" onclick="saveUpdateBtn()" class="px-5 py-2.5 rounded-lg bg-green-500 hover:bg-green-600 text-white text-xs font-black uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">Postar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
